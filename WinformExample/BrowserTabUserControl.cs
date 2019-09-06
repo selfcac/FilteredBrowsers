@@ -54,7 +54,7 @@ namespace CefSharp.WinForms.Example
             //Handling DevTools docked inside the same window requires 
             //an instance of the LifeSpanHandler all the window events,
             //e.g. creation, resize, moving, closing etc.
-            browser.LifeSpanHandler = new LifeSpanHandler(openPopupsAsTabs: false);
+            browser.LifeSpanHandler = new LifeSpanHandler(openPopupsAsTabs: true);
 
             browser.LoadingStateChanged += OnBrowserLoadingStateChanged;
             browser.ConsoleMessage += OnBrowserConsoleMessage;
