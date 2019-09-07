@@ -47,5 +47,10 @@ namespace CefSharp.WinForms.Example
         {
             Close();
         }
+
+        private void _evaluate_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -60,6 +60,7 @@ namespace CefSharp.WinForms.Example
             this._evaluate.TabIndex = 2;
             this._evaluate.Text = "Evaluate";
             this._evaluate.UseVisualStyleBackColor = true;
+            this._evaluate.Click += new System.EventHandler(this._evaluate_Click);
             // 
             // _result
             // 
