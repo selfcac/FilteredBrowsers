@@ -629,5 +629,22 @@ namespace CefSharp.WinForms.Example
                 };
             }
         }
+
+        private void downloadsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DownloadManager.Instance.Show();
+        }
+
+        private void BrowserForm_Load(object sender, EventArgs e)
+        {
+            // Init window:
+            DownloadManager.Instance.Show();
+            DownloadManager.Instance.Hide();
+        }
+
+        private void BrowserForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DownloadManager.Instance.Close();
+        }
     }
 }

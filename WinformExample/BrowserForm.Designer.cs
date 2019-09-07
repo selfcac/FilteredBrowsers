@@ -37,6 +37,7 @@ namespace CefSharp.WinForms.Example
             this.printToPdfToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showDevToolsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showDevToolsDockedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeDevToolsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,7 +70,7 @@ namespace CefSharp.WinForms.Example
             this.loadExtensionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.javascriptBindingStressTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.browserTabControl = new System.Windows.Forms.TabControl();
-            this.showDevToolsDockedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.downloadsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,7 +82,8 @@ namespace CefSharp.WinForms.Example
             this.editToolStripMenuItem,
             this.zoomLevelToolStripMenuItem,
             this.scriptToolStripMenuItem,
-            this.testToolStripMenuItem});
+            this.testToolStripMenuItem,
+            this.downloadsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(730, 24);
@@ -148,6 +150,13 @@ namespace CefSharp.WinForms.Example
             this.showDevToolsMenuItem.Size = new System.Drawing.Size(208, 22);
             this.showDevToolsMenuItem.Text = "Show Dev Tools (Default)";
             this.showDevToolsMenuItem.Click += new System.EventHandler(this.ShowDevToolsMenuItemClick);
+            // 
+            // showDevToolsDockedToolStripMenuItem
+            // 
+            this.showDevToolsDockedToolStripMenuItem.Name = "showDevToolsDockedToolStripMenuItem";
+            this.showDevToolsDockedToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.showDevToolsDockedToolStripMenuItem.Text = "Show Dev Tools (Docked)";
+            this.showDevToolsDockedToolStripMenuItem.Click += new System.EventHandler(this.ShowDevToolsDockedMenuItemClick);
             // 
             // closeDevToolsMenuItem
             // 
@@ -393,12 +402,12 @@ namespace CefSharp.WinForms.Example
             this.browserTabControl.Size = new System.Drawing.Size(730, 466);
             this.browserTabControl.TabIndex = 2;
             // 
-            // showDevToolsDockedToolStripMenuItem
+            // downloadsToolStripMenuItem
             // 
-            this.showDevToolsDockedToolStripMenuItem.Name = "showDevToolsDockedToolStripMenuItem";
-            this.showDevToolsDockedToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.showDevToolsDockedToolStripMenuItem.Text = "Show Dev Tools (Docked)";
-            this.showDevToolsDockedToolStripMenuItem.Click += new System.EventHandler(this.ShowDevToolsDockedMenuItemClick);
+            this.downloadsToolStripMenuItem.Name = "downloadsToolStripMenuItem";
+            this.downloadsToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.downloadsToolStripMenuItem.Text = "Downloads";
+            this.downloadsToolStripMenuItem.Click += new System.EventHandler(this.downloadsToolStripMenuItem_Click);
             // 
             // BrowserForm
             // 
@@ -411,6 +420,8 @@ namespace CefSharp.WinForms.Example
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "BrowserForm";
             this.Text = "BrowserForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BrowserForm_FormClosing);
+            this.Load += new System.EventHandler(this.BrowserForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -461,5 +472,6 @@ namespace CefSharp.WinForms.Example
         private System.Windows.Forms.ToolStripMenuItem loadExtensionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem javascriptBindingStressTestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showDevToolsDockedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem downloadsToolStripMenuItem;
     }
 }

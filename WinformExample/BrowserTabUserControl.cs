@@ -39,7 +39,14 @@ namespace CefSharp.WinForms.Example
             browser.MenuHandler = new MenuHandler();
             browser.RequestHandler = new WinFormsRequestHandler(openNewTab);
             browser.JsDialogHandler = new JsDialogHandler();
-            browser.DownloadHandler = new DownloadHandler();
+            
+            var dm = new DownloadHandler();
+            dm.OnDownloadUpdatedFired += Dm_OnBeforeDownloadFired;
+            browser.DownloadHandler = dm;
+
+
+
+
             if (multiThreadedMessageLoopEnabled)
             {
                 browser.KeyboardHandler = new KeyboardHandler();
@@ -98,6 +105,11 @@ namespace CefSharp.WinForms.Example
 
             var version = String.Format("Chromium: {0}, CEF: {1}, CefSharp: {2}", Cef.ChromiumVersion, Cef.CefVersion, Cef.CefSharpVersion);
             DisplayOutput(version);
+        }
+
+        private void Dm_OnBeforeDownloadFired(object sender, DownloadItem e)
+        {
+            DownloadManager.Instance.addOrUpdateItem(e);
         }
 
         /// <summary>
