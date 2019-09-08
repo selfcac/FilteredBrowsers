@@ -409,6 +409,7 @@ namespace CefSharp.WinForms.Example
 
         private void LoadUrl(string url)
         {
+            url = Uri.EscapeUriString(url);
             if (Uri.IsWellFormedUriString(url, UriKind.RelativeOrAbsolute))
             {
                 Browser.Load(url);
