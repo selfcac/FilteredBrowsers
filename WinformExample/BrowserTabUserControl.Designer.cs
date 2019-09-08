@@ -15,41 +15,42 @@ namespace CefSharp.WinForms.Example
         /// </summary>
         private void InitializeComponent()
         {
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.stripFind = new System.Windows.Forms.ToolStrip();
             this.findTextBox = new System.Windows.Forms.ToolStripTextBox();
             this.findPreviousButton = new System.Windows.Forms.ToolStripButton();
             this.findNextButton = new System.Windows.Forms.ToolStripButton();
             this.findCloseButton = new System.Windows.Forms.ToolStripButton();
-            this.statusLabel = new System.Windows.Forms.Label();
-            this.outputLabel = new System.Windows.Forms.Label();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.stripMenu = new System.Windows.Forms.ToolStrip();
             this.backButton = new System.Windows.Forms.ToolStripButton();
             this.forwardButton = new System.Windows.Forms.ToolStripButton();
             this.urlTextBox = new System.Windows.Forms.ToolStripTextBox();
             this.goButton = new System.Windows.Forms.ToolStripButton();
-            this.browserSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.devToolsSplitContainer = new System.Windows.Forms.SplitContainer();
             this.browserPanel = new System.Windows.Forms.Panel();
-            this.toolStrip2.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.browserSplitContainer)).BeginInit();
-            this.browserSplitContainer.Panel1.SuspendLayout();
-            this.browserSplitContainer.SuspendLayout();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.stripFind.SuspendLayout();
+            this.stripMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.devToolsSplitContainer)).BeginInit();
+            this.devToolsSplitContainer.Panel1.SuspendLayout();
+            this.devToolsSplitContainer.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // toolStrip2
+            // stripFind
             // 
-            this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.stripFind.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.stripFind.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.stripFind.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.findTextBox,
             this.findPreviousButton,
             this.findNextButton,
             this.findCloseButton});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 465);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(730, 25);
-            this.toolStrip2.TabIndex = 0;
-            this.toolStrip2.Visible = false;
+            this.stripFind.Location = new System.Drawing.Point(0, 506);
+            this.stripFind.Name = "stripFind";
+            this.stripFind.Size = new System.Drawing.Size(925, 25);
+            this.stripFind.TabIndex = 0;
+            this.stripFind.Visible = false;
             // 
             // findTextBox
             // 
@@ -88,39 +89,21 @@ namespace CefSharp.WinForms.Example
             this.findCloseButton.Text = "X";
             this.findCloseButton.Click += new System.EventHandler(this.FindCloseButtonClick);
             // 
-            // statusLabel
+            // stripMenu
             // 
-            this.statusLabel.AutoSize = true;
-            this.statusLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.statusLabel.Location = new System.Drawing.Point(0, 464);
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(0, 13);
-            this.statusLabel.TabIndex = 1;
-            // 
-            // outputLabel
-            // 
-            this.outputLabel.AutoSize = true;
-            this.outputLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.outputLabel.Location = new System.Drawing.Point(0, 477);
-            this.outputLabel.Name = "outputLabel";
-            this.outputLabel.Size = new System.Drawing.Size(0, 13);
-            this.outputLabel.TabIndex = 0;
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.stripMenu.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.stripMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.backButton,
             this.forwardButton,
             this.urlTextBox,
             this.goButton});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStrip1.Size = new System.Drawing.Size(730, 25);
-            this.toolStrip1.Stretch = true;
-            this.toolStrip1.TabIndex = 0;
-            this.toolStrip1.Layout += new System.Windows.Forms.LayoutEventHandler(this.HandleToolStripLayout);
+            this.stripMenu.Location = new System.Drawing.Point(0, 0);
+            this.stripMenu.Name = "stripMenu";
+            this.stripMenu.Padding = new System.Windows.Forms.Padding(0);
+            this.stripMenu.Size = new System.Drawing.Size(925, 25);
+            this.stripMenu.Stretch = true;
+            this.stripMenu.TabIndex = 0;
+            this.stripMenu.Layout += new System.Windows.Forms.LayoutEventHandler(this.HandleToolStripLayout);
             // 
             // backButton
             // 
@@ -159,44 +142,61 @@ namespace CefSharp.WinForms.Example
             this.goButton.Text = "Go";
             this.goButton.Click += new System.EventHandler(this.GoButtonClick);
             // 
-            // browserSplitContainer
+            // devToolsSplitContainer
             // 
-            this.browserSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.browserSplitContainer.Location = new System.Drawing.Point(0, 25);
-            this.browserSplitContainer.Name = "browserSplitContainer";
+            this.devToolsSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.devToolsSplitContainer.Location = new System.Drawing.Point(0, 25);
+            this.devToolsSplitContainer.Name = "devToolsSplitContainer";
             // 
-            // browserSplitContainer.Panel1
+            // devToolsSplitContainer.Panel1
             // 
-            this.browserSplitContainer.Panel1.Controls.Add(this.browserPanel);
-            this.browserSplitContainer.Panel2Collapsed = true;
-            this.browserSplitContainer.Size = new System.Drawing.Size(730, 439);
-            this.browserSplitContainer.SplitterDistance = 481;
-            this.browserSplitContainer.TabIndex = 2;
+            this.devToolsSplitContainer.Panel1.Controls.Add(this.browserPanel);
+            this.devToolsSplitContainer.Panel2Collapsed = true;
+            this.devToolsSplitContainer.Size = new System.Drawing.Size(925, 484);
+            this.devToolsSplitContainer.SplitterDistance = 481;
+            this.devToolsSplitContainer.TabIndex = 2;
             // 
             // browserPanel
             // 
             this.browserPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.browserPanel.Location = new System.Drawing.Point(0, 0);
             this.browserPanel.Name = "browserPanel";
-            this.browserPanel.Size = new System.Drawing.Size(730, 439);
-            this.browserPanel.TabIndex = 3;
+            this.browserPanel.Size = new System.Drawing.Size(925, 484);
+            this.browserPanel.TabIndex = 4;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 509);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(925, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(118, 17);
+            this.statusLabel.Text = "toolStripStatusLabel1";
             // 
             // BrowserTabUserControl
             // 
-            this.Controls.Add(this.browserSplitContainer);
-            this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.statusLabel);
-            this.Controls.Add(this.outputLabel);
-            this.Controls.Add(this.toolStrip2);
+            this.Controls.Add(this.devToolsSplitContainer);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.stripMenu);
+            this.Controls.Add(this.stripFind);
             this.Name = "BrowserTabUserControl";
-            this.Size = new System.Drawing.Size(730, 490);
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
-            this.browserSplitContainer.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.browserSplitContainer)).EndInit();
-            this.browserSplitContainer.ResumeLayout(false);
+            this.Size = new System.Drawing.Size(925, 531);
+            this.stripFind.ResumeLayout(false);
+            this.stripFind.PerformLayout();
+            this.stripMenu.ResumeLayout(false);
+            this.stripMenu.PerformLayout();
+            this.devToolsSplitContainer.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.devToolsSplitContainer)).EndInit();
+            this.devToolsSplitContainer.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -204,20 +204,20 @@ namespace CefSharp.WinForms.Example
 
         #endregion
 
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStrip stripMenu;
         private System.Windows.Forms.ToolStripButton backButton;
         private System.Windows.Forms.ToolStripButton forwardButton;
         private System.Windows.Forms.ToolStripTextBox urlTextBox;
         private System.Windows.Forms.ToolStripButton goButton;
-        private System.Windows.Forms.Label outputLabel;
 
-        private System.Windows.Forms.ToolStrip toolStrip2;
+        private System.Windows.Forms.ToolStrip stripFind;
         private System.Windows.Forms.ToolStripButton findPreviousButton;
         private System.Windows.Forms.ToolStripTextBox findTextBox;
         private System.Windows.Forms.ToolStripButton findNextButton;
         private System.Windows.Forms.ToolStripButton findCloseButton;
-        private System.Windows.Forms.Label statusLabel;
-        private System.Windows.Forms.SplitContainer browserSplitContainer;
+        private System.Windows.Forms.SplitContainer devToolsSplitContainer;
         private System.Windows.Forms.Panel browserPanel;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel statusLabel;
     }
 }

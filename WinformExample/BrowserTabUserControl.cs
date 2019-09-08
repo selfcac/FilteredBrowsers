@@ -142,7 +142,7 @@ namespace CefSharp.WinForms.Example
 
         private void OnBrowserMouseClick(object sender, MouseEventArgs e)
         {
-            MessageBox.Show("Mouse Clicked" + e.X + ";" + e.Y + ";" + e.Button);
+            //MessageBox.Show("Mouse Clicked" + e.X + ";" + e.Y + ";" + e.Button);
         }
 
         private void OnLoadError(object sender, LoadErrorEventArgs args)
@@ -352,7 +352,7 @@ namespace CefSharp.WinForms.Example
 
         private void DisplayOutput(string output)
         {
-            this.InvokeOnUiThreadIfRequired(() => outputLabel.Text = output);
+            this.InvokeOnUiThreadIfRequired(() => statusLabel.Text = output);
         }
 
         private void HandleToolStripLayout(object sender, LayoutEventArgs e)
@@ -362,8 +362,8 @@ namespace CefSharp.WinForms.Example
 
         private void HandleToolStripLayout()
         {
-            var width = toolStrip1.Width;
-            foreach (ToolStripItem item in toolStrip1.Items)
+            var width = stripMenu.Width;
+            foreach (ToolStripItem item in stripMenu.Items)
             {
                 if (item != urlTextBox)
                 {
@@ -422,14 +422,14 @@ namespace CefSharp.WinForms.Example
 
         private void ToggleBottomToolStrip()
         {
-            if (toolStrip2.Visible)
+            if (stripFind.Visible)
             {
                 Browser.StopFinding(true);
-                toolStrip2.Visible = false;
+                stripFind.Visible = false;
             }
             else
             {
-                toolStrip2.Visible = true;
+                stripFind.Visible = true;
                 findTextBox.Focus();
             }
         }
@@ -476,14 +476,14 @@ namespace CefSharp.WinForms.Example
         //in this example it's hosted in a Panel with a SplitContainer
         public void ShowDevToolsDocked()
         {
-            if (browserSplitContainer.Panel2Collapsed)
+            if (devToolsSplitContainer.Panel2Collapsed)
             {
-                browserSplitContainer.Panel2Collapsed = false;
+                devToolsSplitContainer.Panel2Collapsed = false;
             }
 
             //Find devToolsPanel in Controls collection
             Panel devToolsPanel = null;
-            devToolsPanel = browserSplitContainer.Panel2.Controls.Find(nameof(devToolsPanel), false).FirstOrDefault() as Panel;
+            devToolsPanel = devToolsSplitContainer.Panel2.Controls.Find(nameof(devToolsPanel), false).FirstOrDefault() as Panel;
 
             if (devToolsPanel == null || devToolsPanel.IsDisposed)
             {
@@ -496,8 +496,8 @@ namespace CefSharp.WinForms.Example
                 EventHandler devToolsPanelDisposedHandler = null;
                 devToolsPanelDisposedHandler = (s, e) =>
                 {
-                    browserSplitContainer.Panel2.Controls.Remove(devToolsPanel);
-                    browserSplitContainer.Panel2Collapsed = true;
+                    devToolsSplitContainer.Panel2.Controls.Remove(devToolsPanel);
+                    devToolsSplitContainer.Panel2Collapsed = true;
                     devToolsPanel.Disposed -= devToolsPanelDisposedHandler;
                 };
 
@@ -505,7 +505,7 @@ namespace CefSharp.WinForms.Example
                 devToolsPanel.Disposed += devToolsPanelDisposedHandler;
 
                 //Add new devToolsPanel instance to Controls collection
-                browserSplitContainer.Panel2.Controls.Add(devToolsPanel);
+                devToolsSplitContainer.Panel2.Controls.Add(devToolsPanel);
             }
 
             if (!devToolsPanel.IsHandleCreated)
