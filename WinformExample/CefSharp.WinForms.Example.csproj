@@ -60,6 +60,12 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common">
+      <HintPath>..\..\FilteringComponents\HTTPProtocolFilter\bin\Debug\Common.dll</HintPath>
+    </Reference>
+    <Reference Include="HTTPProtocolFilter">
+      <HintPath>..\..\FilteringComponents\HTTPProtocolFilter\bin\Debug\HTTPProtocolFilter.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime" />
@@ -75,6 +81,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TimeBlockFilter">
+      <HintPath>..\..\FilteringComponents\TimeBlockFilter\bin\Debug\TimeBlockFilter.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutBox.cs">
@@ -188,6 +197,10 @@
     <ProjectReference Include="..\CefSharp.Example\CefSharp.Example.csproj">
       <Project>{a4394e7b-1155-43a6-989e-8ab72dddc9e4}</Project>
       <Name>CefSharp.Example</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FilteredCommon\FilteredCommon.csproj">
+      <Project>{c768c124-53a2-48ee-ae47-d529b5b76515}</Project>
+      <Name>FilteredCommon</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -11,6 +11,9 @@ using System.Windows.Forms;
 using CefSharp.Example;
 using CefSharp.Example.Callback;
 using CefSharp.Example.Handlers;
+//using FilteredCommon.DataStructure;
+using FilteredEdgeBrowser.Utils;
+
 
 namespace CefSharp.WinForms.Example
 {
@@ -646,12 +649,6 @@ namespace CefSharp.WinForms.Example
             DownloadManager.Instance.Show();
         }
 
-        private void BrowserForm_Load(object sender, EventArgs e)
-        {
-            // Init window:
-            DownloadManager.Instance.Show();
-            DownloadManager.Instance.Hide();
-        }
 
         private void BrowserForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -739,6 +736,40 @@ namespace CefSharp.WinForms.Example
                 CloseToLeft(browserTabControl.SelectedIndex);
                 CloseToRight(0);
             }
+        }
+
+
+
+        public static HTTPProtocolFilter.FilterPolicy httpPolicy = new HTTPProtocolFilter.FilterPolicy();
+        public static TimeBlockFilter.TimeFilterObject timePolicy = new TimeBlockFilter.TimeFilterObject();
+
+        public static LogFileHandler historyLog, bookmarkLog;
+
+        private void BrowserForm_Load(object sender, EventArgs e)
+        {
+            // Init download window:
+            DownloadManager.Instance.Show();
+            DownloadManager.Instance.Hide();
+
+            string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+            string historyPath = Path.Combine(appdata, "FilteredEdgeBrowser", "history.log.txt");
+            if (!File.Exists(historyPath))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(historyPath));
+            }
+
+            string bookmarkPath = Path.Combine(appdata, "FilteredEdgeBrowser", "bookmark.log.txt");
+            if (!File.Exists(bookmarkPath))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(bookmarkPath));
+            }
+
+            historyLog = new LogFileHandler(historyPath);
+            bookmarkLog = new LogFileHandler(bookmarkPath);
+
+            httpPolicy.reloadPolicy(CefSharp.WinForms.Example.Properties.Settings.Default.httpPolicyPath);
+            timePolicy.reloadPolicy(CefSharp.WinForms.Example.Properties.Settings.Default.timePolicyPath);
         }
     }
 }

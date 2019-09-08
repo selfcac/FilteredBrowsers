@@ -175,9 +175,14 @@ namespace CefSharp.WinForms.Example
             this.InvokeOnUiThreadIfRequired(() => SetIsLoading(args.IsLoading));
         }
 
+        public static string CroppedText(string source, int max = 28)
+        {
+            return (source.Length > max) ? source.Substring(0, max -3 ) + " ..." : source;
+        }
+
         private void OnBrowserTitleChanged(object sender, TitleChangedEventArgs args)
         {
-            this.InvokeOnUiThreadIfRequired(() => Parent.Text = args.Title);
+            this.InvokeOnUiThreadIfRequired(() => Parent.Text = CroppedText(args.Title));
         }
 
         private void OnBrowserAddressChanged(object sender, AddressChangedEventArgs args)
@@ -370,7 +375,13 @@ namespace CefSharp.WinForms.Example
 
         private void GoButtonClick(object sender, EventArgs e)
         {
-            LoadUrl(urlTextBox.Text);
+            FilteredEdgeBrowser.Dialogs.frmEditUrl dialog =
+                new FilteredEdgeBrowser.Dialogs.frmEditUrl(BrowserForm.bookmarkLog, BrowserForm.historyLog);
+            dialog.URL = urlTextBox.Text;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                LoadUrl(dialog.URL);
+            }
         }
 
         private void BackButtonClick(object sender, EventArgs e)

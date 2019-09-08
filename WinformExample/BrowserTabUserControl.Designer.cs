@@ -146,6 +146,7 @@ namespace CefSharp.WinForms.Example
             // 
             this.urlTextBox.AutoSize = false;
             this.urlTextBox.Name = "urlTextBox";
+            this.urlTextBox.ReadOnly = true;
             this.urlTextBox.Size = new System.Drawing.Size(500, 25);
             this.urlTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.UrlTextBoxKeyUp);
             // 
