@@ -16,13 +16,11 @@ namespace CefSharp.WinForms.Example.Handlers
     public class WinFormsRequestHandler : ExampleRequestHandler
     {
         private readonly Action<string, int?> openNewTab;
-       
 
-    public WinFormsRequestHandler(Action<string, int?> openNewTab)
+
+        public WinFormsRequestHandler(Action<string, int?> openNewTab)
         {
             this.openNewTab = openNewTab;
-
-           
         }
 
         protected override bool OnOpenUrlFromTab(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, string targetUrl, WindowOpenDisposition targetDisposition, bool userGesture)
@@ -65,10 +63,26 @@ namespace CefSharp.WinForms.Example.Handlers
             return true;
         }
 
+        
+
+        protected override bool OnBeforeBrowse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect)
+        {
+            bool cancelRequest = base.OnBeforeBrowse(chromiumWebBrowser, browser, frame, request, userGesture, isRedirect);
+            return cancelRequest;
+        }
+
+
         protected override IResourceRequestHandler GetResourceRequestHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool isNavigation, bool isDownload, string requestInitiator, ref bool disableDefaultHandling)
         {
             return base.GetResourceRequestHandler(chromiumWebBrowser, browser, frame, request, isNavigation, isDownload, requestInitiator, ref disableDefaultHandling);
         }
+
+         
+
+
+
+
+
 
     }
 }

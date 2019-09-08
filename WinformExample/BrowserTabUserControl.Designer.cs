@@ -24,14 +24,14 @@ namespace CefSharp.WinForms.Example
             this.stripMenu = new System.Windows.Forms.ToolStrip();
             this.backButton = new System.Windows.Forms.ToolStripButton();
             this.forwardButton = new System.Windows.Forms.ToolStripButton();
+            this.stripBTNHistory = new System.Windows.Forms.ToolStripButton();
+            this.stripBTNBookmark = new System.Windows.Forms.ToolStripButton();
             this.urlTextBox = new System.Windows.Forms.ToolStripTextBox();
             this.goButton = new System.Windows.Forms.ToolStripButton();
             this.devToolsSplitContainer = new System.Windows.Forms.SplitContainer();
             this.browserPanel = new System.Windows.Forms.Panel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.stripBTNBookmark = new System.Windows.Forms.ToolStripButton();
-            this.stripBTNHistory = new System.Windows.Forms.ToolStripButton();
             this.stripFind.SuspendLayout();
             this.stripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.devToolsSplitContainer)).BeginInit();
@@ -130,6 +130,26 @@ namespace CefSharp.WinForms.Example
             this.forwardButton.Text = "Forward";
             this.forwardButton.Click += new System.EventHandler(this.ForwardButtonClick);
             // 
+            // stripBTNHistory
+            // 
+            this.stripBTNHistory.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.stripBTNHistory.Image = ((System.Drawing.Image)(resources.GetObject("stripBTNHistory.Image")));
+            this.stripBTNHistory.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.stripBTNHistory.Name = "stripBTNHistory";
+            this.stripBTNHistory.Size = new System.Drawing.Size(23, 22);
+            this.stripBTNHistory.Text = "toolStripButton2";
+            this.stripBTNHistory.Click += new System.EventHandler(this.stripBTNHistory_Click);
+            // 
+            // stripBTNBookmark
+            // 
+            this.stripBTNBookmark.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.stripBTNBookmark.Image = ((System.Drawing.Image)(resources.GetObject("stripBTNBookmark.Image")));
+            this.stripBTNBookmark.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.stripBTNBookmark.Name = "stripBTNBookmark";
+            this.stripBTNBookmark.Size = new System.Drawing.Size(23, 22);
+            this.stripBTNBookmark.Text = "toolStripButton1";
+            this.stripBTNBookmark.Click += new System.EventHandler(this.stripBTNBookmark_Click);
+            // 
             // urlTextBox
             // 
             this.urlTextBox.AutoSize = false;
@@ -184,26 +204,6 @@ namespace CefSharp.WinForms.Example
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(118, 17);
             this.statusLabel.Text = "toolStripStatusLabel1";
-            // 
-            // stripBTNBookmark
-            // 
-            this.stripBTNBookmark.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.stripBTNBookmark.Image = ((System.Drawing.Image)(resources.GetObject("stripBTNBookmark.Image")));
-            this.stripBTNBookmark.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.stripBTNBookmark.Name = "stripBTNBookmark";
-            this.stripBTNBookmark.Size = new System.Drawing.Size(23, 22);
-            this.stripBTNBookmark.Text = "toolStripButton1";
-            this.stripBTNBookmark.Click += new System.EventHandler(this.stripBTNBookmark_Click);
-            // 
-            // stripBTNHistory
-            // 
-            this.stripBTNHistory.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.stripBTNHistory.Image = ((System.Drawing.Image)(resources.GetObject("stripBTNHistory.Image")));
-            this.stripBTNHistory.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.stripBTNHistory.Name = "stripBTNHistory";
-            this.stripBTNHistory.Size = new System.Drawing.Size(23, 22);
-            this.stripBTNHistory.Text = "toolStripButton2";
-            this.stripBTNHistory.Click += new System.EventHandler(this.stripBTNHistory_Click);
             // 
             // BrowserTabUserControl
             // 

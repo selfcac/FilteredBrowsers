@@ -745,6 +745,15 @@ namespace CefSharp.WinForms.Example
 
         public static LogFileHandler historyLog, bookmarkLog;
 
+        private void resetZoomToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var control = GetCurrentTabControl();
+            if (control != null)
+            {
+                control.Browser.SetZoomLevel(0.0);
+            }
+        }
+
         private void BrowserForm_Load(object sender, EventArgs e)
         {
             // Init download window:

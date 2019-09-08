@@ -46,7 +46,6 @@ namespace CefSharp.WinForms.Example
             browser.DownloadHandler = dm;
 
 
-
             if (multiThreadedMessageLoopEnabled)
             {
                 browser.KeyboardHandler = new KeyboardHandler();
@@ -553,5 +552,7 @@ namespace CefSharp.WinForms.Example
                 .frmDlgBookmark(BrowserForm.bookmarkLog, lastTitle, Browser.Address))
                 .ShowDialog();
         }
+
+        
     }
 }

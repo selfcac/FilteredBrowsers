@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace FilteredCommon.Filtering
 {
@@ -10,6 +11,12 @@ namespace FilteredCommon.Filtering
     {
         public const string evalHead = "document.getElementsByTagName(\"head\")[0].innerText";
         public const string evalBody = "document.getElementsByTagName(\"body\")[0].innerText";
+
+
+        public static string evalReplaceHTML(string newbody)
+        {
+            return "document.getElementsByTagName(\"html\")[0].innerHTML=\"" + HttpUtility.JavaScriptStringEncode(newbody) + "\"";
+        }
 
         public static string formatBlockpage(string reason)
         {
