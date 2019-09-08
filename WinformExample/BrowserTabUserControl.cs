@@ -13,6 +13,7 @@ using CefSharp.Example.Handlers;
 using CefSharp.Example.JavascriptBinding;
 using CefSharp.WinForms.Example.Handlers;
 using CefSharp.WinForms.Internals;
+using FilteredEdgeBrowser;
 
 namespace CefSharp.WinForms.Example
 {
@@ -46,7 +47,6 @@ namespace CefSharp.WinForms.Example
 
 
 
-
             if (multiThreadedMessageLoopEnabled)
             {
                 browser.KeyboardHandler = new KeyboardHandler();
@@ -74,8 +74,8 @@ namespace CefSharp.WinForms.Example
             
 
 
-            browser.JavascriptObjectRepository.Register("bound", new BoundObject(), isAsync: false, options: BindingOptions.DefaultBinder);
-            browser.JavascriptObjectRepository.Register("boundAsync", new AsyncBoundObject(), isAsync: true, options: BindingOptions.DefaultBinder);
+            browser.JavascriptObjectRepository.Register("___bound", new BoundObject(), isAsync: false, options: BindingOptions.DefaultBinder);
+            browser.JavascriptObjectRepository.Register("___boundAsync", new AsyncBoundObject(), isAsync: true, options: BindingOptions.DefaultBinder);
 
             //If you call CefSharp.BindObjectAsync in javascript and pass in the name of an object which is not yet
             //bound, then ResolveObject will be called, you can then register it
@@ -180,8 +180,11 @@ namespace CefSharp.WinForms.Example
             return (source.Length > max) ? source.Substring(0, max -3 ) + " ..." : source;
         }
 
+        string lastTitle = "";
         private void OnBrowserTitleChanged(object sender, TitleChangedEventArgs args)
         {
+            lastTitle = args.Title;
+            myHistory.Navigated(BrowserForm.historyLog, new Uri(Browser.Address), args.Title);
             this.InvokeOnUiThreadIfRequired(() => Parent.Text = CroppedText(args.Title));
         }
 
@@ -194,18 +197,18 @@ namespace CefSharp.WinForms.Example
         {
             switch (eventName)
             {
-                case "click":
-                {
-                    var message = eventData.ToString();
-                    var dataDictionary = eventData as Dictionary<string, object>;
-                    if (dataDictionary != null)
-                    {
-                        var result = string.Join(", ", dataDictionary.Select(pair => pair.Key + "=" + pair.Value));
-                        message = "event data: " + result;
-                    }
-                    MessageBox.Show(message, "Javascript event arrived", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    break;
-                }
+                //case "click":
+                //{
+                //    var message = eventData.ToString();
+                //    var dataDictionary = eventData as Dictionary<string, object>;
+                //    if (dataDictionary != null)
+                //    {
+                //        var result = string.Join(", ", dataDictionary.Select(pair => pair.Key + "=" + pair.Value));
+                //        message = "event data: " + result;
+                //    }
+                //    MessageBox.Show(message, "Javascript event arrived", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //    break;
+                //}
             }
         }
 
@@ -252,7 +255,7 @@ namespace CefSharp.WinForms.Example
             //success = requestContext.SetPreference("browser.enable_spellchecking", false, out errorMessage);
 
             var preferences = requestContext.GetAllPreferences(true);
-            var doNotTrack = (bool)preferences["enable_do_not_track"];
+            //var doNotTrack = (bool)preferences["enable_do_not_track"];
 
             //Use this to check that settings preferences are working in your code
             //success = requestContext.SetPreference("webkit.webprefs.minimum_font_size", 24, out errorMessage);
@@ -529,6 +532,25 @@ namespace CefSharp.WinForms.Example
             {
                 return Browser.GetBrowserHost().HasDevTools;
             });
+        }
+
+        LocalHistoryManager myHistory = new LocalHistoryManager();
+        private void stripBTNHistory_Click(object sender, EventArgs e)
+        {
+            FilteredEdgeBrowser.Dialogs.frmTabHistory chooseHistory = 
+                new FilteredEdgeBrowser.Dialogs.frmTabHistory(myHistory);
+
+            if (chooseHistory.ShowDialog() == DialogResult.OK)
+            {
+                LoadUrl(chooseHistory.URL.ToString());
+            }
+        }
+
+        private void stripBTNBookmark_Click(object sender, EventArgs e)
+        {
+            (new FilteredEdgeBrowser.Dialogs
+                .frmDlgBookmark(BrowserForm.bookmarkLog, lastTitle, Browser.Address))
+                .ShowDialog();
         }
     }
 }

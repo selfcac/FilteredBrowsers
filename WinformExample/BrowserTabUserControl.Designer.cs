@@ -15,6 +15,7 @@ namespace CefSharp.WinForms.Example
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BrowserTabUserControl));
             this.stripFind = new System.Windows.Forms.ToolStrip();
             this.findTextBox = new System.Windows.Forms.ToolStripTextBox();
             this.findPreviousButton = new System.Windows.Forms.ToolStripButton();
@@ -29,6 +30,8 @@ namespace CefSharp.WinForms.Example
             this.browserPanel = new System.Windows.Forms.Panel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.stripBTNBookmark = new System.Windows.Forms.ToolStripButton();
+            this.stripBTNHistory = new System.Windows.Forms.ToolStripButton();
             this.stripFind.SuspendLayout();
             this.stripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.devToolsSplitContainer)).BeginInit();
@@ -95,6 +98,8 @@ namespace CefSharp.WinForms.Example
             this.stripMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.backButton,
             this.forwardButton,
+            this.stripBTNHistory,
+            this.stripBTNBookmark,
             this.urlTextBox,
             this.goButton});
             this.stripMenu.Location = new System.Drawing.Point(0, 0);
@@ -180,6 +185,26 @@ namespace CefSharp.WinForms.Example
             this.statusLabel.Size = new System.Drawing.Size(118, 17);
             this.statusLabel.Text = "toolStripStatusLabel1";
             // 
+            // stripBTNBookmark
+            // 
+            this.stripBTNBookmark.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.stripBTNBookmark.Image = ((System.Drawing.Image)(resources.GetObject("stripBTNBookmark.Image")));
+            this.stripBTNBookmark.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.stripBTNBookmark.Name = "stripBTNBookmark";
+            this.stripBTNBookmark.Size = new System.Drawing.Size(23, 22);
+            this.stripBTNBookmark.Text = "toolStripButton1";
+            this.stripBTNBookmark.Click += new System.EventHandler(this.stripBTNBookmark_Click);
+            // 
+            // stripBTNHistory
+            // 
+            this.stripBTNHistory.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.stripBTNHistory.Image = ((System.Drawing.Image)(resources.GetObject("stripBTNHistory.Image")));
+            this.stripBTNHistory.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.stripBTNHistory.Name = "stripBTNHistory";
+            this.stripBTNHistory.Size = new System.Drawing.Size(23, 22);
+            this.stripBTNHistory.Text = "toolStripButton2";
+            this.stripBTNHistory.Click += new System.EventHandler(this.stripBTNHistory_Click);
+            // 
             // BrowserTabUserControl
             // 
             this.Controls.Add(this.devToolsSplitContainer);
@@ -219,5 +244,7 @@ namespace CefSharp.WinForms.Example
         private System.Windows.Forms.Panel browserPanel;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
+        private System.Windows.Forms.ToolStripButton stripBTNHistory;
+        private System.Windows.Forms.ToolStripButton stripBTNBookmark;
     }
 }

@@ -72,6 +72,8 @@ namespace FilteredEdgeBrowser.Dialogs
 
             myHistory.onProgressUpdated = (p) => { updateProgress(pbHistory, p); };
             myHistory.onSearchFinish = () => { readResult(myHistory, lstHistory); };
+
+            txtFreeStyle.Focus();
         }
 
 

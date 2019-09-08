@@ -79,7 +79,7 @@
             this.txtFreeStyle.Location = new System.Drawing.Point(16, 111);
             this.txtFreeStyle.Name = "txtFreeStyle";
             this.txtFreeStyle.Size = new System.Drawing.Size(597, 26);
-            this.txtFreeStyle.TabIndex = 4;
+            this.txtFreeStyle.TabIndex = 0;
             this.txtFreeStyle.TextChanged += new System.EventHandler(this.txtFreeStyle_TextChanged);
             // 
             // label2
