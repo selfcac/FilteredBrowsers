@@ -168,17 +168,22 @@ namespace CefSharp.WinForms.Example
             }
         }
 
-        private BrowserTabUserControl GetCurrentTabControl()
+        private BrowserTabUserControl GetTabControl(int index)
         {
-            if (browserTabControl.SelectedIndex == -1)
+            if (index < 0 || browserTabControl.TabCount <= index)
             {
                 return null;
             }
 
-            var tabPage = browserTabControl.Controls[browserTabControl.SelectedIndex];
+            var tabPage = browserTabControl.Controls[index];
             var control = tabPage.Controls[0] as BrowserTabUserControl;
 
             return control;
+        }
+
+        private BrowserTabUserControl GetCurrentTabControl()
+        {
+            return GetTabControl(browserTabControl.SelectedIndex);
         }
 
         private void NewTabToolStripMenuItemClick(object sender, EventArgs e)
@@ -194,25 +199,31 @@ namespace CefSharp.WinForms.Example
             }
 
             var currentIndex = browserTabControl.SelectedIndex;
+            DisposeTab(currentIndex);
 
-            var tabPage = browserTabControl.TabPages[currentIndex];
-
-            var control = GetCurrentTabControl();
-            if (control != null && !control.IsDisposed)
-            {
-                control.Dispose();
-            }
-
-            browserTabControl.TabPages.Remove(tabPage);
-
-            tabPage.Dispose();
-
-            browserTabControl.SelectedIndex = currentIndex - 1;
+            browserTabControl.SelectedIndex = Math.Max(currentIndex - 1,0);
 
             if (browserTabControl.TabPages.Count == 0)
             {
                 ExitApplication();
             }
+        }
+
+        private void DisposeTab(int tabIndex)
+        {
+            if (tabIndex < 0 || tabIndex >= browserTabControl.TabCount)
+                return;
+
+            var tabPage = browserTabControl.TabPages[tabIndex];
+
+            var control = GetTabControl(tabIndex);
+            if (control != null && !control.IsDisposed)
+            {
+                control.Dispose();
+            }
+            browserTabControl.TabPages.Remove(tabPage);
+
+            tabPage.Dispose();
         }
 
         private void UndoMenuItemClick(object sender, EventArgs e)
@@ -645,6 +656,89 @@ namespace CefSharp.WinForms.Example
         private void BrowserForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             DownloadManager.Instance.Close();
+        }
+
+        private void addTabToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddTab(DefaultUrlForAddedTabs);
+        }
+
+
+        private void CloseToLeft(int currentIndex)
+        {
+            if (currentIndex > -1)
+            {
+                for (int i = 0; i < currentIndex; i++)
+                {
+                    DisposeTab(0);
+                }
+            }
+        }
+
+        private void CloseToRight(int currentIndex)
+        {
+
+            if (currentIndex > -1)
+            {
+                for (int i = browserTabControl.TabPages.Count - 1; i > currentIndex; i--) // reverse 
+                {
+                    DisposeTab(i);
+                }
+            }
+        }
+
+
+        private void closeTabIconMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (browserTabControl.TabPages.Count == 0)
+            {
+                return;
+            }
+
+            var currentIndex = browserTabControl.SelectedIndex;
+            DisposeTab(currentIndex);
+            browserTabControl.SelectedIndex = Math.Max(currentIndex - 1, 0);
+
+            if (browserTabControl.TabPages.Count == 0)
+            {
+                ExitApplication();
+            }
+        }
+
+        private void closeToLeftToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (browserTabControl.TabPages.Count == 0)
+            {
+                return;
+            }
+
+            int tabIndex = browserTabControl.SelectedIndex; // remember because might change
+            CloseToLeft(tabIndex);
+        }
+
+        private void closeToRightToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (browserTabControl.TabPages.Count == 0)
+            {
+                return;
+            }
+
+            int tabIndex = browserTabControl.SelectedIndex; // remember because might change
+            CloseToRight(tabIndex);
+        }
+
+        private void closeOthersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (browserTabControl.TabPages.Count == 0)
+            {
+                return;
+            }
+
+            if (browserTabControl.SelectedIndex > -1)
+            {
+                CloseToLeft(browserTabControl.SelectedIndex);
+                CloseToRight(0);
+            }
         }
     }
 }
