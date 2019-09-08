@@ -25,8 +25,8 @@ namespace FilteredEdgeBrowser.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Yoni\\Desktop\\2019\\FilteredEdgeBrowser\\FilteredEdgeBrowser\\bin\\Debug\\poli" +
-            "cy.json")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Yoni\\Desktop\\selfcac\\CefSharp.WinForms.Filtered\\SamplePolicies\\policy.js" +
+            "on")]
         public string WebPolicyPath {
             get {
                 return ((string)(this["WebPolicyPath"]));
@@ -35,8 +35,8 @@ namespace FilteredEdgeBrowser.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Yoni\\Desktop\\2019\\FilteredEdgeBrowser\\FilteredEdgeBrowser\\bin\\Debug\\time" +
-            ".json")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Yoni\\Desktop\\selfcac\\CefSharp.WinForms.Filtered\\SamplePolicies\\time.json" +
+            "")]
         public string TimePolicyPath {
             get {
                 return ((string)(this["TimePolicyPath"]));

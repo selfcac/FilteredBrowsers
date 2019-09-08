@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FilteredEdgeBrowser.Properties {
+namespace FilteredCommon.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace FilteredEdgeBrowser.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FilteredEdgeBrowser.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FilteredCommon.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,34 @@ namespace FilteredEdgeBrowser.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///&lt;!--
+        ///    * Copyright © 2017 Jesse Nicholson
+        ///    * This Source Code Form is subject to the terms of the Mozilla Public
+        ///    * License, v. 2.0. If a copy of the MPL was not distributed with this
+        ///    * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+        ///--&gt;
+        ///&lt;html lang=&quot;en&quot;&gt;
+        ///
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot;&gt;
+        ///    &lt;title&gt;Page Blocked by Divert Filter&lt;/title&gt;
+        ///
+        ///    &lt;style&gt;
+        ///        body {
+        ///            background-color: transparent;
+        ///            margin: 0px;
+        ///        }
+        ///
+        ///        di [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string BlockedPage {
+            get {
+                return ResourceManager.GetString("BlockedPage", resourceCulture);
             }
         }
     }

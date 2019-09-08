@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FilteredCommon.DataStructure;
 
 namespace FilteredEdgeBrowser
 {
@@ -24,14 +25,14 @@ namespace FilteredEdgeBrowser
 
     public class LocalHistoryManager
     {
-        DataStructure.CyclicFastDrop<HistoryItem> myCyclicHistory 
-                    = new DataStructure.CyclicFastDrop<HistoryItem>(25);
+        CyclicFastDrop<HistoryItem> myCyclicHistory 
+                    = new CyclicFastDrop<HistoryItem>(25);
 
-        public void Navigated(Uri url, string title)
+        public void Navigated(Utils.LogFileHandler myHistoryHandler,  Uri url, string title)
         {
             HistoryItem newItem = new HistoryItem() { URL = url, Title = title };
             myCyclicHistory.AddAndDropFuture(newItem);
-            MainForm.historyLog.SaveUrlToFile(title, url.ToString());
+            myHistoryHandler.SaveUrlToFile(title, url.ToString());
         }
 
         public void NavigatedIndex(int i)

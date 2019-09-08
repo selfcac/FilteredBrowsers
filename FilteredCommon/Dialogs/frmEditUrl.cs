@@ -20,8 +20,13 @@ namespace FilteredEdgeBrowser.Dialogs
     {
         public string URL;
 
-        public frmEditUrl()
+        private Utils.LogFileHandler myBookmarks, myHistory;
+
+        public frmEditUrl(Utils.LogFileHandler bookmarkHandler, Utils.LogFileHandler historyHadnler)
         {
+            myBookmarks = bookmarkHandler;
+            myHistory = historyHadnler;
+
             InitializeComponent();
         }
 
@@ -62,11 +67,11 @@ namespace FilteredEdgeBrowser.Dialogs
             this.MaximumSize = this.Size;
             txtURL.Text = URL;
 
-            MainForm.bookmarkLog.onProgressUpdated = (p) => { updateProgress(pbBookmark, p); };
-            MainForm.bookmarkLog.onSearchFinish = () => { readResult(MainForm.bookmarkLog, lstBookmark); };
+            myBookmarks.onProgressUpdated = (p) => { updateProgress(pbBookmark, p); };
+            myBookmarks.onSearchFinish = () => { readResult(myBookmarks, lstBookmark); };
 
-            MainForm.historyLog.onProgressUpdated = (p) => { updateProgress(pbHistory, p); };
-            MainForm.historyLog.onSearchFinish = () => { readResult(MainForm.historyLog, lstHistory); };
+            myHistory.onProgressUpdated = (p) => { updateProgress(pbHistory, p); };
+            myHistory.onSearchFinish = () => { readResult(myHistory, lstHistory); };
         }
 
 
@@ -106,11 +111,11 @@ namespace FilteredEdgeBrowser.Dialogs
                     break;
 
                 case 1: // History
-                    MainForm.historyLog.updateSearchParams(txtFreeStyle.Text);
+                    myHistory.updateSearchParams(txtFreeStyle.Text);
                     break;
 
                 case 2: // Bookmark
-                    MainForm.bookmarkLog.updateSearchParams(txtFreeStyle.Text);
+                    myBookmarks.updateSearchParams(txtFreeStyle.Text);
                     break;
             }
         }

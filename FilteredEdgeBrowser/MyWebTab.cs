@@ -45,7 +45,7 @@ namespace FilteredEdgeBrowser
 
         public string formatBlockpage(string reason)
         {
-            string blockedHTML = FilteredEdgeBrowser.Properties.Resources.BlockedPage;
+            string blockedHTML = FilteredCommon.Resources.SharedResources.getBlockedPage();
             return blockedHTML.Replace("{0}",
                 ("<br/>" + reason )
                 .Replace("<*", "<b>").Replace("*>", "</b>")
@@ -91,7 +91,7 @@ namespace FilteredEdgeBrowser
             Uri currentUri = (e.Uri != null) ? e.Uri : new Uri("https://blocked.content/");
             
 
-            myHistory.Navigated(currentUri, wvMain.DocumentTitle);
+            myHistory.Navigated(MainForm.historyLog ,currentUri, wvMain.DocumentTitle);
             string newURL = currentUri.ToString();
             txtURL.BackColor = (newURL.StartsWith("https")) ? Color.FromArgb(192, 255, 192) : Color.FromArgb(255, 192, 192);
             txtURL.Text = newURL;
@@ -149,7 +149,7 @@ namespace FilteredEdgeBrowser
 
                 if (e.Cancel)
                 {
-                    myHistory.Navigated(e.Uri, "Page Blocked");
+                    myHistory.Navigated(MainForm.historyLog, e.Uri, "Page Blocked");
                     wvMain.NavigateToString(formatBlockpage(finalReason));
                 }
                 else
@@ -183,12 +183,12 @@ namespace FilteredEdgeBrowser
 
         private void bookmarksToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            (new Dialogs.frmDlgBookmark(wvMain.DocumentTitle, myHistory.CurrentURL())).ShowDialog();
+            (new Dialogs.frmDlgBookmark(MainForm.bookmarkLog, wvMain.DocumentTitle, myHistory.CurrentURL())).ShowDialog();
         }
 
         private void changeUrlToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Dialogs.frmEditUrl dialog = new Dialogs.frmEditUrl();
+            Dialogs.frmEditUrl dialog = new Dialogs.frmEditUrl(MainForm.bookmarkLog, MainForm.historyLog);
             dialog.URL = txtURL.Text;
             if (dialog.ShowDialog() == DialogResult.OK)
             {

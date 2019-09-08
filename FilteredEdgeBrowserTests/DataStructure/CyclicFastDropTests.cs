@@ -1,10 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FilteredEdgeBrowser.DataStructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using FilteredCommon.DataStructure;
 
 namespace FilteredEdgeBrowser.DataStructure.Tests
 {

@@ -3,10 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="WebPolicyPath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\Users\Yoni\Desktop\2019\FilteredEdgeBrowser\FilteredEdgeBrowser\bin\Debug\policy.json</Value>
+      <Value Profile="(Default)">C:\Users\Yoni\Desktop\selfcac\CefSharp.WinForms.Filtered\SamplePolicies\policy.json</Value>
     </Setting>
     <Setting Name="TimePolicyPath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\Users\Yoni\Desktop\2019\FilteredEdgeBrowser\FilteredEdgeBrowser\bin\Debug\time.json</Value>
+      <Value Profile="(Default)">C:\Users\Yoni\Desktop\selfcac\CefSharp.WinForms.Filtered\SamplePolicies\time.json</Value>
     </Setting>
   </Settings>
 </SettingsFile>

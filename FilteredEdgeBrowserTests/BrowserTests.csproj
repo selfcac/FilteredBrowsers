@@ -63,9 +63,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FilteredEdgeBrowser\FilteredEdgeBrowser.csproj">
-      <Project>{64980D1A-A1DD-4C4F-BAB4-5FA89342D80F}</Project>
-      <Name>FilteredEdgeBrowser</Name>
+    <ProjectReference Include="..\FilteredCommon\FilteredCommon.csproj">
+      <Project>{c768c124-53a2-48ee-ae47-d529b5b76515}</Project>
+      <Name>FilteredCommon</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

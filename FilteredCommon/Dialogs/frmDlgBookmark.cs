@@ -13,11 +13,13 @@ namespace FilteredEdgeBrowser.Dialogs
     public partial class frmDlgBookmark : Form
     {
         public string BookmarkName, URL;
+        private Utils.LogFileHandler _BookmarkHandler;
 
-        public frmDlgBookmark(string name, string url)
+        public frmDlgBookmark(Utils.LogFileHandler myBookmarkHandeler, string name, string url)
         {
             BookmarkName = name;
             URL = url;
+            _BookmarkHandler = myBookmarkHandeler;
             InitializeComponent();
         }
 
@@ -25,7 +27,7 @@ namespace FilteredEdgeBrowser.Dialogs
         {
             BookmarkName = txtName.Text;
             URL = txtURL.Text;
-            MainForm.bookmarkLog.SaveUrlToFile(BookmarkName, URL);
+            _BookmarkHandler.SaveUrlToFile(BookmarkName, URL);
             DialogResult = DialogResult.OK;
         }
 
