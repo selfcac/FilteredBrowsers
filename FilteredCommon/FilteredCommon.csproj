@@ -32,6 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common">
+      <HintPath>..\..\FilteringComponents\Common\bin\Debug\Common.dll</HintPath>
+    </Reference>
+    <Reference Include="HTTPProtocolFilter">
+      <HintPath>..\..\FilteringComponents\HTTPProtocolFilter\bin\Debug\HTTPProtocolFilter.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -64,6 +70,7 @@
     <Compile Include="Dialogs\frmTabHistory.Designer.cs">
       <DependentUpon>frmTabHistory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Filtering\FilteringFlow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

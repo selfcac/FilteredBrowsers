@@ -107,45 +107,13 @@ namespace FilteredEdgeBrowser
         {
             if (e.Uri != null )
             {
-                string finalReason = "init final";
-                if (MainForm.httpPolicy.getMode() == HTTPProtocolFilter.WorkingMode.ENFORCE)
-                {
-                    e.Cancel = true;
+                string finalReason = "";
+                Uri referer = null;
+                if (myHistory.Size() > 0)
+                    referer = myHistory.CurrentURI();  // we add to history after dom completed
 
-                    // TODO: Filter here
-                    string urlReason = "init main reason";
-                    if (MainForm.httpPolicy.isWhitelistedURL(e.Uri, out urlReason))
-                    {
-                        e.Cancel = false;
-                    }
-                    else // check the referer
-                    {
-                        if (myHistory.Size() > 0) // we add to history after dom completed, 0 mean none
-                        {
-                            string refererReason = "init ref reason";
-                            if (MainForm.httpPolicy.isWhitelistedURL(myHistory.CurrentURI(), out refererReason))
-                            {
-                                if (MainForm.httpPolicy.findAllowedDomain(myHistory.CurrentURI().Host).AllowRefering)
-                                {
-                                    e.Cancel = false;
-                                }
-                                else
-                                {
-                                    finalReason = myHistory.CurrentURL() + " Is not allowed as referer. <br/><br/>" + urlReason;
-                                }
-                            }
-                            else
-                            {
-                                finalReason = "<h3>Target:</h3></br>" 
-                                    + urlReason + "<br /><h3>Referrer:</h3></br>" + refererReason;
-                            }
-                        }
-                        else
-                        {
-                            finalReason = urlReason;
-                        }
-                    }
-                }
+                e.Cancel = FilteredCommon.Filtering.FilteringFlow
+                    .isNavigationBlocked(MainForm.httpPolicy, referer, e.Uri, out finalReason);
 
                 if (e.Cancel)
                 {
@@ -160,6 +128,8 @@ namespace FilteredEdgeBrowser
 
             if (!e.Cancel) isHTMLContentLoaded = false;
         }
+
+        
 
         private void navigateToolStripMenuItem_Click(object sender, EventArgs e)
         {
