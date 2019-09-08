@@ -105,15 +105,25 @@ namespace FilteredEdgeBrowser
         
         private void WvMain_NavigationStarting(object sender, Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.WebViewControlNavigationStartingEventArgs e)
         {
-            if (e.Uri != null )
+            if (e.Uri != null && MainForm.httpPolicy.getMode() == HTTPProtocolFilter.WorkingMode.ENFORCE )
             {
                 string finalReason = "";
-                Uri referer = null;
-                if (myHistory.Size() > 0)
-                    referer = myHistory.CurrentURI();  // we add to history after dom completed
+                bool isBlocked = FilteredCommon.Filtering.FilteringFlow
+                    .isTimeBlocked(MainForm.timePolicy, DateTime.Now, ref finalReason);
 
-                e.Cancel = FilteredCommon.Filtering.FilteringFlow
-                    .isNavigationBlocked(MainForm.httpPolicy, referer, e.Uri, out finalReason);
+               if (!isBlocked) // Time is ok!
+               {
+                    Uri referer = null;
+                    if (myHistory.Size() > 0)
+                        referer = myHistory.CurrentURI();  // we add to history after dom completed
+
+
+                    bool isHTTPBlocked =
+                        FilteredCommon.Filtering.FilteringFlow
+                        .isNavigationBlocked(MainForm.httpPolicy, referer, e.Uri, out finalReason);
+                }
+
+                e.Cancel = isBlocked;
 
                 if (e.Cancel)
                 {
@@ -173,35 +183,34 @@ namespace FilteredEdgeBrowser
                 MainForm.httpPolicy.getMode() == HTTPProtocolFilter.WorkingMode.ENFORCE
                 )
             {
-                try
+                string finalReason = "";
+                bool isBlocked = FilteredCommon.Filtering.FilteringFlow
+                    .isTimeBlocked(MainForm.timePolicy, DateTime.Now, ref finalReason);
+
+                if (!isBlocked)
                 {
-                    string Header = await wvMain.InvokeScriptAsync("eval", new string[] {
-                        "document.getElementsByTagName(\"head\")[0].innerText"
+                    try
+                    {
+                        string Header = await wvMain.InvokeScriptAsync("eval", new string[] {
+                        FilteredCommon.Filtering.FilteringFlow.evalHead
                     });
 
-                     string content = await wvMain.InvokeScriptAsync("eval", new string[] {
-                        "document.getElementsByTagName(\"body\")[0].innerText"
+                        string content = await wvMain.InvokeScriptAsync("eval", new string[] {
+                        FilteredCommon.Filtering.FilteringFlow.evalBody
                     });
 
-                    bool isBlocked = false;
-                    string reason = "init body reason";
-                    if (MainForm.httpPolicy.isBodyBlocked(Header, out reason) )
-                    {
-                        reason = "Body is blocked. </br>" + reason;
-                        isBlocked = true;
-                    } 
-                    else if (MainForm.httpPolicy.isBodyBlocked(content, out reason))
-                    {
-                        reason = "Header is blocked. </br>" + reason;
-                        isBlocked = true;
+
+                        isBlocked = FilteredCommon.Filtering.FilteringFlow.
+                            isHTMLPageBlocked(MainForm.httpPolicy, Header, content, out finalReason);
+
                     }
-                    
-                    if (isBlocked) { wvMain.NavigateToString(formatBlockpage(reason)); }
+                    catch (Exception ex)
+                    {
+                        setStatus("Content filter error: " + ex.Message);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    setStatus("Content filter error: " + ex.Message);
-                }
+
+                if (isBlocked) { wvMain.NavigateToString(formatBlockpage(finalReason)); }
             }
         }
     }

@@ -8,6 +8,9 @@ namespace FilteredCommon.Filtering
 {
     public class FilteringFlow
     {
+        public const string evalHead = "document.getElementsByTagName(\"head\")[0].innerText";
+        public const string evalBody = "document.getElementsByTagName(\"body\")[0].innerText";
+
         public static string formatBlockpage(string reason)
         {
             string blockedHTML = FilteredCommon.Resources.SharedResources.getBlockedPage();
@@ -17,18 +20,27 @@ namespace FilteredCommon.Filtering
                 .Replace("_<", "<u>").Replace(">_", "</u>"));
         }
 
-        public static bool isNavigationBlocked(HTTPProtocolFilter.FilterPolicy policy,Uri referURI, Uri newURI, out string finalReason)
+        public static bool isTimeBlocked(TimeBlockFilter.TimeFilterObject timePolicy, DateTime target, ref string reason)
         {
-            finalReason = "init final";
+            bool isBlocked =  timePolicy.isBlocked(target);
+            if (isBlocked)
+                reason = "Time <*" + target.ToShortTimeString() + "*> is blocked by time policy.";
+            return isBlocked;
+        }
+
+
+        public static bool isNavigationBlocked(HTTPProtocolFilter.FilterPolicy httpPolicy,Uri referURI, Uri newURI, out string reason)
+        {
+            reason = "init final";
             bool isBlocked = false;
 
-            if (policy.getMode() == HTTPProtocolFilter.WorkingMode.ENFORCE)
+            if (httpPolicy.getMode() == HTTPProtocolFilter.WorkingMode.ENFORCE)
             {
                 isBlocked = true;
 
                 // TODO: Filter here
                 string urlReason = "init main reason";
-                if (policy.isWhitelistedURL(newURI, out urlReason))
+                if (httpPolicy.isWhitelistedURL(newURI, out urlReason))
                 {
                     isBlocked = false;
                 }
@@ -37,30 +49,48 @@ namespace FilteredCommon.Filtering
                     if (referURI != null)
                     {
                         string refererReason = "init ref reason";
-                        if (policy.isWhitelistedURL(referURI, out refererReason))
+                        if (httpPolicy.isWhitelistedURL(referURI, out refererReason))
                         {
-                            if (policy.findAllowedDomain(referURI.Host).AllowRefering)
+                            if (httpPolicy.findAllowedDomain(referURI.Host).AllowRefering)
                             {
                                 isBlocked = false;
                             }
                             else
                             {
-                                finalReason = referURI.ToString() + " Is not allowed as referer. <br/><br/>" + urlReason;
+                                reason = referURI.ToString() + " Is not allowed as referer. <br/><br/>" + urlReason;
                             }
                         }
                         else
                         {
-                            finalReason = "<h3>Target:</h3></br>"
+                            reason = "<h3>Target:</h3></br>"
                                 + urlReason + "<br /><h3>Referrer:</h3></br>" + refererReason;
                         }
                     }
                     else
                     {
-                        finalReason = urlReason;
+                        reason = urlReason;
                     }
                 }
             }
 
+            return isBlocked;
+        }
+
+
+        public static bool isHTMLPageBlocked(HTTPProtocolFilter.FilterPolicy httpPolicy, string HeaderText, string BodyText, out string reason)
+        {
+            bool isBlocked = false;
+            reason = "init body reason";
+            if (httpPolicy.isBodyBlocked(HeaderText, out reason))
+            {
+                reason = "Body is blocked. </br>" + reason;
+                isBlocked = true;
+            }
+            else if (httpPolicy.isBodyBlocked(BodyText, out reason))
+            {
+                reason = "Header is blocked. </br>" + reason;
+                isBlocked = true;
+            }
             return isBlocked;
         }
     }
