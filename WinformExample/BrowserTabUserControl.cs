@@ -114,8 +114,7 @@ namespace CefSharp.WinForms.Example
 
         private void Browser_IsBrowserInitializedChanged(object sender, EventArgs e)
         {
-            Browser.Stop();
-            LoadUrl(initialURL);
+           
         }
 
         private void Dm_OnBeforeDownloadFired(object sender, DownloadItem e)
@@ -246,6 +245,12 @@ namespace CefSharp.WinForms.Example
 
         private void SetIsLoading(bool isLoading)
         {
+            if (!isLoading && initialURL != "")
+            {
+                LoadUrl(initialURL);
+                initialURL = "";
+            }
+
             goButton.Text = isLoading ?
                 "Stop" :
                 "Go";
