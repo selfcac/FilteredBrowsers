@@ -75,6 +75,8 @@ namespace CefSharp.WinForms.Example
             browser.IsBrowserInitializedChanged += OnIsBrowserInitializedChanged;
             browser.LoadError += OnLoadError;
 
+            browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
+
 
             browser.JavascriptObjectRepository.Register("___bound", new BoundObject(), isAsync: false, options: BindingOptions.DefaultBinder);
             browser.JavascriptObjectRepository.Register("___boundAsync", new AsyncBoundObject(), isAsync: true, options: BindingOptions.DefaultBinder);
@@ -108,6 +110,12 @@ namespace CefSharp.WinForms.Example
             var version = String.Format("Chromium: {0}, CEF: {1}, CefSharp: {2}", Cef.ChromiumVersion, Cef.CefVersion, Cef.CefSharpVersion);
             DisplayOutput(version);
 
+        }
+
+        private void Browser_IsBrowserInitializedChanged(object sender, EventArgs e)
+        {
+            Browser.Stop();
+            LoadUrl(initialURL);
         }
 
         private void Dm_OnBeforeDownloadFired(object sender, DownloadItem e)
@@ -570,7 +578,7 @@ namespace CefSharp.WinForms.Example
 
         private void BrowserTabUserControl_Load(object sender, EventArgs e)
         {
-            LoadUrl(initialURL);
+           
         }
     }
 }
