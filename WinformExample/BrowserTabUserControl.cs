@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -32,13 +33,34 @@ namespace CefSharp.WinForms.Example
             InitializeComponent();
             initialURL = url;
 
+
+            //add an if statement to initialize the settings once. else the app is going to crash
+            if (CefSharp.Cef.IsInitialized == false)
+            {
+                string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string cachePath = Path.Combine(appdata, "FilteredChromeBrowser", "cache");
+                if (!Directory.Exists(cachePath))
+                {
+                    Directory.CreateDirectory(cachePath);
+                }
+
+                CefSettings Settings = new CefSettings();
+                Settings.CachePath = cachePath;  //always set the cachePath, else this wont work
+                Settings.CefCommandLineArgs.Add("no-proxy-server", "1");
+
+
+                CefSharp.Cef.Initialize(Settings);
+            }
+
+
+
+
             var browser = new ChromiumWebBrowser("about:blank")
             {
                 Dock = DockStyle.Fill
             };
 
             browserPanel.Controls.Add(browser);
-
             Browser = browser;
 
             browser.MenuHandler = new MenuHandler(new Action(()=> {
@@ -107,6 +129,7 @@ namespace CefSharp.WinForms.Example
             // .Net methods starting with a capitol will be translated to starting with a lower case letter when called from js
             browser.JavascriptObjectRepository.Register("boundEvent", eventObject, isAsync: false, options: BindingOptions.DefaultBinder);
 
+            
             CefExample.RegisterTestResources(browser);
 
             var version = String.Format("Chromium: {0}, CEF: {1}, CefSharp: {2}", Cef.ChromiumVersion, Cef.CefVersion, Cef.CefSharpVersion);
