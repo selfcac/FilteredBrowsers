@@ -58,7 +58,7 @@ namespace CefSharp.WinForms.Example
 
         private void BrowserFormLoad(object sender, EventArgs e)
         {
-            AddTab(CefExample.DefaultUrl);
+            AddTab(DefaultUrlForAddedTabs);
         }
 
         /// <summary>
@@ -762,13 +762,13 @@ namespace CefSharp.WinForms.Example
 
             string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-            string historyPath = Path.Combine(appdata, "FilteredEdgeBrowser", "history.log.txt");
+            string historyPath = Path.Combine(appdata, "FilteredChromeBrowser", "history.log.txt");
             if (!File.Exists(historyPath))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(historyPath));
             }
 
-            string bookmarkPath = Path.Combine(appdata, "FilteredEdgeBrowser", "bookmark.log.txt");
+            string bookmarkPath = Path.Combine(appdata, "FilteredChromeBrowser", "bookmark.log.txt");
             if (!File.Exists(bookmarkPath))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(bookmarkPath));
@@ -779,6 +779,9 @@ namespace CefSharp.WinForms.Example
 
             httpPolicy.reloadPolicy(CefSharp.WinForms.Example.Properties.Settings.Default.httpPolicyPath);
             timePolicy.reloadPolicy(CefSharp.WinForms.Example.Properties.Settings.Default.timePolicyPath);
+            
+            
+            //timePolicy.clearAllTo(true); // debug : Allow all times!
         }
     }
 }
