@@ -63,11 +63,47 @@ namespace CefSharp.WinForms.Example.Handlers
             return true;
         }
 
-        
+        public string lastReason = "";
+
+        Uri safeUrlConvertor(string url)
+        {
+            Uri result = null;
+            url = Uri.EscapeUriString(url);
+
+            if (url.Length > 0 && Uri.IsWellFormedUriString(url, UriKind.RelativeOrAbsolute))
+            {
+                result = new Uri(url);
+            }
+
+            if (result == null)
+            {
+                result = new Uri("http://unkown.domain.please.ignore.com/");
+            }
+
+
+            return result;
+        }
 
         protected override bool OnBeforeBrowse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect)
         {
             bool cancelRequest = base.OnBeforeBrowse(chromiumWebBrowser, browser, frame, request, userGesture, isRedirect);
+            if (frame.IsMain && frame.Url.Length > 0 && frame.Url != FilteredCommon.Filtering.FilteringFlow.blockedDevUrl)
+            {
+                string finalReason = "navigiated_init";
+                bool blocked = FilteredCommon.Filtering.FilteringFlow
+                    .isTimeBlocked(BrowserForm.timePolicy, DateTime.Now, ref finalReason);
+                if (!blocked)
+                {
+                    blocked = FilteredCommon.Filtering.FilteringFlow
+                        .isNavigationBlocked(BrowserForm.httpPolicy, safeUrlConvertor(request.ReferrerUrl), safeUrlConvertor(request.Url), out finalReason);
+                }
+
+                if (blocked)
+                {
+                    cancelRequest = true;
+                    chromiumWebBrowser.Load(FilteredCommon.Filtering.FilteringFlow.blockedDevUrl);
+                }
+            }
             return cancelRequest;
         }
 

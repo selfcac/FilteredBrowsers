@@ -24,6 +24,8 @@ namespace CefSharp.WinForms.Example
         private ChromeWidgetMessageInterceptor messageInterceptor;
         private bool multiThreadedMessageLoopEnabled;
 
+        private WinFormsRequestHandler myPageNavigationManager;
+
         public BrowserTabUserControl(Action<string, int?> openNewTab, string url, bool multiThreadedMessageLoopEnabled)
         {
             InitializeComponent();
@@ -38,7 +40,8 @@ namespace CefSharp.WinForms.Example
             Browser = browser;
 
             browser.MenuHandler = new MenuHandler();
-            browser.RequestHandler = new WinFormsRequestHandler(openNewTab);
+            myPageNavigationManager = new WinFormsRequestHandler(openNewTab);
+            browser.RequestHandler = myPageNavigationManager;
             browser.JsDialogHandler = new JsDialogHandler();
             
             var dm = new DownloadHandler();
@@ -69,8 +72,6 @@ namespace CefSharp.WinForms.Example
             browser.StatusMessage += OnBrowserStatusMessage;
             browser.IsBrowserInitializedChanged += OnIsBrowserInitializedChanged;
             browser.LoadError += OnLoadError;
-
-            
 
 
             browser.JavascriptObjectRepository.Register("___bound", new BoundObject(), isAsync: false, options: BindingOptions.DefaultBinder);
@@ -188,28 +189,19 @@ namespace CefSharp.WinForms.Example
         }
 
         
+        
         private void OnBrowserAddressChanged(object sender, AddressChangedEventArgs args)
         {
-            string finalReason = "navigiated_init";
-            bool blocked = FilteredCommon.Filtering.FilteringFlow
-                .isTimeBlocked(BrowserForm.timePolicy, DateTime.Now, ref finalReason);
-            if (!blocked)
-            {
-                blocked = FilteredCommon.Filtering.FilteringFlow
-                    .isNavigationBlocked(BrowserForm.httpPolicy, myHistory.CurrentURI(), new Uri(args.Address), out finalReason);
-            }
-
             this.InvokeOnUiThreadIfRequired(() => urlTextBox.Text = args.Address);
 
-            if (blocked)
+            if (args.Address.Contains(FilteredCommon.Filtering.FilteringFlow.blockedDevUrl))
             {
                 Browser.GetMainFrame().ExecuteJavaScriptAsync(
                     FilteredCommon.Filtering.FilteringFlow.evalReplaceHTML(
-                        FilteredCommon.Filtering.FilteringFlow.formatBlockpage(args.Address)
+                        FilteredCommon.Filtering.FilteringFlow.formatBlockpage(myPageNavigationManager.lastReason)
                         )
                     );
             }
-
         }
 
         private static void OnJavascriptEventArrived(string eventName, object eventData)
@@ -374,7 +366,7 @@ namespace CefSharp.WinForms.Example
 
         private void DisplayOutput(string output)
         {
-            this.InvokeOnUiThreadIfRequired(() => statusLabel.Text = output);
+            //this.InvokeOnUiThreadIfRequired(() => statusLabel.Text = output);
         }
 
         private void HandleToolStripLayout(object sender, LayoutEventArgs e)

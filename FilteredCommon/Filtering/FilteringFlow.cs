@@ -9,6 +9,7 @@ namespace FilteredCommon.Filtering
 {
     public class FilteringFlow
     {
+        public const string blockedDevUrl = "about:blank";
         public const string evalHead = "document.getElementsByTagName(\"head\")[0].innerText";
         public const string evalBody = "document.getElementsByTagName(\"body\")[0].innerText";
 
