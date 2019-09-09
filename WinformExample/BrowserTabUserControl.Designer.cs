@@ -15,6 +15,7 @@ namespace CefSharp.WinForms.Example
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BrowserTabUserControl));
             this.stripFind = new System.Windows.Forms.ToolStrip();
             this.findTextBox = new System.Windows.Forms.ToolStripTextBox();
@@ -32,6 +33,7 @@ namespace CefSharp.WinForms.Example
             this.browserPanel = new System.Windows.Forms.Panel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tmrBlockContent = new System.Windows.Forms.Timer(this.components);
             this.stripFind.SuspendLayout();
             this.stripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.devToolsSplitContainer)).BeginInit();
@@ -205,6 +207,12 @@ namespace CefSharp.WinForms.Example
             this.statusLabel.Size = new System.Drawing.Size(118, 17);
             this.statusLabel.Text = "toolStripStatusLabel1";
             // 
+            // tmrBlockContent
+            // 
+            this.tmrBlockContent.Enabled = true;
+            this.tmrBlockContent.Interval = 2000;
+            this.tmrBlockContent.Tick += new System.EventHandler(this.tmrBlockContent_Tick);
+            // 
             // BrowserTabUserControl
             // 
             this.Controls.Add(this.devToolsSplitContainer);
@@ -247,5 +255,6 @@ namespace CefSharp.WinForms.Example
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolStripButton stripBTNHistory;
         private System.Windows.Forms.ToolStripButton stripBTNBookmark;
+        private System.Windows.Forms.Timer tmrBlockContent;
     }
 }
