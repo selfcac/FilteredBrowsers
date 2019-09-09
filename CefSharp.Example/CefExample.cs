@@ -125,26 +125,28 @@ namespace CefSharp.Example
                 //settings.CefCommandLineArgs.Add("enable-begin-frame-scheduling", "1");
             }
 
-            var proxy = ProxyConfig.GetProxyInformation();
-            switch (proxy.AccessType)
-            {
-                case InternetOpenType.Direct:
-                {
-                    //Don't use a proxy server, always make direct connections.
-                    settings.CefCommandLineArgs.Add("no-proxy-server", "1");
-                    break;
-                }
-                case InternetOpenType.Proxy:
-                {
-                    settings.CefCommandLineArgs.Add("proxy-server", proxy.ProxyAddress);
-                    break;
-                }
-                case InternetOpenType.PreConfig:
-                {
-                    settings.CefCommandLineArgs.Add("proxy-auto-detect", "1");
-                    break;
-                }
-            }
+            //var proxy = ProxyConfig.GetProxyInformation();
+            //switch (proxy.AccessType)
+            //{
+            //    case InternetOpenType.Direct:
+            //        {
+            //            Don't use a proxy server, always make direct connections.
+            //        settings.CefCommandLineArgs.Add("no-proxy-server", "1");
+            //            break;
+            //        }
+            //    case InternetOpenType.Proxy:
+            //        {
+            //            settings.CefCommandLineArgs.Add("proxy-server", proxy.ProxyAddress);
+            //            break;
+            //        }
+            //    case InternetOpenType.PreConfig:
+            //        {
+            //            settings.CefCommandLineArgs.Add("proxy-auto-detect", "1");
+            //            break;
+            //        }
+            //}
+
+            settings.CefCommandLineArgs.Add("no-proxy-server", "1");
 
             //settings.LogSeverity = LogSeverity.Verbose;
 
@@ -154,46 +156,46 @@ namespace CefSharp.Example
                 settings.BrowserSubprocessPath = "..\\..\\..\\..\\CefSharp.BrowserSubprocess\\bin\\" + architecture + "\\Debug\\CefSharp.BrowserSubprocess.exe";
             }
 
-            settings.RegisterScheme(new CefCustomScheme
-            {
-                SchemeName = CefSharpSchemeHandlerFactory.SchemeName,
-                SchemeHandlerFactory = new CefSharpSchemeHandlerFactory(),
-                IsSecure = true, //treated with the same security rules as those applied to "https" URLs
-            });
+            //settings.RegisterScheme(new CefCustomScheme
+            //{
+            //    SchemeName = CefSharpSchemeHandlerFactory.SchemeName,
+            //    SchemeHandlerFactory = new CefSharpSchemeHandlerFactory(),
+            //    IsSecure = true, //treated with the same security rules as those applied to "https" URLs
+            //});
 
-            settings.RegisterScheme(new CefCustomScheme
-            {
-                SchemeName = "https",
-                SchemeHandlerFactory = new CefSharpSchemeHandlerFactory(),
-                DomainName = "cefsharp.example"
-            });
+            //settings.RegisterScheme(new CefCustomScheme
+            //{
+            //    SchemeName = "https",
+            //    SchemeHandlerFactory = new CefSharpSchemeHandlerFactory(),
+            //    DomainName = "cefsharp.example"
+            //});
 
-            settings.RegisterScheme(new CefCustomScheme
-            {
-                SchemeName = CefSharpSchemeHandlerFactory.SchemeNameTest,
-                SchemeHandlerFactory = new CefSharpSchemeHandlerFactory(),
-                IsSecure = true //treated with the same security rules as those applied to "https" URLs
-            });
+            //settings.RegisterScheme(new CefCustomScheme
+            //{
+            //    SchemeName = CefSharpSchemeHandlerFactory.SchemeNameTest,
+            //    SchemeHandlerFactory = new CefSharpSchemeHandlerFactory(),
+            //    IsSecure = true //treated with the same security rules as those applied to "https" URLs
+            //});
 
-            //You can use the http/https schemes - best to register for a specific domain
-            settings.RegisterScheme(new CefCustomScheme
-            {
-                SchemeName = "https",
-                SchemeHandlerFactory = new CefSharpSchemeHandlerFactory(),
-                DomainName = "cefsharp.com",
-                IsSecure = true //treated with the same security rules as those applied to "https" URLs
-            });
+            ////You can use the http/https schemes - best to register for a specific domain
+            //settings.RegisterScheme(new CefCustomScheme
+            //{
+            //    SchemeName = "https",
+            //    SchemeHandlerFactory = new CefSharpSchemeHandlerFactory(),
+            //    DomainName = "cefsharp.com",
+            //    IsSecure = true //treated with the same security rules as those applied to "https" URLs
+            //});
 
-            settings.RegisterScheme(new CefCustomScheme
-            {
-                SchemeName = "localfolder",
-                SchemeHandlerFactory = new FolderSchemeHandlerFactory(rootFolder: @"..\..\..\..\CefSharp.Example\Resources",
-                                                                    schemeName: "localfolder", //Optional param no schemename checking if null
-                                                                    hostName: "cefsharp", //Optional param no hostname checking if null
-                                                                    defaultPage: "home.html") //Optional param will default to index.html
-            });
+            //settings.RegisterScheme(new CefCustomScheme
+            //{
+            //    SchemeName = "localfolder",
+            //    SchemeHandlerFactory = new FolderSchemeHandlerFactory(rootFolder: @"..\..\..\..\CefSharp.Example\Resources",
+            //                                                        schemeName: "localfolder", //Optional param no schemename checking if null
+            //                                                        hostName: "cefsharp", //Optional param no hostname checking if null
+            //                                                        defaultPage: "home.html") //Optional param will default to index.html
+            //});
 
-            settings.RegisterExtension(new V8Extension("cefsharp/example", Resources.extension));
+            //settings.RegisterExtension(new V8Extension("cefsharp/example", Resources.extension));
 
             //This must be set before Cef.Initialized is called
             CefSharpSettings.FocusedNodeChangedEnabled = true;
@@ -221,7 +223,7 @@ namespace CefSharp.Example
                 throw new Exception("Unable to Initialize Cef");
             }
 
-            Cef.AddCrossOriginWhitelistEntry(BaseUrl, "https", "cefsharp.com", false);
+            //Cef.AddCrossOriginWhitelistEntry(BaseUrl, "https", "cefsharp.com", false);
         }
 
         public static async void RegisterTestResources(IWebBrowser browser)
