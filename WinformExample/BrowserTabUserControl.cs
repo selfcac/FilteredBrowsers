@@ -41,7 +41,9 @@ namespace CefSharp.WinForms.Example
 
             Browser = browser;
 
-            browser.MenuHandler = new MenuHandler();
+            browser.MenuHandler = new MenuHandler(new Action(()=> {
+                this.InvokeOnUiThreadIfRequired(() => { ToggleBottomToolStrip(); });
+            }));
             myPageNavigationManager = new WinFormsRequestHandler(openNewTab);
             browser.RequestHandler = myPageNavigationManager;
             browser.JsDialogHandler = new JsDialogHandler();

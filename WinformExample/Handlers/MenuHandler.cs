@@ -2,12 +2,22 @@
 //
 // Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.
 
+using System;
+
 namespace CefSharp.WinForms.Example.Handlers
 {
     internal class MenuHandler : IContextMenuHandler
     {
         private const int ShowDevTools = 26501;
         private const int CloseDevTools = 26502;
+        private const int ShowFind = 26500;
+
+        Action showFind;
+
+        public MenuHandler(Action ShowFind)
+        {
+            showFind = ShowFind;
+        }
 
         void IContextMenuHandler.OnBeforeContextMenu(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model)
         {
@@ -18,19 +28,24 @@ namespace CefSharp.WinForms.Example.Handlers
             //bool removed = model.Remove(CefMenuCommand.ViewSource); // Remove "View Source" option
 
             //Add new custom menu items
-            model.AddItem((CefMenuCommand)ShowDevTools, "Show DevTools");
-            model.AddItem((CefMenuCommand)CloseDevTools, "Close DevTools");
+            //model.AddItem((CefMenuCommand)ShowDevTools, "Show DevTools");
+            //model.AddItem((CefMenuCommand)CloseDevTools, "Close DevTools");
+            model.AddItem((CefMenuCommand)ShowFind, "Find in page");
         }
 
         bool IContextMenuHandler.OnContextMenuCommand(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags)
         {
-            if ((int)commandId == ShowDevTools)
+            //if ((int)commandId == ShowDevTools)
+            //{
+            //    browser.ShowDevTools();
+            //}
+            //if ((int)commandId == CloseDevTools)
+            //{
+            //    browser.CloseDevTools();
+            //}
+            if ((int)commandId == ShowFind)
             {
-                browser.ShowDevTools();
-            }
-            if ((int)commandId == CloseDevTools)
-            {
-                browser.CloseDevTools();
+                showFind();
             }
             return false;
         }
