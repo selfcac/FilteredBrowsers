@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="httpPolicyPath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\Users\Yoni\Desktop\selfcac\CefSharp.WinForms.Filtered\SamplePolicies\policy.json</Value>
+      <Value Profile="(Default)">C:\ProxyServices\BrowserPolicy\browser_policy.json</Value>
     </Setting>
     <Setting Name="timePolicyPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">C:\Users\Yoni\Desktop\selfcac\CefSharp.WinForms.Filtered\SamplePolicies\time.json</Value>

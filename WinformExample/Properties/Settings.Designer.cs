@@ -25,8 +25,7 @@ namespace CefSharp.WinForms.Example.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Yoni\\Desktop\\selfcac\\CefSharp.WinForms.Filtered\\SamplePolicies\\policy.js" +
-            "on")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProxyServices\\BrowserPolicy\\browser_policy.json")]
         public string httpPolicyPath {
             get {
                 return ((string)(this["httpPolicyPath"]));

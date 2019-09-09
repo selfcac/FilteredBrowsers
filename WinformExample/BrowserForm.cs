@@ -69,7 +69,7 @@ namespace CefSharp.WinForms.Example
         {
             browserTabControl.SuspendLayout();
 
-            var tabPage = new TabPage(url)
+            var tabPage = new TabPage(BrowserTabUserControl.CroppedText(url))
             {
                 Dock = DockStyle.Fill
             };
@@ -93,7 +93,7 @@ namespace CefSharp.WinForms.Example
                 Dock = DockStyle.Fill,
             };
 
-            var tabPage = new TabPage(url)
+            var tabPage = new TabPage(BrowserTabUserControl.CroppedText(url))
             {
                 Dock = DockStyle.Fill
             };
@@ -766,12 +766,14 @@ namespace CefSharp.WinForms.Example
             if (!File.Exists(historyPath))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(historyPath));
+                File.AppendAllText(historyPath, "");
             }
 
             string bookmarkPath = Path.Combine(appdata, "FilteredChromeBrowser", "bookmark.log.txt");
             if (!File.Exists(bookmarkPath))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(bookmarkPath));
+                File.AppendAllText(bookmarkPath, "");
             }
 
             historyLog = new LogFileHandler(historyPath);

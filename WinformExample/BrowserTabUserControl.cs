@@ -618,29 +618,36 @@ namespace CefSharp.WinForms.Example
                 var mainFrame = Browser.GetMainFrame();
                 if (mainFrame.IsValid && mainFrame.Url != FilteredCommon.Filtering.FilteringFlow.blockedDevUrl)
                 {
-                    var headerRes = await mainFrame.EvaluateScriptAsync(
-                        FilteredCommon.Filtering.FilteringFlow.evalHead,
-                        timeout: TimeSpan.FromSeconds(5)
-                    );
-
-                    var bodyRes = await mainFrame.EvaluateScriptAsync(
-                        FilteredCommon.Filtering.FilteringFlow.evalBody,
-                        timeout: TimeSpan.FromSeconds(5)
-                    );
-
-                    if (headerRes.Success && bodyRes.Success)
+                    try
                     {
-                        string finalResaon = "";
-                        if (FilteredCommon.Filtering.FilteringFlow.isHTMLPageBlocked(
-                            BrowserForm.httpPolicy, 
-                            headerRes.Result as string,
-                            bodyRes.Result as string,
-                            out finalResaon
-                            ))
+                        var headerRes = await mainFrame.EvaluateScriptAsync(
+                           FilteredCommon.Filtering.FilteringFlow.evalHead,
+                           timeout: TimeSpan.FromSeconds(5)
+                       );
+
+                        var bodyRes = await mainFrame.EvaluateScriptAsync(
+                            FilteredCommon.Filtering.FilteringFlow.evalBody,
+                            timeout: TimeSpan.FromSeconds(5)
+                        );
+
+                        if (headerRes.Success && bodyRes.Success)
                         {
-                            myPageNavigationManager.lastReason = finalResaon;
-                            LoadUrl(FilteredCommon.Filtering.FilteringFlow.blockedDevUrl);
+                            string finalResaon = "";
+                            if (FilteredCommon.Filtering.FilteringFlow.isHTMLPageBlocked(
+                                BrowserForm.httpPolicy,
+                                headerRes.Result as string,
+                                bodyRes.Result as string,
+                                out finalResaon
+                                ))
+                            {
+                                myPageNavigationManager.lastReason = finalResaon;
+                                LoadUrl(FilteredCommon.Filtering.FilteringFlow.blockedDevUrl);
+                            }
                         }
+                    }
+                    catch (Exception ex)
+                    {
+                        DisplayOutput(ex.ToString());
                     }
 
                 }

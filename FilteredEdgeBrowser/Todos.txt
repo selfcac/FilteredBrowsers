@@ -51,3 +51,65 @@ Logs (history\bookmark):
 	- search maximum 100
 	- Reverse read
 	- Save\read from %appdata%
+
+================ Chromes TODOS ---->VVVVVVV
+================ Chromes TODOS ---->VVVVVVV
+================ Chromes TODOS ---->VVVVVVV
+================ Chromes TODOS ---->VVVVVVV
+================ Chromes TODOS ---->VVVVVVV
+================ Chromes TODOS ---->VVVVVVV
+================ Chromes TODOS ---->VVVVVVV
+
+
+	 -i -d -u AdminUSB -p <pass> "C:\Users\Yoni\Desktop\2019\CefSharp.MinimalExample-master\CefSharp.MinimalExample.WinForms\bin\x64\Debug\CefSharp.MinimalExample.WinForms.exe"
+ 
+ windivert:
+    - random port....
+    - divert http\s
+    - allow whitelist - table2? user, process etc...
+    - drop proxys\qucik\rdp
+    
+  
+=========== Youtube NSFW ==============   
+  
+  if host contain: youtube.com
+  
+  <insert original (which was sent???)> --> Replace in request!
+  
+Set-Cookie: PREF=f1=10000000&f2=8000000; expires=Wed, 04-Dec-2200 22:14:49 GMT; path=/; domain=.www.youtube.com; priority=high
+Set-Cookie: PREF=f2=8000000; path=/; domain=.www.youtube.com; priority=high
+
+=========== REDDIT NSFW ============== 
+    ==> check r/<somthingunsafe> if not relocated, NSFW allowed
+    ==> block "reddit.com/over18"
+
+https://old.reddit.com/r/NSFW
+cookie: as SAME
+
+302
+location: https://old.reddit.com/over18?
+=========== Google NSFW ==============   
+
+also google search safe
+
+=========== Where to put filters? ==============   
+
+IResourceRequestHandler (AddSecretHandler):
+    Like proxy, raw request (headers etc...) - Response unchanegabel!!
+    
+RequestHandler (WinFormsRequestHandler):
+    OnBeforeBrowse : true\false - Block?
+    
+Look like not needing to change response on proxy level.
+Just make some event to change HTML using js to block ... (On navigation \ With Timer ?)
+
+=========== TODO-s ==============   
+- Above filters (Safe search etc...)
+    - reddit?
+- propitery
+- Block on adress change also
+
+- Add command "Psexec - EXE - bypass pass"
+    - choose hard password
+
+
