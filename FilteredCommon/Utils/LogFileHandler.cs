@@ -111,7 +111,7 @@ namespace FilteredEdgeBrowser.Utils
                                 string[] data = line.Split(new[] { DataSeperator }, StringSplitOptions.RemoveEmptyEntries);
                                 if (data.Length == 2)
                                 {
-                                    if (resultCount > UrlResults.Length -1)
+                                    if (resultCount > UrlResults.GetLength(0) -1)
                                     {
                                         stopSearchFlagUp = true;
                                         onSearchFinish?.Invoke();
