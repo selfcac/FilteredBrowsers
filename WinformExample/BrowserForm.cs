@@ -29,9 +29,6 @@ namespace CefSharp.WinForms.Example
         public BrowserForm(bool multiThreadedMessageLoopEnabled)
         {
             InitializeComponent();
-
-            var bitness = Environment.Is64BitProcess ? "x64" : "x86";
-            Text = "CefSharp.WinForms.Example - " + bitness;
             WindowState = FormWindowState.Maximized;
 
             Load += BrowserFormLoad;
@@ -781,8 +778,10 @@ namespace CefSharp.WinForms.Example
 
             httpPolicy.reloadPolicy(CefSharp.WinForms.Example.Properties.Settings.Default.httpPolicyPath);
             timePolicy.reloadPolicy(CefSharp.WinForms.Example.Properties.Settings.Default.timePolicyPath);
-            
-            
+
+            var bitness = Environment.Is64BitProcess ? "x64" : "x86";
+            Text += " - " + bitness;
+
             //timePolicy.clearAllTo(true); // debug : Allow all times!
         }
     }
