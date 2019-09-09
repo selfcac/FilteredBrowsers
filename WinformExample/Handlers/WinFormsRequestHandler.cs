@@ -87,7 +87,7 @@ namespace CefSharp.WinForms.Example.Handlers
         protected override bool OnBeforeBrowse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect)
         {
             bool cancelRequest = base.OnBeforeBrowse(chromiumWebBrowser, browser, frame, request, userGesture, isRedirect);
-            if (frame.IsMain && frame.Url.Length > 0 && frame.Url != FilteredCommon.Filtering.FilteringFlow.blockedDevUrl)
+            if (frame.IsMain && request.Url.Length > 0 && request.Url != FilteredCommon.Filtering.FilteringFlow.blockedDevUrl)
             {
                 string finalReason = "navigiated_init";
                 bool blocked = FilteredCommon.Filtering.FilteringFlow
@@ -100,6 +100,7 @@ namespace CefSharp.WinForms.Example.Handlers
 
                 if (blocked)
                 {
+                    lastReason = finalReason;
                     cancelRequest = true;
                     chromiumWebBrowser.Load(FilteredCommon.Filtering.FilteringFlow.blockedDevUrl);
                 }
