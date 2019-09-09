@@ -213,6 +213,7 @@ namespace CefSharp.WinForms.Example
             this.Controls.Add(this.stripFind);
             this.Name = "BrowserTabUserControl";
             this.Size = new System.Drawing.Size(925, 531);
+            this.Load += new System.EventHandler(this.BrowserTabUserControl_Load);
             this.stripFind.ResumeLayout(false);
             this.stripFind.PerformLayout();
             this.stripMenu.ResumeLayout(false);

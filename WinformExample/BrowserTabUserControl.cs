@@ -25,12 +25,14 @@ namespace CefSharp.WinForms.Example
         private bool multiThreadedMessageLoopEnabled;
 
         private WinFormsRequestHandler myPageNavigationManager;
+        private string initialURL = "about:blank";
 
         public BrowserTabUserControl(Action<string, int?> openNewTab, string url, bool multiThreadedMessageLoopEnabled)
         {
             InitializeComponent();
+            initialURL = url;
 
-            var browser = new ChromiumWebBrowser(url)
+            var browser = new ChromiumWebBrowser("about:blank")
             {
                 Dock = DockStyle.Fill
             };
@@ -105,6 +107,7 @@ namespace CefSharp.WinForms.Example
 
             var version = String.Format("Chromium: {0}, CEF: {1}, CefSharp: {2}", Cef.ChromiumVersion, Cef.CefVersion, Cef.CefSharpVersion);
             DisplayOutput(version);
+
         }
 
         private void Dm_OnBeforeDownloadFired(object sender, DownloadItem e)
@@ -565,6 +568,9 @@ namespace CefSharp.WinForms.Example
                 .ShowDialog();
         }
 
-        
+        private void BrowserTabUserControl_Load(object sender, EventArgs e)
+        {
+            LoadUrl(initialURL);
+        }
     }
 }

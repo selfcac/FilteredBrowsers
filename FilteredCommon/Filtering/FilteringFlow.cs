@@ -40,13 +40,10 @@ namespace FilteredCommon.Filtering
         public static bool isNavigationBlocked(HTTPProtocolFilter.FilterPolicy httpPolicy,Uri referURI, Uri newURI, out string reason)
         {
             reason = "init final";
-            bool isBlocked = false;
+            bool isBlocked = true;
 
             if (httpPolicy.getMode() == HTTPProtocolFilter.WorkingMode.ENFORCE)
             {
-                isBlocked = true;
-
-                // TODO: Filter here
                 string urlReason = "init main reason";
                 if (httpPolicy.isWhitelistedURL(newURI, out urlReason))
                 {
@@ -79,6 +76,10 @@ namespace FilteredCommon.Filtering
                         reason = urlReason;
                     }
                 }
+            }
+            else
+            {
+                isBlocked = false;
             }
 
             return isBlocked;
