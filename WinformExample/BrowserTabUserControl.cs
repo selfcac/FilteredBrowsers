@@ -187,9 +187,29 @@ namespace CefSharp.WinForms.Example
             this.InvokeOnUiThreadIfRequired(() => Parent.Text = CroppedText(args.Title));
         }
 
+        
         private void OnBrowserAddressChanged(object sender, AddressChangedEventArgs args)
         {
+            string finalReason = "navigiated_init";
+            bool blocked = FilteredCommon.Filtering.FilteringFlow
+                .isTimeBlocked(BrowserForm.timePolicy, DateTime.Now, ref finalReason);
+            if (!blocked)
+            {
+                blocked = FilteredCommon.Filtering.FilteringFlow
+                    .isNavigationBlocked(BrowserForm.httpPolicy, myHistory.CurrentURI(), new Uri(args.Address), out finalReason);
+            }
+
             this.InvokeOnUiThreadIfRequired(() => urlTextBox.Text = args.Address);
+
+            if (blocked)
+            {
+                Browser.GetMainFrame().ExecuteJavaScriptAsync(
+                    FilteredCommon.Filtering.FilteringFlow.evalReplaceHTML(
+                        FilteredCommon.Filtering.FilteringFlow.formatBlockpage(args.Address)
+                        )
+                    );
+            }
+
         }
 
         private static void OnJavascriptEventArrived(string eventName, object eventData)
