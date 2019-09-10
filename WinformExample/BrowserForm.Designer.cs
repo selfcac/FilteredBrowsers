@@ -63,6 +63,7 @@ namespace CefSharp.WinForms.Example
             this.closeToRightToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.closeOthersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.browserTabControl = new System.Windows.Forms.TabControl();
+            this.devtoolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,7 +77,8 @@ namespace CefSharp.WinForms.Example
             this.toolStripMenuItem1,
             this.addTabToolStripMenuItem,
             this.closeTabIconMenuItem1,
-            this.closeToRightToolStripMenuItem});
+            this.closeToRightToolStripMenuItem,
+            this.devtoolToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(730, 24);
@@ -343,6 +345,13 @@ namespace CefSharp.WinForms.Example
             this.browserTabControl.Size = new System.Drawing.Size(730, 466);
             this.browserTabControl.TabIndex = 2;
             // 
+            // devtoolToolStripMenuItem
+            // 
+            this.devtoolToolStripMenuItem.Name = "devtoolToolStripMenuItem";
+            this.devtoolToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.devtoolToolStripMenuItem.Text = "Devtool";
+            this.devtoolToolStripMenuItem.Click += new System.EventHandler(this.ShowDevToolsDockedMenuItemClick);
+            // 
             // BrowserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -400,5 +409,6 @@ namespace CefSharp.WinForms.Example
         private System.Windows.Forms.ToolStripMenuItem closeOthersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem resetZoomToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem devtoolToolStripMenuItem;
     }
 }

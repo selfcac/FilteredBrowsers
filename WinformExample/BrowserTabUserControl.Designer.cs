@@ -159,15 +159,16 @@ namespace CefSharp.WinForms.Example
             this.urlTextBox.ReadOnly = true;
             this.urlTextBox.Size = new System.Drawing.Size(500, 25);
             this.urlTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.UrlTextBoxKeyUp);
+            this.urlTextBox.Click += new System.EventHandler(this.GoButtonClick);
             // 
             // goButton
             // 
+            this.goButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.goButton.Image = global::CefSharp.WinForms.Example.Properties.Resources.nav_plain_green;
             this.goButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.goButton.Name = "goButton";
-            this.goButton.Size = new System.Drawing.Size(42, 22);
+            this.goButton.Size = new System.Drawing.Size(23, 22);
             this.goButton.Text = "Go";
-            this.goButton.Click += new System.EventHandler(this.GoButtonClick);
             // 
             // devToolsSplitContainer
             // 

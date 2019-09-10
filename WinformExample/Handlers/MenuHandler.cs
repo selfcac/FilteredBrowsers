@@ -25,7 +25,7 @@ namespace CefSharp.WinForms.Example.Handlers
             // model.Clear();
 
             //Removing existing menu item
-            //bool removed = model.Remove(CefMenuCommand.ViewSource); // Remove "View Source" option
+            bool removed = model.Remove(CefMenuCommand.ViewSource); // Remove "View Source" option
 
             //Add new custom menu items
             //model.AddItem((CefMenuCommand)ShowDevTools, "Show DevTools");
