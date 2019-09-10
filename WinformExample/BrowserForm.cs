@@ -776,13 +776,15 @@ namespace CefSharp.WinForms.Example
             historyLog = new LogFileHandler(historyPath);
             bookmarkLog = new LogFileHandler(bookmarkPath);
 
-            httpPolicy.reloadPolicy(CefSharp.WinForms.Example.Properties.Settings.Default.httpPolicyPath);
+            //httpPolicy.reloadPolicy(CefSharp.WinForms.Example.Properties.Settings.Default.httpPolicyPath);
+            httpPolicy.proxyMode = HTTPProtocolFilter.WorkingMode.MAPPING;
+
             timePolicy.reloadPolicy(CefSharp.WinForms.Example.Properties.Settings.Default.timePolicyPath);
+            //timePolicy.clearAllTo(true); // debug : Allow all times!
 
             var bitness = Environment.Is64BitProcess ? "x64" : "x86";
             Text += " - " + bitness;
 
-            //timePolicy.clearAllTo(true); // debug : Allow all times!
         }
     }
 }

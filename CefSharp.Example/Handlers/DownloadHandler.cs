@@ -3,6 +3,7 @@
 // Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.
 
 using System;
+using System.IO;
 
 namespace CefSharp.Example.Handlers
 {
@@ -20,7 +21,7 @@ namespace CefSharp.Example.Handlers
             {
                 using (callback)
                 {
-                    callback.Continue(downloadItem.SuggestedFileName, showDialog: true);
+                    callback.Continue(Path.Combine(@"C:\Users\Yoni\Downloads\GifCam" ,downloadItem.SuggestedFileName), showDialog: false);
                 }
             }
         }
