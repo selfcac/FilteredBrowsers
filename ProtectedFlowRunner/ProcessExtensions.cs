@@ -213,6 +213,7 @@ namespace murrayju.ProcessExtensions
             string cmdLine = null,
             string workDir = null,
             IntPtr? process_security = null,
+            IntPtr? thread_security = null,
             bool visible = true)
         {
             var hUserToken = IntPtr.Zero;
@@ -243,7 +244,7 @@ namespace murrayju.ProcessExtensions
                     appPath, // Application Name
                     cmdLine, // Command Line
                     process_security ?? IntPtr.Zero,
-                    IntPtr.Zero,
+                    thread_security ?? IntPtr.Zero,
                     false,
                     dwCreationFlags,
                     pEnv,
@@ -252,7 +253,7 @@ namespace murrayju.ProcessExtensions
                     out procInfo))
                 {
                     iResultOfCreateProcessAsUser = Marshal.GetLastWin32Error();
-                    throw new Exception("StartProcessAsCurrentUser: CreateProcessAsUser failed.  Error Code -" + iResultOfCreateProcessAsUser);
+                    throw new Exception("StartProcessAsCurrentUser: CreateProcessAsUser failed.  Error Code: " + iResultOfCreateProcessAsUser);
                 }
 
                 iResultOfCreateProcessAsUser = Marshal.GetLastWin32Error();
@@ -282,6 +283,10 @@ namespace murrayju.ProcessExtensions
             startInfo.WorkingDirectory = dir;
             startInfo.FileName = filename;
             startInfo.Arguments = arguments;
+
+            startInfo.LoadUserProfile = true;
+
+            startInfo.Domain = ".";
             startInfo.Password = secPass;
             startInfo.UserName = username;
 

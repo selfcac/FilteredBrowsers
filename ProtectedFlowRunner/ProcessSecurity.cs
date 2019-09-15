@@ -46,7 +46,7 @@ namespace ProtectedFlowRunner
         {
             //https://stackoverflow.com/a/1040629/1997873
 
-            NTAccount f = new NTAccount("username");
+            NTAccount f = new NTAccount(username);
             SecurityIdentifier s = (SecurityIdentifier)f.Translate(typeof(SecurityIdentifier));
             String sidString = s.ToString();
             return sidString;

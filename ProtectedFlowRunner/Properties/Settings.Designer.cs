@@ -31,5 +31,17 @@ namespace ProtectedFlowRunner.Properties {
                 return ((string)(this["protectedExe"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:P(A;OICI;0x0080;;;WD)")]
+        public string SDDL {
+            get {
+                return ((string)(this["SDDL"]));
+            }
+            set {
+                this["SDDL"] = value;
+            }
+        }
     }
 }

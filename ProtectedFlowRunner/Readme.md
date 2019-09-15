@@ -26,6 +26,8 @@ problems to doc:
         ** service -> local (protected) [user,pass,secret] -> other user (protected against local (not agaist itself)) [secret]
     * Cant debug user B from user A (All thread data is denied, verfied with Process explorer)
         * Altough EXE \ Command \ ENV Block is allowed.
+	* To open process as another user U must have QUERY_LIMITED_INFORMATION + QUERY_INFORMATION which show stuff!!! (and block debug??)
+
     
 solution:
 

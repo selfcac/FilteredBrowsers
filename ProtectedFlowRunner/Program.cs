@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleImpersonation;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,7 +10,9 @@ namespace ProtectedFlowRunner
 {
     class Program
     {
-        const string SDDL_AllowOnly_Format = "D:P(A;OICI;GA;;;{0})";
+        //http://csharptest.net/1043/how-to-prevent-users-from-killing-your-service-process/index.html
+        //PROCESS_CREATE_PROCESS =0x0080
+        static string SDDL_AllowOnly_Format = ProtectedFlowRunner.Properties.Settings.Default.SDDL;
 
         static void Main(string[] args)
         {
@@ -19,7 +22,12 @@ namespace ProtectedFlowRunner
                 Console.WriteLine(string.Format("* [{0}] {1}",i, args[i]));
             }
 
-            string thisPath = System.Reflection.Assembly.GetEntryAssembly().Location;
+            string thisPath =
+             System.Reflection.Assembly.GetEntryAssembly().Location;
+            //@"C:\WINDOWS\system32\cmd.exe"; 
+            
+            Console.WriteLine("This exe path: \"" + thisPath +"\"");
+            Console.WriteLine("Start dir: \"" + Path.GetDirectoryName(thisPath) + "\"");
 
             // this.exe <mode> <user> <pass>
             if (args.Length == 3)
@@ -34,15 +42,15 @@ namespace ProtectedFlowRunner
                             try
                             {
                                 // Run as interactive use , with threads protected.
-                                IntPtr security = ProcessSecurity.getSecurity(string.Format(
+                                IntPtr security_process = ProcessSecurity.getSecurity(string.Format(
                                     SDDL_AllowOnly_Format, ProcessSecurity.getSidByUserName(args[1])
                                     ));
                                 string startDir = Path.GetDirectoryName(thisPath);
 
                                 murrayju.ProcessExtensions.ProcessExtensions.StartProcessAsCurrentUser(
-                                    "",
+                                    thisPath,
                                     string.Format("\"{0}\" 1 {1} {2}", thisPath, args[1], args[2]), // Give it user\pass
-                                    startDir, security, true);
+                                    startDir, security_process, null , true);
                             }
                             catch (Exception ex)
                             {
@@ -52,8 +60,13 @@ namespace ProtectedFlowRunner
                         else if (mode ==1)
                         {
                             // Run as a different user
+
+                            Console.ReadLine();
+
                             try
                             {
+                                var cred = new UserCredentials(".", args[1], args[2]);
+
                                 murrayju.ProcessExtensions.ProcessExtensions.StartProcessAsUserInSameDesktop(
                                         ProtectedFlowRunner.Properties.Settings.Default.protectedExe,
                                         Path.GetDirectoryName(ProtectedFlowRunner.Properties.Settings.Default.protectedExe),
