@@ -207,7 +207,11 @@ namespace murrayju.ProcessExtensions
             return bResult;
         }
 
-        public static bool StartProcessAsCurrentUser(string appPath, string cmdLine = null, string workDir = null, bool visible = true)
+        public static bool StartProcessAsCurrentUser(string appPath,
+            IntPtr? process_security = null,
+            string cmdLine = null,
+            string workDir = null,
+            bool visible = true)
         {
             var hUserToken = IntPtr.Zero;
             var startInfo = new STARTUPINFO();
@@ -236,7 +240,7 @@ namespace murrayju.ProcessExtensions
                 if (!CreateProcessAsUser(hUserToken,
                     appPath, // Application Name
                     cmdLine, // Command Line
-                    IntPtr.Zero,
+                    process_security ?? IntPtr.Zero,
                     IntPtr.Zero,
                     false,
                     dwCreationFlags,
