@@ -1,8 +1,11 @@
 ﻿using SimpleImpersonation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -65,14 +68,27 @@ namespace ProtectedFlowRunner
 
                             try
                             {
-                                var cred = new UserCredentials(".", args[1], args[2]);
 
-                                murrayju.ProcessExtensions.ProcessExtensions.StartProcessAsUserInSameDesktop(
-                                        ProtectedFlowRunner.Properties.Settings.Default.protectedExe,
-                                        Path.GetDirectoryName(ProtectedFlowRunner.Properties.Settings.Default.protectedExe),
-                                        "",
-                                         args[1], args[2]
-                                    );
+                                Console.WriteLine("Current user: " + WindowsIdentity.GetCurrent().Name);
+                                WrapperImpersonationContext context = new WrapperImpersonationContext(".", "adminusb", "6666");
+                                context.Enter();
+                                // Execute code under other uses context
+
+                                Console.WriteLine("Current user: " + WindowsIdentity.GetCurrent().Name);
+                                SecureString s = new SecureString();
+                                foreach (char c in "6666") s.AppendChar(c);
+                                var p = Process.Start(ProtectedFlowRunner.Properties.Settings.Default.protectedExe,"adminusb",s,".");
+                                p.WaitForExit();
+
+                                context.Leave();
+                                Console.WriteLine("Current user: " + WindowsIdentity.GetCurrent().Name);
+
+                                //murrayju.ProcessExtensions.ProcessExtensions.StartProcessAsUserInSameDesktop(
+                                //        ProtectedFlowRunner.Properties.Settings.Default.protectedExe,
+                                //        Path.GetDirectoryName(ProtectedFlowRunner.Properties.Settings.Default.protectedExe),
+                                //        "",
+                                //         args[1], args[2]
+                                //    );
                             }
                             catch (Exception ex)
                             {

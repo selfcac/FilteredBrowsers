@@ -55,6 +55,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="StructWrapper.cs" />
+    <Compile Include="WrapperImpersonationContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
