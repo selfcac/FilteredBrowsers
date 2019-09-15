@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Security;
 
 namespace murrayju.ProcessExtensions
 {
@@ -208,9 +210,9 @@ namespace murrayju.ProcessExtensions
         }
 
         public static bool StartProcessAsCurrentUser(string appPath,
-            IntPtr? process_security = null,
             string cmdLine = null,
             string workDir = null,
+            IntPtr? process_security = null,
             bool visible = true)
         {
             var hUserToken = IntPtr.Zero;
@@ -269,5 +271,19 @@ namespace murrayju.ProcessExtensions
             return true;
         }
 
+        public static void StartProcessAsUserInSameDesktop(string filename, string arguments, string username, string pass)
+        {
+            SecureString secPass = new SecureString();
+            foreach(char c in pass) { secPass.AppendChar(c); }
+
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+
+            startInfo.FileName = filename;
+            startInfo.Arguments = arguments;
+            startInfo.Password = secPass;
+            startInfo.UserName = username;
+
+            Process.Start(startInfo);
+        }
     }
 }

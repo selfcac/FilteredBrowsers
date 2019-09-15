@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,9 +11,11 @@ namespace ProtectedFlowRunner
     {
         public IntPtr Ptr { get; private set; }
 
+        private StructWrapper() { }
+
         public StructWrapper(object obj)
         {
-            if (Ptr != null)
+            if (obj != null)
             {
                 Ptr = Marshal.AllocHGlobal(Marshal.SizeOf(obj));
                 Marshal.StructureToPtr(obj, Ptr, false);
@@ -21,6 +24,14 @@ namespace ProtectedFlowRunner
             {
                 Ptr = IntPtr.Zero;
             }
+        }
+
+        public static StructWrapper FromUnsafePointer(IntPtr ptr)
+        {
+            StructWrapper result = new StructWrapper();
+            result.Ptr = ptr;
+
+            return result;
         }
 
         ~StructWrapper()
