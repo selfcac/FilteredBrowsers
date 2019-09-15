@@ -40,5 +40,14 @@ namespace CefSharp.WinForms.Example.Properties {
                 return ((string)(this["timePolicyPath"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("123123")]
+        public string bypassSecret {
+            get {
+                return ((string)(this["bypassSecret"]));
+            }
+        }
     }
 }

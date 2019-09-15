@@ -8,5 +8,8 @@
     <Setting Name="timePolicyPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">C:\ProxyFilteredChrome\BrowserPolicy\timeblock.v2.json</Value>
     </Setting>
+    <Setting Name="bypassSecret" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">123123</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

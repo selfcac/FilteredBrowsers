@@ -785,6 +785,8 @@ namespace CefSharp.WinForms.Example
             var bitness = Environment.Is64BitProcess ? "x64" : "x86";
             Text += " - " + bitness;
 
+            // Read bypass secret from file:
+            AddSecretHandler.BypassSecret = CefSharp.WinForms.Example.Properties.Settings.Default.bypassSecret;
         }
     }
 }
