@@ -271,13 +271,15 @@ namespace murrayju.ProcessExtensions
             return true;
         }
 
-        public static void StartProcessAsUserInSameDesktop(string filename, string arguments, string username, string pass)
+        public static void StartProcessAsUserInSameDesktop(string filename, string dir,  string arguments, string username, string pass)
         {
             SecureString secPass = new SecureString();
             foreach(char c in pass) { secPass.AppendChar(c); }
 
             ProcessStartInfo startInfo = new ProcessStartInfo();
 
+            startInfo.UseShellExecute = false;
+            startInfo.WorkingDirectory = dir;
             startInfo.FileName = filename;
             startInfo.Arguments = arguments;
             startInfo.Password = secPass;

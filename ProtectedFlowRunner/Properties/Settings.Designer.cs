@@ -23,15 +23,12 @@ namespace ProtectedFlowRunner.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProxyServices\\ProxyFilteredChrome\\Debug\\CefSharp.WinForms.Example.exe")]
         public string protectedExe {
             get {
                 return ((string)(this["protectedExe"]));
-            }
-            set {
-                this["protectedExe"] = value;
             }
         }
     }

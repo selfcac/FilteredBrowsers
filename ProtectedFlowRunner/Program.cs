@@ -19,11 +19,13 @@ namespace ProtectedFlowRunner
                 Console.WriteLine(string.Format("* [{0}] {1}",i, args[i]));
             }
 
+            string thisPath = System.Reflection.Assembly.GetEntryAssembly().Location;
+
             // this.exe <mode> <user> <pass>
-            if (args.Length == 4)
+            if (args.Length == 3)
             {
                 int mode = -1;
-                if (int.TryParse(args[1], out mode))
+                if (int.TryParse(args[0], out mode))
                 {
                     if (mode > -1 && mode < 2)
                     {
@@ -33,14 +35,13 @@ namespace ProtectedFlowRunner
                             {
                                 // Run as interactive use , with threads protected.
                                 IntPtr security = ProcessSecurity.getSecurity(string.Format(
-                                    SDDL_AllowOnly_Format, ProcessSecurity.getSidByUserName(args[2])
+                                    SDDL_AllowOnly_Format, ProcessSecurity.getSidByUserName(args[1])
                                     ));
-                                string thisPath = args[0];
                                 string startDir = Path.GetDirectoryName(thisPath);
 
                                 murrayju.ProcessExtensions.ProcessExtensions.StartProcessAsCurrentUser(
                                     "",
-                                    string.Format("\"{0}\" 1 {1} {2}", thisPath, args[2], args[3]), // Give it user\pass
+                                    string.Format("\"{0}\" 1 {1} {2}", thisPath, args[1], args[2]), // Give it user\pass
                                     startDir, security, true);
                             }
                             catch (Exception ex)
@@ -55,8 +56,9 @@ namespace ProtectedFlowRunner
                             {
                                 murrayju.ProcessExtensions.ProcessExtensions.StartProcessAsUserInSameDesktop(
                                         ProtectedFlowRunner.Properties.Settings.Default.protectedExe,
+                                        Path.GetDirectoryName(ProtectedFlowRunner.Properties.Settings.Default.protectedExe),
                                         "",
-                                         args[2], args[3]
+                                         args[1], args[2]
                                     );
                             }
                             catch (Exception ex)
@@ -78,7 +80,7 @@ namespace ProtectedFlowRunner
             }
             else
             {
-                Console.WriteLine("Expectign 4 args: <this> <mode> <user> <pass>");
+                Console.WriteLine("Expectign 3 args:  <mode> <user> <pass>");
             }
 
             Console.ReadLine();
