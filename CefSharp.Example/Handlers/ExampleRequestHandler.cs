@@ -16,6 +16,7 @@ namespace CefSharp.Example.Handlers
     /// </summary>
     public class ExampleRequestHandler : RequestHandler
     {
+
         public static readonly string VersionNumberString = String.Format("Chromium: {0}, CEF: {1}, CefSharp: {2}",
             Cef.ChromiumVersion, Cef.CefVersion, Cef.CefSharpVersion);
 

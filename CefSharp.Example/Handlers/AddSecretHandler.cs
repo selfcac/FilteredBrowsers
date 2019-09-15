@@ -14,8 +14,7 @@ namespace CefSharp.Example.Handlers
 {
     public class AddSecretHandler : ResourceRequestHandler
     {
-        private string mySecret = "";
-        const string prefixSecret = "--secret=";
+        public static string BypassSecret = "";
         const string headerSecret = "mitm-secret";
 
 
@@ -37,18 +36,11 @@ namespace CefSharp.Example.Handlers
 
         public AddSecretHandler()
         {
-            foreach (string arg in Environment.GetCommandLineArgs())
-            {
-                if (arg.StartsWith(prefixSecret))
-                {
-                    mySecret = arg.Substring(prefixSecret.Length);
-                }
-            }
         }
         
         protected override CefReturnValue OnBeforeResourceLoad(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IRequestCallback callback)
         {
-            string secret_hash = GetHashString(request.Url.ToLower() + mySecret).ToLower();
+            string secret_hash = GetHashString(request.Url.ToLower() + BypassSecret).ToLower();
             request.SetHeaderByName(headerSecret, secret_hash, true);
             Debug.WriteLine(request.Url.ToLower() + ": " + secret_hash);
             
