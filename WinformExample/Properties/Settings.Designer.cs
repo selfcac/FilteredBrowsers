@@ -25,7 +25,8 @@ namespace CefSharp.WinForms.Example.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProxyFilteredChrome\\BrowserPolicy\\browser_policy.json")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Yoni\\Desktop\\selfcac\\CefSharp.WinForms.Filtered\\SamplePolicies\\policy.js" +
+            "on")]
         public string httpPolicyPath {
             get {
                 return ((string)(this["httpPolicyPath"]));
@@ -34,7 +35,8 @@ namespace CefSharp.WinForms.Example.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProxyFilteredChrome\\BrowserPolicy\\timeblock.v2.json")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Yoni\\Desktop\\selfcac\\CefSharp.WinForms.Filtered\\SamplePolicies\\time.json" +
+            "")]
         public string timePolicyPath {
             get {
                 return ((string)(this["timePolicyPath"]));
@@ -47,6 +49,18 @@ namespace CefSharp.WinForms.Example.Properties {
         public string bypassSecret {
             get {
                 return ((string)(this["bypassSecret"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProxyChromeFlow\\Downloads")]
+        public string saveFolder {
+            get {
+                return ((string)(this["saveFolder"]));
+            }
+            set {
+                this["saveFolder"] = value;
             }
         }
     }

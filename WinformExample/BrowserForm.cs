@@ -5,7 +5,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CefSharp.Example;
@@ -503,39 +505,38 @@ namespace CefSharp.WinForms.Example
             }
         }
 
+        private static readonly Regex removeInvalidChars = new Regex($"[{Regex.Escape(new string(Path.GetInvalidFileNameChars()))}]",
+            RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+        public static string SanitizedFileName(string fileName, string replacement = "_")
+        {
+            if (string.IsNullOrEmpty(fileName))
+                return fileName;
+            return removeInvalidChars.Replace(fileName, replacement);
+        }
+
         private async void PrintToPdfToolStripMenuItemClick(object sender, EventArgs e)
         {
             var control = GetCurrentTabControl();
             if (control != null)
             {
-                var dialog = new SaveFileDialog
+                var filename = SanitizedFileName((browserTabControl.SelectedTab?.Text ?? "No title") + "_" + DateTime.Now)  + ".pdf";
+                filename = Path.Combine(CefSharp.WinForms.Example.Properties.Settings.Default.saveFolder, filename);
+
+                var success = await control.Browser.PrintToPdfAsync(filename, new PdfPrintSettings
                 {
-                    DefaultExt = ".pdf",
-                    Filter = "Pdf documents (.pdf)|*.pdf"
-                };
+                    BackgroundsEnabled = includeBackgroundToolStripMenuItem.Checked,
+                    SelectionOnly = selectionOnlyToolStripMenuItem1.Checked
+                });
 
-                if (dialog.ShowDialog() == DialogResult.OK)
+                if (success)
                 {
-                    var success = await control.Browser.PrintToPdfAsync(dialog.FileName, new PdfPrintSettings
-                    {
-                        MarginType = CefPdfPrintMarginType.Custom,
-                        MarginBottom = 10,
-                        MarginTop = 0,
-                        MarginLeft = 20,
-                        MarginRight = 10
-                    });
-
-                    if (success)
-                    {
-                        MessageBox.Show("Pdf was saved to " + dialog.FileName);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Unable to save Pdf, check you have write permissions to " + dialog.FileName);
-                    }
-
+                    MessageBox.Show("Pdf was saved to\n" + filename);
                 }
-
+                else
+                {
+                    MessageBox.Show("Unable to save Pdf, check you have write permissions to\n" + filename);
+                }
             }
         }
 
@@ -751,6 +752,18 @@ namespace CefSharp.WinForms.Example
             }
         }
 
+        bool isDebug = false;
+
+        private void entirePAgeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            selectionOnlyToolStripMenuItem1.Checked = false;
+        }
+
+        private void selectionOnlyToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            entirePAgeToolStripMenuItem.Checked = false;
+        }
+
         private void BrowserForm_Load(object sender, EventArgs e)
         {
             // Init download window:
@@ -776,11 +789,39 @@ namespace CefSharp.WinForms.Example
             historyLog = new LogFileHandler(historyPath);
             bookmarkLog = new LogFileHandler(bookmarkPath);
 
-            //httpPolicy.reloadPolicy(CefSharp.WinForms.Example.Properties.Settings.Default.httpPolicyPath);
-            httpPolicy.proxyMode = HTTPProtocolFilter.WorkingMode.MAPPING;
+            if (isDebug)
+            {
+                httpPolicy.proxyMode = HTTPProtocolFilter.WorkingMode.MAPPING;
+                timePolicy.clearAllTo(true);
+            }
+            else
+            {
+                string httpPolicyPath = CefSharp.WinForms.Example.Properties.Settings.Default.httpPolicyPath;
+                string timePolicyPath = CefSharp.WinForms.Example.Properties.Settings.Default.timePolicyPath;
 
-            timePolicy.reloadPolicy(CefSharp.WinForms.Example.Properties.Settings.Default.timePolicyPath);
-            //timePolicy.clearAllTo(true); // debug : Allow all times!
+                if (!File.Exists(httpPolicyPath))
+                {
+                    MessageBox.Show("Can't open http policy\n" + httpPolicyPath);
+                    Process.GetCurrentProcess().Kill();
+                }
+                else if (!File.Exists(timePolicyPath))
+                {
+                    MessageBox.Show("Can't open time policy\n" + timePolicyPath);
+                    Process.GetCurrentProcess().Kill();
+                }
+
+                httpPolicy.reloadPolicy(httpPolicyPath);
+                timePolicy.reloadPolicy(timePolicyPath);
+            }
+
+
+            string saveFolderPath = CefSharp.WinForms.Example.Properties.Settings.Default.saveFolder;
+            if (!Directory.Exists(saveFolderPath))
+            {
+                MessageBox.Show("Can't access save folder\n" + saveFolderPath);
+                Process.GetCurrentProcess().Kill();
+            }
+           
 
             var bitness = Environment.Is64BitProcess ? "x64" : "x86";
             Text += " - " + bitness;
