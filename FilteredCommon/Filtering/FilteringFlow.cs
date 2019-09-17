@@ -92,12 +92,12 @@ namespace FilteredCommon.Filtering
             reason = "init body reason";
             if (httpPolicy.isBodyBlocked(HeaderText, out reason))
             {
-                reason = "Body is blocked. </br>" + reason;
+                reason = "Header is blocked. <br />" + reason;
                 isBlocked = true;
             }
             else if (httpPolicy.isBodyBlocked(BodyText, out reason))
             {
-                reason = "Header is blocked. </br>" + reason;
+                reason = "HTML Body is blocked. <br />" + reason;
                 isBlocked = true;
             }
             return isBlocked;

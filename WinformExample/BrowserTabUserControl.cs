@@ -96,6 +96,8 @@ namespace CefSharp.WinForms.Example
             browser.IsBrowserInitializedChanged += OnIsBrowserInitializedChanged;
             browser.LoadError += OnLoadError;
 
+            browser.FrameLoadEnd += Browser_FrameLoadEnd;
+
             browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
 
 
@@ -120,6 +122,11 @@ namespace CefSharp.WinForms.Example
             var version = String.Format("Chromium: {0}, CEF: {1}, CefSharp: {2}", Cef.ChromiumVersion, Cef.CefVersion, Cef.CefSharpVersion);
             DisplayOutput(version);
 
+        }
+
+        private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
+        {
+            
         }
 
         private void Browser_IsBrowserInitializedChanged(object sender, EventArgs e)
@@ -608,42 +615,58 @@ namespace CefSharp.WinForms.Example
             if (Browser.IsBrowserInitialized )
             {
                 var mainFrame = Browser.GetMainFrame();
-                if (mainFrame.IsValid && mainFrame.Url != FilteredCommon.Filtering.FilteringFlow.blockedDevUrl)
+                bool isBlocked = false;
+                List<long> allFrames = Browser.GetBrowser().GetFrameIdentifiers();
+                for (int i = 0; i < allFrames.Count && !isBlocked; i++)
                 {
-                    try
-                    {
-                        var headerRes = await mainFrame.EvaluateScriptAsync(
-                           FilteredCommon.Filtering.FilteringFlow.evalHead,
-                           timeout: TimeSpan.FromSeconds(5)
-                       );
-
-                        var bodyRes = await mainFrame.EvaluateScriptAsync(
-                            FilteredCommon.Filtering.FilteringFlow.evalBody,
-                            timeout: TimeSpan.FromSeconds(5)
-                        );
-
-                        if (headerRes.Success && bodyRes.Success)
-                        {
-                            string finalResaon = "";
-                            if (FilteredCommon.Filtering.FilteringFlow.isHTMLPageBlocked(
-                                BrowserForm.httpPolicy,
-                                headerRes.Result as string,
-                                bodyRes.Result as string,
-                                out finalResaon
-                                ))
-                            {
-                                myPageNavigationManager.lastReason = finalResaon;
-                                LoadUrl(FilteredCommon.Filtering.FilteringFlow.blockedDevUrl);
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        DisplayOutput(ex.ToString());
-                    }
-
+                    var currentFrame = Browser.GetBrowser().GetFrame(allFrames[i]);
+                    if (currentFrame != null && currentFrame.IsValid && !currentFrame.IsDisposed)
+                        isBlocked = await FilterFrameContent(currentFrame);
                 }
             }
+        }
+
+        private async Task<bool> FilterFrameContent(IFrame frame)
+        {
+            bool isBlocked = false;
+            if (frame.IsValid && frame.Url != FilteredCommon.Filtering.FilteringFlow.blockedDevUrl)
+            {
+                try
+                {
+                    var headerRes = await frame.EvaluateScriptAsync(
+                       FilteredCommon.Filtering.FilteringFlow.evalHead,
+                       timeout: TimeSpan.FromSeconds(5)
+                   );
+
+                    var bodyRes = await frame.EvaluateScriptAsync(
+                        FilteredCommon.Filtering.FilteringFlow.evalBody,
+                        timeout: TimeSpan.FromSeconds(5)
+                    );
+
+                    if (headerRes.Success && bodyRes.Success)
+                    {
+                        string finalResaon = "";
+                        isBlocked = FilteredCommon.Filtering.FilteringFlow.isHTMLPageBlocked(
+                            BrowserForm.httpPolicy,
+                            headerRes.Result as string,
+                            bodyRes.Result as string,
+                            out finalResaon
+                            );
+                        if (isBlocked)
+                        {
+                            finalResaon += " <br /> Source frame url: " + frame.Url;
+                            myPageNavigationManager.lastReason = finalResaon;
+                            LoadUrl(FilteredCommon.Filtering.FilteringFlow.blockedDevUrl);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DisplayOutput(ex.ToString());
+                }
+
+            }
+            return isBlocked;
         }
     }
 }
