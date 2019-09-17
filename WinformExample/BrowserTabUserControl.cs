@@ -222,6 +222,13 @@ namespace CefSharp.WinForms.Example
                         )
                     );
             }
+            else
+            {
+                string lastUrl = myHistory.CurrentURL();
+                bool isBlocked = WinFormsRequestHandler.shouldBlockNavigation(args.Address, lastUrl, ref myPageNavigationManager.lastReason);
+                if (isBlocked)
+                    LoadUrl(FilteredCommon.Filtering.FilteringFlow.blockedDevUrl);
+            }
         }
 
         private static void OnJavascriptEventArrived(string eventName, object eventData)

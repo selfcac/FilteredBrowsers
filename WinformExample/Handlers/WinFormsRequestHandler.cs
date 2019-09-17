@@ -65,7 +65,7 @@ namespace CefSharp.WinForms.Example.Handlers
 
         public string lastReason = "";
 
-        Uri safeUrlConvertor(string url)
+        static Uri safeUrlConvertor(string url)
         {
             Uri result = null;
             url = Uri.EscapeUriString(url);
@@ -89,18 +89,9 @@ namespace CefSharp.WinForms.Example.Handlers
             bool cancelRequest = base.OnBeforeBrowse(chromiumWebBrowser, browser, frame, request, userGesture, isRedirect);
             if (frame.IsMain && request.Url.Length > 0 && request.Url != FilteredCommon.Filtering.FilteringFlow.blockedDevUrl)
             {
-                string finalReason = "navigiated_init";
-                bool blocked = FilteredCommon.Filtering.FilteringFlow
-                    .isTimeBlocked(BrowserForm.timePolicy, DateTime.Now, ref finalReason);
-                if (!blocked)
+                var isBlocked = shouldBlockNavigation(request.Url ?? "", request.ReferrerUrl ?? "", ref lastReason);
+                if (isBlocked)
                 {
-                    blocked = FilteredCommon.Filtering.FilteringFlow
-                        .isNavigationBlocked(BrowserForm.httpPolicy, safeUrlConvertor(request.ReferrerUrl), safeUrlConvertor(request.Url), out finalReason);
-                }
-
-                if (blocked)
-                {
-                    lastReason = finalReason;
                     cancelRequest = true;
                     chromiumWebBrowser.Load(FilteredCommon.Filtering.FilteringFlow.blockedDevUrl);
                 }
@@ -108,6 +99,26 @@ namespace CefSharp.WinForms.Example.Handlers
             return cancelRequest;
         }
 
+        public static bool shouldBlockNavigation(string Url,string ReferrerUrl, ref string reason)
+        {
+            bool isBlocked = false;
+            string finalReason = "navigiated_init";
+            bool blocked = FilteredCommon.Filtering.FilteringFlow
+                .isTimeBlocked(BrowserForm.timePolicy, DateTime.Now, ref finalReason);
+            if (!blocked)
+            {
+                blocked = FilteredCommon.Filtering.FilteringFlow
+                    .isNavigationBlocked(BrowserForm.httpPolicy, safeUrlConvertor(ReferrerUrl), safeUrlConvertor(Url), out finalReason);
+            }
+
+            if (blocked)
+            {
+                reason = finalReason;
+                isBlocked = true;
+            }
+
+            return isBlocked;
+        }
 
         protected override IResourceRequestHandler GetResourceRequestHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool isNavigation, bool isDownload, string requestInitiator, ref bool disableDefaultHandling)
         {

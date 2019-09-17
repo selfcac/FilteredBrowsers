@@ -35,8 +35,8 @@ namespace CefSharp.WinForms.Example.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Yoni\\Desktop\\selfcac\\CefSharp.WinForms.Filtered\\SamplePolicies\\time.json" +
-            "")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Yoni\\Desktop\\selfcac\\CefSharp.WinForms.Filtered\\SamplePolicies\\all_time." +
+            "json")]
         public string timePolicyPath {
             get {
                 return ((string)(this["timePolicyPath"]));

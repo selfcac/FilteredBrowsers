@@ -752,7 +752,7 @@ namespace CefSharp.WinForms.Example
             }
         }
 
-        bool isDebug = true;
+        bool isDebug = false;
 
         private void entirePAgeToolStripMenuItem_Click(object sender, EventArgs e)
         {

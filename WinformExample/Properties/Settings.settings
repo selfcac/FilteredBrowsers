@@ -6,7 +6,7 @@
       <Value Profile="(Default)">C:\Users\Yoni\Desktop\selfcac\CefSharp.WinForms.Filtered\SamplePolicies\policy.json</Value>
     </Setting>
     <Setting Name="timePolicyPath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\Users\Yoni\Desktop\selfcac\CefSharp.WinForms.Filtered\SamplePolicies\time.json</Value>
+      <Value Profile="(Default)">C:\Users\Yoni\Desktop\selfcac\CefSharp.WinForms.Filtered\SamplePolicies\all_time.json</Value>
     </Setting>
     <Setting Name="bypassSecret" Type="System.String" Scope="Application">
       <Value Profile="(Default)">123123</Value>
