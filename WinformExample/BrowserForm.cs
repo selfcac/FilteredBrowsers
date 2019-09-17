@@ -752,7 +752,7 @@ namespace CefSharp.WinForms.Example
             }
         }
 
-        bool isDebug = false;
+        bool isDebug = true;
 
         private void entirePAgeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -793,6 +793,7 @@ namespace CefSharp.WinForms.Example
             {
                 httpPolicy.proxyMode = HTTPProtocolFilter.WorkingMode.MAPPING;
                 timePolicy.clearAllTo(true);
+                MessageBox.Show("In debug mode! Filtering is off!", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {

@@ -59,15 +59,16 @@ namespace CefSharp.WinForms.Example
 
         private void tryOpenFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (lstBoxDownload.SelectedItem != null)
-            {
-                string filename = (lstBoxDownload.SelectedItem as DownloadItemProgress).Item().FullPath;
-                string dir = Path.GetDirectoryName(filename);
-                if (Directory.Exists(dir))
-                {
-                    Process.Start(dir);
-                }
-            }
+            //if (lstBoxDownload.SelectedItem != null)
+            //{
+            //    string filename = (lstBoxDownload.SelectedItem as DownloadItemProgress).Item().FullPath;
+            //    string dir = Path.GetDirectoryName(filename);
+            //    if (Directory.Exists(dir))
+            //    {
+            //        Process.Start(dir);
+            //    }
+            //}
+            Process.Start(CefSharp.WinForms.Example.Properties.Settings.Default.saveFolder);
         }
     }
 

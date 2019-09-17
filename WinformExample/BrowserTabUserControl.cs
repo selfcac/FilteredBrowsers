@@ -52,9 +52,6 @@ namespace CefSharp.WinForms.Example
                 CefSharp.Cef.Initialize(Settings);
             }
 
-
-
-
             var browser = new ChromiumWebBrowser("about:blank")
             {
                 Dock = DockStyle.Fill
@@ -70,8 +67,8 @@ namespace CefSharp.WinForms.Example
             browser.RequestHandler = myPageNavigationManager;
             browser.JsDialogHandler = new JsDialogHandler();
             
-            var dm = new DownloadHandler();
-            dm.OnDownloadUpdatedFired += Dm_OnBeforeDownloadFired;
+            var dm = new DownloadHandler(CefSharp.WinForms.Example.Properties.Settings.Default.saveFolder);
+            dm.OnDownloadUpdatedFired += Dm_OnDownloadUpdatedFired;
             browser.DownloadHandler = dm;
 
 
@@ -130,7 +127,7 @@ namespace CefSharp.WinForms.Example
            
         }
 
-        private void Dm_OnBeforeDownloadFired(object sender, DownloadItem e)
+        private void Dm_OnDownloadUpdatedFired(object sender, DownloadItem e)
         {
             DownloadManager.Instance.addOrUpdateItem(e);
         }

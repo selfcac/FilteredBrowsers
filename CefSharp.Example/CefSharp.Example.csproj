@@ -142,13 +142,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Extensions\set_page_color\icon.png" />
-    <Content Include="Extensions\set_page_color\popup.html" />
-    <Content Include="Extensions\set_page_color\popup.js" />
     <Content Include="Resources\assets\css\docs.css" />
     <Content Include="Resources\assets\css\shCore.css" />
     <Content Include="Resources\assets\css\shCoreDefault.css" />
-    <None Include="Extensions\set_page_color\manifest.json" />
     <None Include="packages.config" />
     <None Include="Resources\assets\images\beach-2089936_1920.jpg" />
     <Content Include="Resources\assets\js\application.js" />
@@ -182,6 +178,9 @@
     <Content Include="Resources\UnicodeExampleGreaterThan32kb.html" />
     <Content Include="Resources\UnocodeExampleEqualTo32kb.html" />
     <Content Include="Resources\TooltipTest.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

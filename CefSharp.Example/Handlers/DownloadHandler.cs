@@ -9,6 +9,12 @@ namespace CefSharp.Example.Handlers
 {
     public class DownloadHandler : IDownloadHandler
     {
+        private string _baseFolder = "";
+        public DownloadHandler(string baseFolder)
+        {
+            _baseFolder = baseFolder;
+        }
+
         public event EventHandler<DownloadItem> OnBeforeDownloadFired;
 
         public event EventHandler<DownloadItem> OnDownloadUpdatedFired;
@@ -21,7 +27,10 @@ namespace CefSharp.Example.Handlers
             {
                 using (callback)
                 {
-                    callback.Continue(Path.Combine(@"C:\Users\Yoni\Downloads\GifCam" ,downloadItem.SuggestedFileName), showDialog: false);
+                    string filename = Path.Combine(_baseFolder, downloadItem.SuggestedFileName);
+                    if (File.Exists(filename))
+                        filename = Path.Combine(_baseFolder,Guid.NewGuid().ToString("N") + "__" + downloadItem.SuggestedFileName);
+                    callback.Continue(filename, showDialog: false);
                 }
             }
         }
