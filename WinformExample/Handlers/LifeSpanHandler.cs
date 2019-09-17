@@ -17,12 +17,17 @@ namespace CefSharp.WinForms.Example.Handlers
     /// </summary>
     public class LifeSpanHandler : ILifeSpanHandler
     {
-        private readonly bool openPopupsAsTabs;
+        private bool openPopupsAsTabs;
         private Dictionary<int, PopupAsChildHelper> popupasChildHelpers = new Dictionary<int, PopupAsChildHelper>();
 
         public LifeSpanHandler(bool openPopupsAsTabs)
         {
             this.openPopupsAsTabs = openPopupsAsTabs;
+        }
+
+        public void setAllowPopup(bool allow)
+        {
+            openPopupsAsTabs = allow;
         }
 
         bool ILifeSpanHandler.OnBeforePopup(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, string targetUrl, string targetFrameName, WindowOpenDisposition targetDisposition, bool userGesture, IPopupFeatures popupFeatures, IWindowInfo windowInfo, IBrowserSettings browserSettings, ref bool noJavascriptAccess, out IWebBrowser newBrowser)

@@ -25,6 +25,7 @@ namespace CefSharp.WinForms.Example
         private ChromeWidgetMessageInterceptor messageInterceptor;
         private bool multiThreadedMessageLoopEnabled;
 
+        public LifeSpanHandler myLifeSpanHandler;
         private WinFormsRequestHandler myPageNavigationManager;
         private string initialURL = "about:blank";
 
@@ -86,7 +87,9 @@ namespace CefSharp.WinForms.Example
             //Handling DevTools docked inside the same window requires 
             //an instance of the LifeSpanHandler all the window events,
             //e.g. creation, resize, moving, closing etc.
-            browser.LifeSpanHandler = new LifeSpanHandler(openPopupsAsTabs: true);
+            myLifeSpanHandler = new LifeSpanHandler(openPopupsAsTabs: true);
+            browser.LifeSpanHandler = myLifeSpanHandler;
+                
 
             browser.LoadingStateChanged += OnBrowserLoadingStateChanged;
             browser.ConsoleMessage += OnBrowserConsoleMessage;

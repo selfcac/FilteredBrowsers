@@ -787,6 +787,16 @@ namespace CefSharp.WinForms.Example
             }
         }
 
+        private void allowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GetCurrentTabControl().myLifeSpanHandler?.setAllowPopup(true);
+        }
+
+        private void blockToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GetCurrentTabControl().myLifeSpanHandler?.setAllowPopup(false);
+        }
+
         private void BrowserForm_Load(object sender, EventArgs e)
         {
             // Init download window:

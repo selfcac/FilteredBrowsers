@@ -70,6 +70,9 @@ namespace CefSharp.WinForms.Example
             this.devtoolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.browserTabControl = new System.Windows.Forms.TabControl();
             this.allUrlsInPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.popupsInSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.blockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,6 +104,7 @@ namespace CefSharp.WinForms.Example
             this.printToolStripMenuItem,
             this.printOptionsToolStripMenuItem,
             this.printToPdfToolStripMenuItem,
+            this.popupsInSelectedToolStripMenuItem,
             this.allUrlsInPageToolStripMenuItem,
             this.toolStripMenuItem3,
             this.aboutToolStripMenuItem,
@@ -417,6 +421,29 @@ namespace CefSharp.WinForms.Example
             this.allUrlsInPageToolStripMenuItem.Text = "All urls in page";
             this.allUrlsInPageToolStripMenuItem.Click += new System.EventHandler(this.allUrlsInPageToolStripMenuItem_Click);
             // 
+            // popupsInSelectedToolStripMenuItem
+            // 
+            this.popupsInSelectedToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.allowToolStripMenuItem,
+            this.blockToolStripMenuItem});
+            this.popupsInSelectedToolStripMenuItem.Name = "popupsInSelectedToolStripMenuItem";
+            this.popupsInSelectedToolStripMenuItem.Size = new System.Drawing.Size(223, 26);
+            this.popupsInSelectedToolStripMenuItem.Text = "Popups In Selected >";
+            // 
+            // allowToolStripMenuItem
+            // 
+            this.allowToolStripMenuItem.Name = "allowToolStripMenuItem";
+            this.allowToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.allowToolStripMenuItem.Text = "Allow";
+            this.allowToolStripMenuItem.Click += new System.EventHandler(this.allowToolStripMenuItem_Click);
+            // 
+            // blockToolStripMenuItem
+            // 
+            this.blockToolStripMenuItem.Name = "blockToolStripMenuItem";
+            this.blockToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.blockToolStripMenuItem.Text = "Block";
+            this.blockToolStripMenuItem.Click += new System.EventHandler(this.blockToolStripMenuItem_Click);
+            // 
             // BrowserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -482,5 +509,8 @@ namespace CefSharp.WinForms.Example
         private System.Windows.Forms.ToolStripMenuItem entirePAgeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem includeBackgroundToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem allUrlsInPageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem popupsInSelectedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem blockToolStripMenuItem;
     }
 }
