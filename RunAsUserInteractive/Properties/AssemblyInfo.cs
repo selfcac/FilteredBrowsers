@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ProtectedFlowRunner")]
+[assembly: AssemblyTitle("RunAsUserInteractive")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ProtectedFlowRunner")]
+[assembly: AssemblyProduct("RunAsUserInteractive")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a3273a65-ba10-4ae4-a038-a909f0ca3661")]
+[assembly: Guid("a5e64998-477d-4bc9-abfc-df4bd6ae2cff")]
 
 // Version information for an assembly consists of the following four values:
 //

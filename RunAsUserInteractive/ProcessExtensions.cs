@@ -169,26 +169,7 @@ namespace murrayju.ProcessExtensions
             var bResult = false;
             var hImpersonationToken = IntPtr.Zero;
             var activeSessionId = INVALID_SESSION_ID;
-            var pSessionInfo = IntPtr.Zero;
-            var sessionCount = 0;
-
-            // Get a handle to the user access token for the current active session.
-            if (WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, ref pSessionInfo, ref sessionCount) != 0)
-            {
-                var arrayElementSize = Marshal.SizeOf(typeof(WTS_SESSION_INFO));
-                var current = pSessionInfo;
-
-                for (var i = 0; i < sessionCount; i++)
-                {
-                    var si = (WTS_SESSION_INFO)Marshal.PtrToStructure((IntPtr)current, typeof(WTS_SESSION_INFO));
-                    current += arrayElementSize;
-
-                    if (si.State == WTS_CONNECTSTATE_CLASS.WTSActive)
-                    {
-                        activeSessionId = si.SessionID;
-                    }
-                }
-            }
+            activeSessionId = getActiveSession();
 
             // If enumerating did not work, fall back to the old method
             if (activeSessionId == INVALID_SESSION_ID)
@@ -207,6 +188,33 @@ namespace murrayju.ProcessExtensions
             }
 
             return bResult;
+        }
+
+        public static uint getActiveSession()
+        {
+            uint result = 0; 
+
+            var pSessionInfo = IntPtr.Zero;
+            var sessionCount = 0;
+            // Get a handle to the user access token for the current active session.
+            if (WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, ref pSessionInfo, ref sessionCount) != 0)
+            {
+                var arrayElementSize = Marshal.SizeOf(typeof(WTS_SESSION_INFO));
+                var current = pSessionInfo;
+
+                for (var i = 0; i < sessionCount; i++)
+                {
+                    var si = (WTS_SESSION_INFO)Marshal.PtrToStructure((IntPtr)current, typeof(WTS_SESSION_INFO));
+                    current += arrayElementSize;
+
+                    if (si.State == WTS_CONNECTSTATE_CLASS.WTSActive)
+                    {
+                        result = si.SessionID;
+                    }
+                }
+            }
+
+            return result;
         }
 
         public static bool StartProcessAsCurrentUser(string appPath,

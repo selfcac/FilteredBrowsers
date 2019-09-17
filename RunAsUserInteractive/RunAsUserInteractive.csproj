@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A3273A65-BA10-4AE4-A038-A909F0CA3661}</ProjectGuid>
+    <ProjectGuid>{A5E64998-477D-4BC9-ABFC-DF4BD6AE2CFF}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ProtectedFlowRunner</RootNamespace>
-    <AssemblyName>ProtectedFlowRunner</AssemblyName>
+    <RootNamespace>RunAsUserInteractive</RootNamespace>
+    <AssemblyName>RunAsUserInteractive</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -32,9 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SimpleImpersonation, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleImpersonation.3.0.0\lib\net45\SimpleImpersonation.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,25 +43,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProcessExtensions.cs" />
-    <Compile Include="ProcessSecurity.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="StructWrapper.cs" />
-    <Compile Include="WrapperImpersonationContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Readme.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
