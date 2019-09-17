@@ -34,6 +34,11 @@ namespace CefSharp.WinForms.Example
             this.newTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.printOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scopeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectionOnlyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.entirePAgeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.includeBackgroundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printToPdfToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
@@ -64,11 +69,7 @@ namespace CefSharp.WinForms.Example
             this.closeOthersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.devtoolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.browserTabControl = new System.Windows.Forms.TabControl();
-            this.printOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.scopeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectionOnlyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.entirePAgeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.includeBackgroundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allUrlsInPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -100,8 +101,9 @@ namespace CefSharp.WinForms.Example
             this.printToolStripMenuItem,
             this.printOptionsToolStripMenuItem,
             this.printToPdfToolStripMenuItem,
-            this.aboutToolStripMenuItem,
+            this.allUrlsInPageToolStripMenuItem,
             this.toolStripMenuItem3,
+            this.aboutToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
@@ -130,6 +132,51 @@ namespace CefSharp.WinForms.Example
             this.printToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.printToolStripMenuItem.Text = "&Print";
             this.printToolStripMenuItem.Click += new System.EventHandler(this.PrintToolStripMenuItemClick);
+            // 
+            // printOptionsToolStripMenuItem
+            // 
+            this.printOptionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.scopeToolStripMenuItem,
+            this.includeBackgroundToolStripMenuItem});
+            this.printOptionsToolStripMenuItem.Name = "printOptionsToolStripMenuItem";
+            this.printOptionsToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.printOptionsToolStripMenuItem.Text = "Print Options";
+            // 
+            // scopeToolStripMenuItem
+            // 
+            this.scopeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectionOnlyToolStripMenuItem1,
+            this.entirePAgeToolStripMenuItem});
+            this.scopeToolStripMenuItem.Name = "scopeToolStripMenuItem";
+            this.scopeToolStripMenuItem.Size = new System.Drawing.Size(215, 26);
+            this.scopeToolStripMenuItem.Text = "Scope";
+            // 
+            // selectionOnlyToolStripMenuItem1
+            // 
+            this.selectionOnlyToolStripMenuItem1.CheckOnClick = true;
+            this.selectionOnlyToolStripMenuItem1.Name = "selectionOnlyToolStripMenuItem1";
+            this.selectionOnlyToolStripMenuItem1.Size = new System.Drawing.Size(179, 26);
+            this.selectionOnlyToolStripMenuItem1.Text = "Selection Only";
+            this.selectionOnlyToolStripMenuItem1.Click += new System.EventHandler(this.selectionOnlyToolStripMenuItem1_Click);
+            // 
+            // entirePAgeToolStripMenuItem
+            // 
+            this.entirePAgeToolStripMenuItem.Checked = true;
+            this.entirePAgeToolStripMenuItem.CheckOnClick = true;
+            this.entirePAgeToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.entirePAgeToolStripMenuItem.Name = "entirePAgeToolStripMenuItem";
+            this.entirePAgeToolStripMenuItem.Size = new System.Drawing.Size(179, 26);
+            this.entirePAgeToolStripMenuItem.Text = "Entire Page";
+            this.entirePAgeToolStripMenuItem.Click += new System.EventHandler(this.entirePAgeToolStripMenuItem_Click);
+            // 
+            // includeBackgroundToolStripMenuItem
+            // 
+            this.includeBackgroundToolStripMenuItem.Checked = true;
+            this.includeBackgroundToolStripMenuItem.CheckOnClick = true;
+            this.includeBackgroundToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.includeBackgroundToolStripMenuItem.Name = "includeBackgroundToolStripMenuItem";
+            this.includeBackgroundToolStripMenuItem.Size = new System.Drawing.Size(215, 26);
+            this.includeBackgroundToolStripMenuItem.Text = "Include Background";
             // 
             // printToPdfToolStripMenuItem
             // 
@@ -357,56 +404,18 @@ namespace CefSharp.WinForms.Example
             // 
             this.browserTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.browserTabControl.Location = new System.Drawing.Point(0, 28);
-            this.browserTabControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.browserTabControl.Margin = new System.Windows.Forms.Padding(4);
             this.browserTabControl.Name = "browserTabControl";
             this.browserTabControl.SelectedIndex = 0;
             this.browserTabControl.Size = new System.Drawing.Size(973, 575);
             this.browserTabControl.TabIndex = 2;
             // 
-            // printOptionsToolStripMenuItem
+            // allUrlsInPageToolStripMenuItem
             // 
-            this.printOptionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.scopeToolStripMenuItem,
-            this.includeBackgroundToolStripMenuItem});
-            this.printOptionsToolStripMenuItem.Name = "printOptionsToolStripMenuItem";
-            this.printOptionsToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.printOptionsToolStripMenuItem.Text = "Print Options";
-            // 
-            // scopeToolStripMenuItem
-            // 
-            this.scopeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.selectionOnlyToolStripMenuItem1,
-            this.entirePAgeToolStripMenuItem});
-            this.scopeToolStripMenuItem.Name = "scopeToolStripMenuItem";
-            this.scopeToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.scopeToolStripMenuItem.Text = "Scope";
-            // 
-            // selectionOnlyToolStripMenuItem1
-            // 
-            this.selectionOnlyToolStripMenuItem1.CheckOnClick = true;
-            this.selectionOnlyToolStripMenuItem1.Name = "selectionOnlyToolStripMenuItem1";
-            this.selectionOnlyToolStripMenuItem1.Size = new System.Drawing.Size(216, 26);
-            this.selectionOnlyToolStripMenuItem1.Text = "Selection Only";
-            this.selectionOnlyToolStripMenuItem1.Click += new System.EventHandler(this.selectionOnlyToolStripMenuItem1_Click);
-            // 
-            // entirePAgeToolStripMenuItem
-            // 
-            this.entirePAgeToolStripMenuItem.Checked = true;
-            this.entirePAgeToolStripMenuItem.CheckOnClick = true;
-            this.entirePAgeToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.entirePAgeToolStripMenuItem.Name = "entirePAgeToolStripMenuItem";
-            this.entirePAgeToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.entirePAgeToolStripMenuItem.Text = "Entire Page";
-            this.entirePAgeToolStripMenuItem.Click += new System.EventHandler(this.entirePAgeToolStripMenuItem_Click);
-            // 
-            // includeBackgroundToolStripMenuItem
-            // 
-            this.includeBackgroundToolStripMenuItem.Checked = true;
-            this.includeBackgroundToolStripMenuItem.CheckOnClick = true;
-            this.includeBackgroundToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.includeBackgroundToolStripMenuItem.Name = "includeBackgroundToolStripMenuItem";
-            this.includeBackgroundToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.includeBackgroundToolStripMenuItem.Text = "Include Background";
+            this.allUrlsInPageToolStripMenuItem.Name = "allUrlsInPageToolStripMenuItem";
+            this.allUrlsInPageToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.allUrlsInPageToolStripMenuItem.Text = "All urls in page";
+            this.allUrlsInPageToolStripMenuItem.Click += new System.EventHandler(this.allUrlsInPageToolStripMenuItem_Click);
             // 
             // BrowserForm
             // 
@@ -417,7 +426,7 @@ namespace CefSharp.WinForms.Example
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "BrowserForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Filtered Chrome (CefSharp) v1-9.9.1157";
@@ -472,5 +481,6 @@ namespace CefSharp.WinForms.Example
         private System.Windows.Forms.ToolStripMenuItem selectionOnlyToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem entirePAgeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem includeBackgroundToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allUrlsInPageToolStripMenuItem;
     }
 }

@@ -752,7 +752,7 @@ namespace CefSharp.WinForms.Example
             }
         }
 
-        bool isDebug = false;
+        bool isDebug = true;
 
         private void entirePAgeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -762,6 +762,29 @@ namespace CefSharp.WinForms.Example
         private void selectionOnlyToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             entirePAgeToolStripMenuItem.Checked = false;
+        }
+
+        private void allUrlsInPageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string result = "Urls: (You can copy with Ctrl-C)" + Environment.NewLine;
+                var browser = GetCurrentTabControl().Browser.GetBrowser();
+                List<long> ids = browser.GetFrameIdentifiers();
+                foreach (long id in ids)
+                {
+                    var frame = browser.GetFrame(id);
+                    if (frame != null && frame.IsValid && !frame.IsDisposed)
+                    {
+                        result += "(*) " + (frame.Url ?? "") + Environment.NewLine;
+                    }
+                }
+                MessageBox.Show(result);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void BrowserForm_Load(object sender, EventArgs e)
@@ -793,6 +816,7 @@ namespace CefSharp.WinForms.Example
             {
                 httpPolicy.proxyMode = HTTPProtocolFilter.WorkingMode.MAPPING;
                 timePolicy.clearAllTo(true);
+                devtoolToolStripMenuItem.Enabled = true;
                 MessageBox.Show("In debug mode! Filtering is off!", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else

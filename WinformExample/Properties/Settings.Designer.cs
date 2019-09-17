@@ -54,7 +54,7 @@ namespace CefSharp.WinForms.Example.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProxyChromeFlow\\Downloads")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProxyChromeFlow\\FilteredDownloads")]
         public string saveFolder {
             get {
                 return ((string)(this["saveFolder"]));
