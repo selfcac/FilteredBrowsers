@@ -8,9 +8,13 @@ namespace CefSharp.WinForms.Example.Handlers
 {
     internal class MenuHandler : IContextMenuHandler
     {
+        
         private const int ShowDevTools = 26501;
         private const int CloseDevTools = 26502;
-        private const int ShowFind = 26500;
+
+        private const int ShowFind = 26503;
+        private const int CopyUrl = 26504;
+
 
         Action showFind;
 
@@ -32,6 +36,7 @@ namespace CefSharp.WinForms.Example.Handlers
             //model.AddItem((CefMenuCommand)ShowDevTools, "Show DevTools");
             //model.AddItem((CefMenuCommand)CloseDevTools, "Close DevTools");
             model.AddItem((CefMenuCommand)ShowFind, "Find in page");
+            model.AddItem((CefMenuCommand)CopyUrl, "Copy URL");
         }
 
         bool IContextMenuHandler.OnContextMenuCommand(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags)
@@ -47,6 +52,10 @@ namespace CefSharp.WinForms.Example.Handlers
             if ((int)commandId == ShowFind)
             {
                 showFind();
+            }
+            else if ((int)commandId == CopyUrl)
+            {
+                System.Windows.Forms.Clipboard.SetText(browser.MainFrame.Url);
             }
             return false;
         }
