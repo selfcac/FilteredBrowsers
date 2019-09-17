@@ -33,14 +33,15 @@ namespace CefSharp.WinForms.Example
             lstBoxDownload.Invoke(new Action(() =>
            {
                var progressItem = new DownloadItemProgress(di);
-               if (!allMyItems.ContainsKey(progressItem.GetHashCode()))
+               var hashCode = progressItem.GetHashCode();
+               if (!allMyItems.ContainsKey(hashCode))
                {
-                   allMyItems.Add(progressItem.GetHashCode(), progressItem);
+                   allMyItems.Add(hashCode, progressItem);
                    lstBoxDownload.Items.Add(progressItem);
                }
                else
                {
-                   allMyItems[progressItem.GetHashCode()].updateItem(di);
+                   allMyItems[hashCode].updateItem(di);
                }
            }));
         }
@@ -48,7 +49,13 @@ namespace CefSharp.WinForms.Example
         private void tmrRefresh_Tick(object sender, EventArgs e)
         {
             if (lstBoxDownload.Items.Count > 0)
-                lstBoxDownload.Items[0] = lstBoxDownload.Items[0];
+            {
+                var lastIndex = lstBoxDownload.SelectedIndex;
+                lstBoxDownload.Items.Clear();
+                lstBoxDownload.Items.AddRange(allMyItems.Values.ToArray());
+                lstBoxDownload.SelectedIndex = lastIndex;
+            }
+
         }
 
         private void DownloadManager_FormClosing(object sender, FormClosingEventArgs e)
@@ -69,6 +76,15 @@ namespace CefSharp.WinForms.Example
             //    }
             //}
             Process.Start(CefSharp.WinForms.Example.Properties.Settings.Default.saveFolder);
+        }
+
+        private void showSavePathToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lstBoxDownload.SelectedItem != null)
+            {
+                string filename = (lstBoxDownload.SelectedItem as DownloadItemProgress).Item().FullPath;
+                MessageBox.Show(filename);
+            }
         }
     }
 
