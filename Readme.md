@@ -2,8 +2,16 @@
 + remove chrome service Yoni_Chrome
 +git change
 
-minimal chefsharp + propietery + addSecret -> One url!!! (not tabbed)
-+ anti proxy + on adress change + beforebrowse + timer per frame
+minimal chefsharp 
++ propietery 
++ addSecret 
+-> One url!!! (not tabbed)
++ anti proxy 
+
+- on adress change 
+- beforebrowse 
+- timer per frame
+
 build ? 75.1.14
 
 

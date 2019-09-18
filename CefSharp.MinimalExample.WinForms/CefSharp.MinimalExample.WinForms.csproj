@@ -65,6 +65,8 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="TimeBlockFilter">
       <HintPath>..\..\FilteringComponents\TimeBlockFilter\bin\Debug\TimeBlockFilter.dll</HintPath>
@@ -79,7 +81,9 @@
     </Compile>
     <Compile Include="Controls\ControlExtensions.cs" />
     <Compile Include="FilteringAdditions\AntiPopupLifespan.cs" />
+    <Compile Include="FilteringAdditions\Common.cs" />
     <Compile Include="FilteringAdditions\EmptyObject.cs" />
+    <Compile Include="FilteringAdditions\FilteringFlow.cs" />
     <Compile Include="FilteringAdditions\MyRequestHandler.cs" />
     <Compile Include="FilteringAdditions\SimpleContextMenu.cs" />
     <Compile Include="Program.cs">
@@ -128,6 +132,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\chromium-256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BlockedPage.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\cef.redist.x86.3.3202.1690-proprietary-codecs\build\cef.redist.x86.targets" Condition="Exists('..\packages\cef.redist.x86.3.3202.1690-proprietary-codecs\build\cef.redist.x86.targets')" />
