@@ -116,6 +116,10 @@
     <Compile Include="DownloadManager.Designer.cs">
       <DependentUpon>DownloadManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="FilteringChrome\AddSecretHandler.cs" />
+    <Compile Include="FilteringChrome\Common.cs" />
+    <Compile Include="FilteringChrome\DownloadHandler.cs" />
+    <Compile Include="FilteringChrome\ExampleRequestHandler.cs" />
     <Compile Include="Handlers\DisplayHandler.cs" />
     <Compile Include="Handlers\KeyboardHandler.cs" />
     <Compile Include="Handlers\LifeSpanHandler.cs" />

@@ -4,9 +4,11 @@
 
 using System;
 using System.Security.Cryptography.X509Certificates;
+using CefSharp.Example;
+using CefSharp.Example.Handlers;
 using CefSharp.Handler;
 
-namespace CefSharp.Example.Handlers
+namespace CefSharp.WinForms.Example.FilteringChrome
 {
     /// <summary>
     /// <see cref="RequestHandler"/> provides a base class for you to inherit from 

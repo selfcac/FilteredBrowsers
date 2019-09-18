@@ -90,6 +90,44 @@ namespace CefSharp.WinForms.Example.FilteringChrome
             return result;
         }
 
-        
+        public static Uri safeUrlConvertor(string url)
+        {
+            Uri result = null;
+            url = Uri.EscapeUriString(url);
+
+            if (url.Length > 0 && Uri.IsWellFormedUriString(url, UriKind.RelativeOrAbsolute))
+            {
+                result = new Uri(url);
+            }
+
+            if (result == null)
+            {
+                result = new Uri("http://unkown.domain.please.ignore.com/");
+            }
+
+
+            return result;
+        }
+
+        public static bool shouldBlockNavigation(string Url, string ReferrerUrl, ref string reason)
+        {
+            bool isBlocked = false;
+            string finalReason = "navigiated_init";
+            bool blocked = FilteredCommon.Filtering.FilteringFlow
+                .isTimeBlocked(BrowserForm.timePolicy, DateTime.Now, ref finalReason);
+            if (!blocked)
+            {
+                blocked = FilteredCommon.Filtering.FilteringFlow
+                    .isNavigationBlocked(BrowserForm.httpPolicy, safeUrlConvertor(ReferrerUrl), safeUrlConvertor(Url), out finalReason);
+            }
+
+            if (blocked)
+            {
+                reason = finalReason;
+                isBlocked = true;
+            }
+
+            return isBlocked;
+        }
     }
 }

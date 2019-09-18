@@ -11,6 +11,8 @@ using CefSharp.WinForms.Internals;
 using System.Security.Cryptography;
 using System.Text;
 
+using CefSharp.WinForms.Example.FilteringChrome;
+
 namespace CefSharp.WinForms.Example.Handlers
 {
     public class WinFormsRequestHandler : ExampleRequestHandler
@@ -62,34 +64,22 @@ namespace CefSharp.WinForms.Example.Handlers
 
             return true;
         }
+    
+        protected override IResourceRequestHandler GetResourceRequestHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool isNavigation, bool isDownload, string requestInitiator, ref bool disableDefaultHandling)
+        {
+            return base.GetResourceRequestHandler(chromiumWebBrowser, browser, frame, request, isNavigation, isDownload, requestInitiator, ref disableDefaultHandling);
+        }
 
         public string lastReason = "";
 
-        static Uri safeUrlConvertor(string url)
-        {
-            Uri result = null;
-            url = Uri.EscapeUriString(url);
 
-            if (url.Length > 0 && Uri.IsWellFormedUriString(url, UriKind.RelativeOrAbsolute))
-            {
-                result = new Uri(url);
-            }
-
-            if (result == null)
-            {
-                result = new Uri("http://unkown.domain.please.ignore.com/");
-            }
-
-
-            return result;
-        }
 
         protected override bool OnBeforeBrowse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect)
         {
             bool cancelRequest = base.OnBeforeBrowse(chromiumWebBrowser, browser, frame, request, userGesture, isRedirect);
             if (frame.IsMain && request.Url.Length > 0 && request.Url != FilteredCommon.Filtering.FilteringFlow.blockedDevUrl)
             {
-                var isBlocked = shouldBlockNavigation(request.Url ?? "", request.ReferrerUrl ?? "", ref lastReason);
+                var isBlocked = FilteringChrome.Common.shouldBlockNavigation(request.Url ?? "", request.ReferrerUrl ?? "", ref lastReason);
                 if (isBlocked)
                 {
                     cancelRequest = true;
@@ -98,38 +88,6 @@ namespace CefSharp.WinForms.Example.Handlers
             }
             return cancelRequest;
         }
-
-        public static bool shouldBlockNavigation(string Url,string ReferrerUrl, ref string reason)
-        {
-            bool isBlocked = false;
-            string finalReason = "navigiated_init";
-            bool blocked = FilteredCommon.Filtering.FilteringFlow
-                .isTimeBlocked(BrowserForm.timePolicy, DateTime.Now, ref finalReason);
-            if (!blocked)
-            {
-                blocked = FilteredCommon.Filtering.FilteringFlow
-                    .isNavigationBlocked(BrowserForm.httpPolicy, safeUrlConvertor(ReferrerUrl), safeUrlConvertor(Url), out finalReason);
-            }
-
-            if (blocked)
-            {
-                reason = finalReason;
-                isBlocked = true;
-            }
-
-            return isBlocked;
-        }
-
-        protected override IResourceRequestHandler GetResourceRequestHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool isNavigation, bool isDownload, string requestInitiator, ref bool disableDefaultHandling)
-        {
-            return base.GetResourceRequestHandler(chromiumWebBrowser, browser, frame, request, isNavigation, isDownload, requestInitiator, ref disableDefaultHandling);
-        }
-
-         
-
-
-
-
 
 
     }

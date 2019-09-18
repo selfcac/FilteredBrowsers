@@ -236,7 +236,7 @@ namespace CefSharp.WinForms.Example
             else
             {
                 string lastUrl = myHistory.CurrentURL();
-                bool isBlocked = WinFormsRequestHandler.shouldBlockNavigation(args.Address, lastUrl, ref myPageNavigationManager.lastReason);
+                bool isBlocked = FilteringChrome.Common.shouldBlockNavigation(args.Address, lastUrl, ref myPageNavigationManager.lastReason);
                 if (isBlocked)
                     LoadUrl(FilteredCommon.Filtering.FilteringFlow.blockedDevUrl);
             }
