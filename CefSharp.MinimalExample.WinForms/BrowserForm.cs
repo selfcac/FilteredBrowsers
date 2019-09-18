@@ -5,6 +5,7 @@
 using CefSharp.MinimalExample.WinForms.Controls;
 using CefSharp.WinForms;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 
@@ -182,9 +183,44 @@ namespace CefSharp.MinimalExample.WinForms
             browser.ShowDevTools();
         }
 
+        public static HTTPProtocolFilter.FilterPolicy httpPolicy = new HTTPProtocolFilter.FilterPolicy();
+        public static TimeBlockFilter.TimeFilterObject timePolicy = new TimeBlockFilter.TimeFilterObject();
+
+
+        bool isDebug = true;
+
         private void BrowserForm_Load(object sender, EventArgs e)
         {
-           
+
+            if (isDebug)
+            {
+                httpPolicy.proxyMode = HTTPProtocolFilter.WorkingMode.MAPPING;
+                timePolicy.clearAllTo(true);
+                MessageBox.Show("In debug mode! Filtering is off!", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                string httpPolicyPath = CefSharp.MinimalExample.WinForms.Properties.Settings.Default.httpPolicyPath;
+                string timePolicyPath = CefSharp.MinimalExample.WinForms.Properties.Settings.Default.timePolicyPath;
+
+                if (!File.Exists(httpPolicyPath))
+                {
+                    MessageBox.Show("Can't open http policy\n" + httpPolicyPath);
+                    Process.GetCurrentProcess().Kill();
+                }
+                else if (!File.Exists(timePolicyPath))
+                {
+                    MessageBox.Show("Can't open time policy\n" + timePolicyPath);
+                    Process.GetCurrentProcess().Kill();
+                }
+
+                httpPolicy.reloadPolicy(httpPolicyPath);
+                timePolicy.reloadPolicy(timePolicyPath);
+            }
+
+
+            // Read bypass secret from file:
+            FilteringAdditions.MyRequestHandler.BypassSecret = CefSharp.MinimalExample.WinForms.Properties.Settings.Default.bypassSecret;
         }
     }
 }
