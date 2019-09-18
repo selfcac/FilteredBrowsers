@@ -3,6 +3,7 @@
 // Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.
 
 using CefSharp.MinimalExample.WinForms.Controls;
+using CefSharp.MinimalExample.WinForms.FilteringAdditions;
 using CefSharp.WinForms;
 using System;
 using System.Diagnostics;
@@ -14,6 +15,8 @@ namespace CefSharp.MinimalExample.WinForms
     public partial class BrowserForm : Form
     {
         private readonly ChromiumWebBrowser browser;
+
+        MyRequestHandler myPageNavigationManager;
 
         public BrowserForm()
         {
@@ -41,7 +44,8 @@ namespace CefSharp.MinimalExample.WinForms
             //  Block Poppups:
             browser.LifeSpanHandler = new FilteringAdditions.AntiPopupLifespan();
             // Add secet to bypass:
-            browser.RequestHandler = new FilteringAdditions.MyRequestHandler();
+            myPageNavigationManager = new FilteringAdditions.MyRequestHandler();
+            browser.RequestHandler = myPageNavigationManager;
             // Block print popup:
             browser.RegisterJsObject("print", new FilteringAdditions.EmptyObject());
             // Block context menu:
@@ -221,6 +225,16 @@ namespace CefSharp.MinimalExample.WinForms
 
             // Read bypass secret from file:
             FilteringAdditions.MyRequestHandler.BypassSecret = CefSharp.MinimalExample.WinForms.Properties.Settings.Default.bypassSecret;
+        }
+
+        private async System.Threading.Tasks.Task tmrBlockContent_TickAsync(object sender, EventArgs e)
+        {
+            TaskResult<string> isBlockedState = await FilteringAdditions.Common.FilterAllFramesHTML (browser, TimeSpan.FromSeconds(2));
+            if (isBlockedState.Sucess)
+            {
+                myPageNavigationManager.lastReason = isBlockedState.Result;
+                LoadUrl(FilteringFlow.blockedDevUrl);
+            }
         }
     }
 }
