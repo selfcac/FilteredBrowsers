@@ -12,9 +12,21 @@ namespace CefSharp.MinimalExample.WinForms.FilteringAdditions
     {
         //http://cefsharp.github.io/api/57.0.0/html/T_CefSharp_IRequestHandler.htm
 
+        public string lastReason = "";
+
         public bool OnBeforeBrowse(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, bool isRedirect)
         {
             bool isBlocked = false;
+
+            if (frame.IsMain && request.Url.Length > 0 && request.Url != FilteringFlow.blockedDevUrl)
+            {
+                isBlocked = Common.shouldBlockNavigation(request.Url ?? "", request.ReferrerUrl ?? "", ref lastReason);
+                if (isBlocked)
+                {
+                    browserControl.Load(FilteringFlow.blockedDevUrl);
+                }
+            }
+
             return isBlocked;
         }
 
@@ -54,6 +66,10 @@ namespace CefSharp.MinimalExample.WinForms.FilteringAdditions
 
             return CefReturnValue.Continue;
         }
+
+        // =======================================================================================================
+        // =======================================================================================================
+        // =======================================================================================================
 
 
         public bool GetAuthCredentials(IWebBrowser browserControl, IBrowser browser, IFrame frame, bool isProxy, string host, int port, string realm, string scheme, IAuthCallback callback)
