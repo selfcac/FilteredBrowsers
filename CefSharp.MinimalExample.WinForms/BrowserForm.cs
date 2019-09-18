@@ -92,9 +92,28 @@ namespace CefSharp.MinimalExample.WinForms
             this.InvokeOnUiThreadIfRequired(() => Text = args.Title);
         }
 
+
+        string lastNaigatedURL = "about:blank";
         private void OnBrowserAddressChanged(object sender, AddressChangedEventArgs args)
         {
             this.InvokeOnUiThreadIfRequired(() => urlTextBox.Text = args.Address);
+            if (args.Address.Contains(FilteringFlow.blockedDevUrl))
+            {
+                browser.GetMainFrame().ExecuteJavaScriptAsync(
+                    FilteringFlow.evalReplaceHTML(
+                        FilteringFlow.formatBlockpage(myPageNavigationManager.lastReason)
+                        )
+                    );
+            }
+            else
+            {
+                string lastUrl = lastNaigatedURL;
+                bool isBlocked = FilteringAdditions.Common.shouldBlockNavigation(args.Address, lastUrl, ref myPageNavigationManager.lastReason);
+                if (isBlocked)
+                    LoadUrl(FilteringFlow.blockedDevUrl);
+                else
+                    lastNaigatedURL = args.Address;
+            }
         }
 
         private void SetCanGoBack(bool canGoBack)
