@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using CefSharp.Example;
 using CefSharp.Example.Handlers;
 using CefSharp.Example.JavascriptBinding;
+using CefSharp.WinForms.Example.FilteringChrome;
 using CefSharp.WinForms.Example.Handlers;
 using CefSharp.WinForms.Internals;
 using FilteredEdgeBrowser;
@@ -615,61 +616,15 @@ namespace CefSharp.WinForms.Example
 
         private async void tmrBlockContent_Tick(object sender, EventArgs e)
         {
-            if (Browser.IsBrowserInitialized )
+            TaskResult<string> isBlockedState = await FilteringChrome.Common.FilterAllFramesHTML(Browser, TimeSpan.FromSeconds(2));
+            if (isBlockedState.Sucess)
             {
-                var mainFrame = Browser.GetMainFrame();
-                bool isBlocked = false;
-                List<long> allFrames = Browser.GetBrowser().GetFrameIdentifiers();
-                for (int i = 0; i < allFrames.Count && !isBlocked; i++)
-                {
-                    var currentFrame = Browser.GetBrowser().GetFrame(allFrames[i]);
-                    if (currentFrame != null && currentFrame.IsValid && !currentFrame.IsDisposed)
-                        isBlocked = await FilterFrameContent(currentFrame);
-                }
+                myPageNavigationManager.lastReason = isBlockedState.Result;
+                LoadUrl(FilteredCommon.Filtering.FilteringFlow.blockedDevUrl);
             }
         }
 
-        private async Task<bool> FilterFrameContent(IFrame frame)
-        {
-            bool isBlocked = false;
-            if (frame.IsValid && frame.Url != FilteredCommon.Filtering.FilteringFlow.blockedDevUrl)
-            {
-                try
-                {
-                    var headerRes = await frame.EvaluateScriptAsync(
-                       FilteredCommon.Filtering.FilteringFlow.evalHead,
-                       timeout: TimeSpan.FromSeconds(5)
-                   );
 
-                    var bodyRes = await frame.EvaluateScriptAsync(
-                        FilteredCommon.Filtering.FilteringFlow.evalBody,
-                        timeout: TimeSpan.FromSeconds(5)
-                    );
 
-                    if (headerRes.Success && bodyRes.Success)
-                    {
-                        string finalResaon = "";
-                        isBlocked = FilteredCommon.Filtering.FilteringFlow.isHTMLPageBlocked(
-                            BrowserForm.httpPolicy,
-                            headerRes.Result as string,
-                            bodyRes.Result as string,
-                            out finalResaon
-                            );
-                        if (isBlocked)
-                        {
-                            finalResaon += " <br /> Source frame url: " + frame.Url;
-                            myPageNavigationManager.lastReason = finalResaon;
-                            LoadUrl(FilteredCommon.Filtering.FilteringFlow.blockedDevUrl);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    DisplayOutput(ex.ToString());
-                }
-
-            }
-            return isBlocked;
-        }
     }
 }
