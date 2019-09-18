@@ -210,7 +210,7 @@ namespace CefSharp.MinimalExample.WinForms
         public static TimeBlockFilter.TimeFilterObject timePolicy = new TimeBlockFilter.TimeFilterObject();
 
 
-        bool isDebug = true;
+        bool isDebug = false;
 
         private void BrowserForm_Load(object sender, EventArgs e)
         {
@@ -246,7 +246,7 @@ namespace CefSharp.MinimalExample.WinForms
             FilteringAdditions.MyRequestHandler.BypassSecret = CefSharp.MinimalExample.WinForms.Properties.Settings.Default.bypassSecret;
         }
 
-        private async System.Threading.Tasks.Task tmrBlockContent_TickAsync(object sender, EventArgs e)
+        private async void tmrBlockContent_TickAsync(object sender, EventArgs e)
         {
             TaskResult<string> isBlockedState = await FilteringAdditions.Common.FilterAllFramesHTML (browser, TimeSpan.FromSeconds(2));
             if (isBlockedState.Sucess)
