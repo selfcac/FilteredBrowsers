@@ -55,7 +55,10 @@ namespace RunAsUserInteractive
                     );
             }
 
-            Console.ReadLine();
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                Console.ReadLine();
+            }
         }
     }
 }
