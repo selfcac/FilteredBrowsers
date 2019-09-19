@@ -19,22 +19,29 @@ namespace CefSharp.MinimalExample.WinForms
             //CefSharpSettings.SubprocessExitIfParentProcessClosed = true;
 
             //For Windows 7 and above, best to include relevant app.manifest entries as well
-            Cef.EnableHighDPISupport();
-
-            string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string cachePath = Path.Combine(appdata, "FilteredChromeBrowser62", "cache");
-            if (!Directory.Exists(cachePath))
-            {
-                Directory.CreateDirectory(cachePath);
-            }
-
+            //Cef.EnableHighDPISupport();
             CefSettings Settings = new CefSettings();
-            Settings.CachePath = cachePath;  //always set the cachePath, else this wont work
-            Settings.CefCommandLineArgs.Add("no-proxy-server", "1");
 
-            //Example of setting a command line argument
-            //Enables WebRTC
-            Settings.CefCommandLineArgs.Add("enable-media-stream", "1");
+            try
+            {
+                string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string cachePath = Path.Combine(appdata, "FilteredChromeBrowser62", "cache");
+                if (!Directory.Exists(cachePath))
+                {
+                    Directory.CreateDirectory(cachePath);
+                }
+
+                Settings.CachePath = cachePath;  //always set the cachePath, else this wont work
+                Settings.CefCommandLineArgs.Add("no-proxy-server", "1");
+
+                //Example of setting a command line argument
+                //Enables WebRTC
+                Settings.CefCommandLineArgs.Add("enable-media-stream", "1");
+            }
+            catch (Exception ex) 
+            {
+                
+            }
 
             //Perform dependency check to make sure all relevant resources are in our output directory.
             Cef.Initialize(Settings, performDependencyCheck: true, browserProcessHandler: null);
