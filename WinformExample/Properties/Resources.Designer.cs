@@ -109,5 +109,54 @@ namespace CefSharp.WinForms.Example.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to // Copyright 2018 The Chromium Authors. All rights reserved.
+        ///// Use of this source code is governed by a BSD-style license that can be
+        ///// found in the LICENSE file.
+        ///
+        ///Elements = {};
+        ///Elements.DOMPath = {};
+        ///
+        ////**
+        /// * @param {!Node} node
+        /// * @param {boolean=} optimized
+        /// * @return {string}
+        /// */
+        ///
+        ///
+        /// // =====================&gt; USAGE: Elements.DOMPath.xPath($0,true | false)
+        ///
+        ///
+        ///
+        ///
+        ///Elements.DOMPath.xPath = function (node, optimized) {
+        ///    if (node.nodeType === Node.DOCUMENT_NODE) {
+        ///        return &apos;/&apos;;
+        ///  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string XPathCalc_Chrominum {
+            get {
+                return ResourceManager.GetString("XPathCalc_Chrominum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to document.onclick= function(event) {
+        ///    if (event===undefined) event= window.event;                     // IE hack
+        ///    var target= &apos;target&apos; in event? event.target : event.srcElement; // another IE hack
+        ///
+        ///    var root= document.compatMode===&apos;CSS1Compat&apos;? document.documentElement : document.body;
+        ///    var mxy= [event.clientX+root.scrollLeft, event.clientY+root.scrollTop];
+        ///
+        ///    var path= getPathTo(target);
+        ///    var txy= getPageXY(target);
+        ///    //console.log(&apos;Clicked element &apos;+path+&apos; offset &apos;+(mxy[0]-txy[0 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string XPathCalc_FromPoint {
+            get {
+                return ResourceManager.GetString("XPathCalc_FromPoint", resourceCulture);
+            }
+        }
     }
 }

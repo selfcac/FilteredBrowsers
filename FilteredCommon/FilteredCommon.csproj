@@ -33,11 +33,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Common">
-      <HintPath>..\..\FilteringComponents\Common\bin\Debug\Common.dll</HintPath>
+    <Reference Include="Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\ProxyServices\ProxyFilteredChrome\Debug_minimal\Common.dll</HintPath>
     </Reference>
-    <Reference Include="HTTPProtocolFilter">
-      <HintPath>..\..\FilteringComponents\HTTPProtocolFilter\bin\Debug\HTTPProtocolFilter.dll</HintPath>
+    <Reference Include="HTTPProtocolFilter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\ProxyServices\ProxyFilteredChrome\Debug_minimal\HTTPProtocolFilter.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\CefSharp.WinForms.75.1.143\build\CefSharp.WinForms.props" Condition="Exists('..\packages\CefSharp.WinForms.75.1.143\build\CefSharp.WinForms.props')" />
+  <Import Project="..\packages\CefSharp.Common.75.1.143\build\CefSharp.Common.props" Condition="Exists('..\packages\CefSharp.Common.75.1.143\build\CefSharp.Common.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.3.4.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.3.4.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="packages\CefSharp.WinForms.75.1.141\build\CefSharp.WinForms.props" Condition="Exists('packages\CefSharp.WinForms.75.1.141\build\CefSharp.WinForms.props')" />
   <Import Project="packages\CefSharp.Common.75.1.141\build\CefSharp.Common.props" Condition="Exists('packages\CefSharp.Common.75.1.141\build\CefSharp.Common.props')" />
   <Import Project="packages\cef.redist.x86.75.1.14\build\cef.redist.x86.props" Condition="Exists('packages\cef.redist.x86.75.1.14\build\cef.redist.x86.props')" />
@@ -66,10 +69,11 @@
   <ItemGroup>
     <Reference Include="Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\FilteringComponents\Common\bin\Debug\Common.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ProxyServices\ProxyFilteredChrome\Debug\Common.dll</HintPath>
     </Reference>
-    <Reference Include="HTTPProtocolFilter">
-      <HintPath>..\..\FilteringComponents\HTTPProtocolFilter\bin\Debug\HTTPProtocolFilter.dll</HintPath>
+    <Reference Include="HTTPProtocolFilter, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\ProxyServices\ProxyFilteredChrome\Debug\HTTPProtocolFilter.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -86,8 +90,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="TimeBlockFilter">
-      <HintPath>..\..\FilteringComponents\TimeBlockFilter\bin\Debug\TimeBlockFilter.dll</HintPath>
+    <Reference Include="TimeBlockFilter, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\ProxyServices\ProxyFilteredChrome\Debug\TimeBlockFilter.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +206,8 @@
     <Content Include="Resources\nav_plain_green.png" />
     <Content Include="Resources\nav_plain_red.png" />
     <Content Include="Resources\nav_right_green.png" />
+    <None Include="Resources\XPathCalc_FromPoint.txt" />
+    <None Include="Resources\XPathCalc_Chrominum.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CefSharp.Example\CefSharp.Example.csproj">
@@ -224,7 +231,14 @@
     <Error Condition="!Exists('packages\CefSharp.Common.75.1.141\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.75.1.141\build\CefSharp.Common.targets'))" />
     <Error Condition="!Exists('packages\CefSharp.WinForms.75.1.141\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.WinForms.75.1.141\build\CefSharp.WinForms.props'))" />
     <Error Condition="!Exists('packages\CefSharp.WinForms.75.1.141\build\CefSharp.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.WinForms.75.1.141\build\CefSharp.WinForms.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.3.4.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.3.4.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.75.1.143\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.75.1.143\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.75.1.143\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.75.1.143\build\CefSharp.Common.targets'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.WinForms.75.1.143\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.75.1.143\build\CefSharp.WinForms.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.WinForms.75.1.143\build\CefSharp.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.75.1.143\build\CefSharp.WinForms.targets'))" />
   </Target>
   <Import Project="packages\CefSharp.Common.75.1.141\build\CefSharp.Common.targets" Condition="Exists('packages\CefSharp.Common.75.1.141\build\CefSharp.Common.targets')" />
   <Import Project="packages\CefSharp.WinForms.75.1.141\build\CefSharp.WinForms.targets" Condition="Exists('packages\CefSharp.WinForms.75.1.141\build\CefSharp.WinForms.targets')" />
+  <Import Project="..\packages\CefSharp.Common.75.1.143\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.75.1.143\build\CefSharp.Common.targets')" />
+  <Import Project="..\packages\CefSharp.WinForms.75.1.143\build\CefSharp.WinForms.targets" Condition="Exists('..\packages\CefSharp.WinForms.75.1.143\build\CefSharp.WinForms.targets')" />
 </Project>

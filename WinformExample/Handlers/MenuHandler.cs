@@ -3,6 +3,8 @@
 // Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.
 
 using System;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CefSharp.WinForms.Example.Handlers
 {
@@ -39,6 +41,21 @@ namespace CefSharp.WinForms.Example.Handlers
             model.AddItem((CefMenuCommand)CopyUrl, "Copy URL");
         }
 
+        string scriptWithMousePos(int x, int y)
+        {
+            string result = "";
+            string template = @"
+(function() {
+    var e = document.elementFromPoint({x}, {y});
+    var b = e.style.backgroundColor;
+    e.style.backgroundColor = 'yellow';
+    setTimeout(function() { e.style.backgroundColor = b}, 2000);
+    })()
+";
+            result = template.Replace("{x}", x.ToString()).Replace("{y}", y.ToString());
+            return result;
+        }
+
         bool IContextMenuHandler.OnContextMenuCommand(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags)
         {
             //if ((int)commandId == ShowDevTools)
@@ -57,6 +74,16 @@ namespace CefSharp.WinForms.Example.Handlers
             {
                 System.Windows.Forms.Clipboard.SetText(browser.MainFrame.Url);
             }
+
+            frame.EvaluateScriptAsync(scriptWithMousePos(parameters.XCoord, parameters.YCoord)).ContinueWith(async (resp) =>
+            {
+                var r = await resp;
+                if (r.Success)
+                {
+                    //MessageBox.Show(r.Result.ToString());
+                }
+            });
+
             return false;
         }
 
