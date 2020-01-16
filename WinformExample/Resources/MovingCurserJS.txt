@@ -1,0 +1,38 @@
+﻿(function () {
+	var timeLeft = {len};
+
+    var v = document.createElement("span")
+    v.style.backgroundColor="yellow";
+    v.style.borderColor = "black"
+    v.style.border = "2px solid black"
+    v.style.position = "absolute"
+    v.style.padding="5px"
+	v.style.zIndex = "9999";
+    v.innerText = "⌛ "+timeLeft+" ⌛"
+
+    document.body.appendChild(v)
+
+    var mouse_callback = function(e) {
+        v.style.top = "" + e.clientY + "px";
+        v.style.left = "" + e.clientX + "px";
+        window["____________$_$_$_$_Result"] = [e.clientX,e.clientY]
+		//console.log([e.clientX,e.clientY]);
+    }
+    
+     var stop = function () {
+        document.body.removeEventListener("mousemove", mouse_callback)
+        clearInterval(timer);
+        document.body.removeChild(v)
+    }
+    
+    document.body.addEventListener("mousemove", mouse_callback)
+    
+    var timer = setInterval(()=> {
+        timeLeft--;
+        v.innerText = "⌛ "+ timeLeft + " ⌛" ;
+        if (timeLeft ==0){
+            stop();
+        }
+    }, 1000);
+    
+})()

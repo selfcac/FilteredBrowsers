@@ -153,6 +153,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XPathChooser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="XPathChooser.Designer.cs">
+      <DependentUpon>XPathChooser.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -184,6 +190,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="XPathChooser.resx">
+      <DependentUpon>XPathChooser.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.manifest" />
     <None Include="crash_reporter.cfg" />
     <None Include="packages.config" />
@@ -202,6 +211,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\chromium-256.png" />
+    <None Include="Resources\MovingCurserJS.txt" />
+    <None Include="Resources\HighlightElement.txt" />
     <Content Include="Resources\nav_left_green.png" />
     <Content Include="Resources\nav_plain_green.png" />
     <Content Include="Resources\nav_plain_red.png" />

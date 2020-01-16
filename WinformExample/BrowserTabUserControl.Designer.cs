@@ -34,6 +34,7 @@ namespace CefSharp.WinForms.Example
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tmrBlockContent = new System.Windows.Forms.Timer(this.components);
+            this.stripBtnBlockElement = new System.Windows.Forms.ToolStripButton();
             this.stripFind.SuspendLayout();
             this.stripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.devToolsSplitContainer)).BeginInit();
@@ -102,6 +103,7 @@ namespace CefSharp.WinForms.Example
             this.forwardButton,
             this.stripBTNHistory,
             this.stripBTNBookmark,
+            this.stripBtnBlockElement,
             this.urlTextBox,
             this.goButton});
             this.stripMenu.Location = new System.Drawing.Point(0, 0);
@@ -214,6 +216,16 @@ namespace CefSharp.WinForms.Example
             this.tmrBlockContent.Interval = 2000;
             this.tmrBlockContent.Tick += new System.EventHandler(this.tmrBlockContent_Tick);
             // 
+            // stripBtnBlockElement
+            // 
+            this.stripBtnBlockElement.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.stripBtnBlockElement.Image = ((System.Drawing.Image)(resources.GetObject("stripBtnBlockElement.Image")));
+            this.stripBtnBlockElement.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.stripBtnBlockElement.Name = "stripBtnBlockElement";
+            this.stripBtnBlockElement.Size = new System.Drawing.Size(23, 22);
+            this.stripBtnBlockElement.Text = "toolStripButton1";
+            this.stripBtnBlockElement.Click += new System.EventHandler(this.stripBtnBlockElement_Click);
+            // 
             // BrowserTabUserControl
             // 
             this.Controls.Add(this.devToolsSplitContainer);
@@ -257,5 +269,6 @@ namespace CefSharp.WinForms.Example
         private System.Windows.Forms.ToolStripButton stripBTNHistory;
         private System.Windows.Forms.ToolStripButton stripBTNBookmark;
         private System.Windows.Forms.Timer tmrBlockContent;
+        private System.Windows.Forms.ToolStripButton stripBtnBlockElement;
     }
 }

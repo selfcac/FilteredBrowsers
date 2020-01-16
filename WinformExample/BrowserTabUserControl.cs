@@ -624,7 +624,28 @@ namespace CefSharp.WinForms.Example
             }
         }
 
+        private void stripBtnBlockElement_Click(object sender, EventArgs e)
+        {
+            var time_len = 5;
 
+            var frame = Browser?.GetFocusedFrame();
+            if (frame != null)
+            {
+                frame.ExecuteJavaScriptAsync(Properties.Resources.MovingCurserJS.Replace("{len}",time_len.ToString()));
 
+                Task.Delay(TimeSpan.FromSeconds(time_len)).ContinueWith(async (prev_task) =>
+                {
+                    var result = (await frame.EvaluateScriptAsync(Properties.Resources.XPathCalc_FromPoint));
+                    if (result.Success && result.Result.ToString() != "")
+                    {
+                        this.Invoke(new Action(() =>
+                        {
+                            var dialog = new XPathChooser(frame, result.Result.ToString());
+                            dialog.Show();
+                        }));
+                    }
+                });
+            }
+        }
     }
 }

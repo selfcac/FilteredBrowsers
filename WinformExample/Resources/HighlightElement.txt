@@ -1,0 +1,29 @@
+//console.log({count})
+//console.log({xpath})
+
+(function (_xpath,upCount) {
+	function getElementByXpath(path) {
+		return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+	}
+
+	var elem = getElementByXpath(_xpath);
+	while (upCount > 0) {
+		if (elem) {
+			elem = elem.parentNode;
+		}
+		upCount--;
+	}
+
+	if (elem) {
+		var lastColor = elem.style.backgroundColor;
+		var lastBorder = elem.style.border;
+
+		elem.style.backgroundColor = "yellow";
+		elem.style.border = "2px solid black";
+
+		setTimeout(function () {
+			elem.style.backgroundColor = lastColor;
+			elem.style.border = lastBorder;
+		}, 3000)
+	}
+})({xpath},{count})

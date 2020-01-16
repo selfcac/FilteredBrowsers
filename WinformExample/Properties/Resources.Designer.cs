@@ -71,6 +71,60 @@ namespace CefSharp.WinForms.Example.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (function(_xpath,upCount) {
+        ///	function getElementByXpath(path) {
+        ///		return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+        ///	}
+        ///
+        ///	var elem = getElementByXpath(_xpath);
+        ///	while (upCount &gt; 0) {
+        ///		if (elem) {
+        ///			elem = elem.parentNode;
+        ///		}
+        ///		upCount--;
+        ///	}
+        ///
+        ///	if (elem) {
+        ///		var lastColor = elem.style.backgroundColor;
+        ///		var lastBorder = elem.style.border;
+        ///
+        ///		elem.style.backgroundColor = &quot;yellow&quot;;
+        ///		elem.style.border = &quot;2px solid black&quot;;
+        ///
+        ///		setTimeo [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string HighlightElement {
+            get {
+                return ResourceManager.GetString("HighlightElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (function () {
+        ///    var v = document.createElement(&quot;span&quot;)
+        ///    v.style.backgroundColor=&quot;yellow&quot;;
+        ///    v.style.borderColor = &quot;black&quot;
+        ///    v.innerText = 0
+        ///    v.style.border = &quot;2px solid black&quot;
+        ///    v.style.position = &quot;absolute&quot;
+        ///    v.style.padding=&quot;5px&quot;
+        ///	v.style.zIndex = &quot;9999&quot;;
+        ///    v.innerText = &quot;⌛ 10 ⌛&quot;
+        ///    
+        ///    document.body.appendChild(v)
+        ///    
+        ///    var timeLeft = 10;
+        ///    var mouse_callback = function(e) {
+        ///        v.style.top = &quot;&quot; + e.clientY + &quot;px&quot;;
+        ///        v.style.left = &quot;&quot; + e.clientX + &quot;px&quot; [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string MovingCurserJS {
+            get {
+                return ResourceManager.GetString("MovingCurserJS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap nav_left_green {
@@ -111,7 +165,9 @@ namespace CefSharp.WinForms.Example.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to // Copyright 2018 The Chromium Authors. All rights reserved.
+        ///   Looks up a localized string similar to /////document.elementFromPoint(x, y);
+        ///
+        ///// Copyright 2018 The Chromium Authors. All rights reserved.
         ///// Use of this source code is governed by a BSD-style license that can be
         ///// found in the LICENSE file.
         ///
@@ -131,9 +187,7 @@ namespace CefSharp.WinForms.Example.Properties {
         ///
         ///
         ///Elements.DOMPath.xPath = function (node, optimized) {
-        ///    if (node.nodeType === Node.DOCUMENT_NODE) {
-        ///        return &apos;/&apos;;
-        ///  [rest of string was truncated]&quot;;.
+        ///    if (node.nodeType === Node [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string XPathCalc_Chrominum {
             get {
@@ -142,16 +196,22 @@ namespace CefSharp.WinForms.Example.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to document.onclick= function(event) {
-        ///    if (event===undefined) event= window.event;                     // IE hack
-        ///    var target= &apos;target&apos; in event? event.target : event.srcElement; // another IE hack
+        ///   Looks up a localized string similar to  /////document.elementFromPoint(x, y);
         ///
-        ///    var root= document.compatMode===&apos;CSS1Compat&apos;? document.documentElement : document.body;
-        ///    var mxy= [event.clientX+root.scrollLeft, event.clientY+root.scrollTop];
+        /// (function() {
+        ///	 function getPathTo(element) {
+        ///		if (element.id!==&apos;&apos;)
+        ///			return &apos;id(&quot;&apos;+element.id+&apos;&quot;)&apos;;
+        ///		if (element===document.body)
+        ///			return element.tagName;
         ///
-        ///    var path= getPathTo(target);
-        ///    var txy= getPageXY(target);
-        ///    //console.log(&apos;Clicked element &apos;+path+&apos; offset &apos;+(mxy[0]-txy[0 [rest of string was truncated]&quot;;.
+        ///		var ix= 0;
+        ///		var siblings= element.parentNode.childNodes;
+        ///		for (var i= 0; i&lt;siblings.length; i++) {
+        ///			var sibling= siblings[i];
+        ///			if (sibling===element)
+        ///				return getPathTo(element.parentNode)+&apos;/&apos;+element.tagName+&apos;[&apos;+(ix+1)+&apos;]&apos;;
+        ///			if (sibling.nodeType===1 &amp;&amp; sibling.tagName===element.ta [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string XPathCalc_FromPoint {
             get {

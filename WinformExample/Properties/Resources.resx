@@ -139,4 +139,10 @@
   <data name="XPathCalc_FromPoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\XPathCalc_FromPoint.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1255</value>
   </data>
+  <data name="MovingCurserJS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MovingCurserJS.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1255</value>
+  </data>
+  <data name="HighlightElement" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HighlightElement.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1255</value>
+  </data>
 </root>
