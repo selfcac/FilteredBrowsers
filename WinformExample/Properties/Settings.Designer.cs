@@ -63,5 +63,18 @@ namespace CefSharp.WinForms.Example.Properties {
                 this["saveFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Yoni\\Desktop\\selfcac\\CefSharp.WinForms.Filtered\\SamplePolicies\\xpath.txt" +
+            "")]
+        public string xpathPolicyPath {
+            get {
+                return ((string)(this["xpathPolicyPath"]));
+            }
+            set {
+                this["xpathPolicyPath"] = value;
+            }
+        }
     }
 }

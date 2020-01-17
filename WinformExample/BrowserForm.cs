@@ -740,6 +740,7 @@ namespace CefSharp.WinForms.Example
 
         public static HTTPProtocolFilter.FilterPolicy httpPolicy = new HTTPProtocolFilter.FilterPolicy();
         public static TimeBlockFilter.TimeFilterObject timePolicy = new TimeBlockFilter.TimeFilterObject();
+        public static FilteringChrome.XPathHelpers xpathPolicy = new FilteringChrome.XPathHelpers();
 
         public static LogFileHandler historyLog, bookmarkLog;
 
@@ -821,6 +822,10 @@ namespace CefSharp.WinForms.Example
 
             historyLog = new LogFileHandler(historyPath);
             bookmarkLog = new LogFileHandler(bookmarkPath);
+
+            string xpathPolicyPath = CefSharp.WinForms.Example.Properties.Settings.Default.xpathPolicyPath;
+            xpathPolicy.loadAllRules(xpathPolicyPath);
+
 
             if (isDebug)
             {

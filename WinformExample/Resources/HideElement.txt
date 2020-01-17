@@ -1,6 +1,3 @@
-//console.log({count})
-//console.log({xpath})
-
 (function (_xpath,upCount) {
 	function getElementByXpath(path) {
 		return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
@@ -15,15 +12,6 @@
 	}
 
 	if (elem) {
-		var lastColor = elem.style.backgroundColor;
-		var lastBorder = elem.style.border;
-
-		elem.style.backgroundColor = "yellow";
-		elem.style.border = "5px solid deeppink";
-
-		setTimeout(function () {
-			elem.style.backgroundColor = lastColor;
-			elem.style.border = lastBorder;
-		}, 3000)
+		elem.style.visibility = "hidden";
 	}
 })({xpath},{count})

@@ -1,0 +1,5 @@
+0 www.google.com / id("hplogo")
+1 www.google.com / id("fbar")/DIV[1]/DIV[1]/DIV[1]/SPAN[1]
+0 m4uhd.net / id("MarketGidComposite145433")
+0 m4uhd.net / //*[substring-after(@id,'-')='ps']
+0 m4uhd.net /watch- //*[starts-with(@id,'container')]

@@ -71,7 +71,35 @@ namespace CefSharp.WinForms.Example.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to (function(_xpath,upCount) {
+        ///   Looks up a localized string similar to (function (_xpath,upCount) {
+        ///	function getElementByXpath(path) {
+        ///		return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+        ///	}
+        ///
+        ///	var elem = getElementByXpath(_xpath);
+        ///	while (upCount &gt; 0) {
+        ///		if (elem) {
+        ///			elem = elem.parentNode;
+        ///		}
+        ///		upCount--;
+        ///	}
+        ///
+        ///	if (elem) {
+        ///		elem.style.visibility = &quot;hidden&quot;;
+        ///	}
+        ///})({xpath},{count}).
+        /// </summary>
+        internal static string HideElement {
+            get {
+                return ResourceManager.GetString("HideElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to //console.log({count})
+        /////console.log({xpath})
+        ///
+        ///(function (_xpath,upCount) {
         ///	function getElementByXpath(path) {
         ///		return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
         ///	}
@@ -89,9 +117,7 @@ namespace CefSharp.WinForms.Example.Properties {
         ///		var lastBorder = elem.style.border;
         ///
         ///		elem.style.backgroundColor = &quot;yellow&quot;;
-        ///		elem.style.border = &quot;2px solid black&quot;;
-        ///
-        ///		setTimeo [rest of string was truncated]&quot;;.
+        ///		e [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string HighlightElement {
             get {
@@ -101,22 +127,24 @@ namespace CefSharp.WinForms.Example.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to (function () {
+        ///	var timeLeft = {len};
+        ///
         ///    var v = document.createElement(&quot;span&quot;)
         ///    v.style.backgroundColor=&quot;yellow&quot;;
         ///    v.style.borderColor = &quot;black&quot;
-        ///    v.innerText = 0
         ///    v.style.border = &quot;2px solid black&quot;
         ///    v.style.position = &quot;absolute&quot;
         ///    v.style.padding=&quot;5px&quot;
         ///	v.style.zIndex = &quot;9999&quot;;
-        ///    v.innerText = &quot;⌛ 10 ⌛&quot;
-        ///    
+        ///    v.innerText = &quot;⌛ &quot;+timeLeft+&quot; ⌛&quot;
+        ///
         ///    document.body.appendChild(v)
-        ///    
-        ///    var timeLeft = 10;
+        ///
         ///    var mouse_callback = function(e) {
-        ///        v.style.top = &quot;&quot; + e.clientY + &quot;px&quot;;
-        ///        v.style.left = &quot;&quot; + e.clientX + &quot;px&quot; [rest of string was truncated]&quot;;.
+        ///		var x = e.clientX + window.scrollX;
+        ///		var y = e.clientY + window.scrollY;
+        ///
+        ///		v.style.left = &quot;&quot; + x + &quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string MovingCurserJS {
             get {

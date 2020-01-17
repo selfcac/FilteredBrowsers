@@ -13,10 +13,13 @@
     document.body.appendChild(v)
 
     var mouse_callback = function(e) {
-        v.style.top = "" + e.clientY + "px";
-        v.style.left = "" + e.clientX + "px";
-        window["____________$_$_$_$_Result"] = [e.clientX,e.clientY]
-		//console.log([e.clientX,e.clientY]);
+		var x = e.clientX + window.scrollX;
+		var y = e.clientY + window.scrollY;
+
+		v.style.left = "" + x + "px";
+        v.style.top = "" + y + "px";
+        window["____________$_$_$_$_Result"] = [e.clientX,e.clientY] // Not including scroll (user need to not scroll for 5s)
+		//console.log([x,y]);
     }
     
      var stop = function () {

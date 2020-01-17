@@ -203,6 +203,7 @@ namespace CefSharp.WinForms.Example
             SetCanGoBack(args.CanGoBack);
             SetCanGoForward(args.CanGoForward);
 
+
             this.InvokeOnUiThreadIfRequired(() => SetIsLoading(args.IsLoading));
         }
 
@@ -321,6 +322,20 @@ namespace CefSharp.WinForms.Example
             {
                 SetupMessageInterceptor();
             }
+
+            Browser.FrameLoadEnd += Browser_FrameLoadEnd1;
+        }
+
+        private void Browser_FrameLoadEnd1(object sender, FrameLoadEndEventArgs e)
+        {
+            BrowserForm.xpathPolicy.filterAll(e.Frame.Url, (xpath, parentcount) =>
+            {
+                e.Frame.ExecuteJavaScriptAsync(
+                        Properties.Resources.HideElement
+                            .Replace("{xpath}", XPathChooser.EscapeXpath(xpath))
+                            .Replace("{count}", parentcount.ToString())
+                    );
+            });
         }
 
         /// <summary>
@@ -626,21 +641,30 @@ namespace CefSharp.WinForms.Example
 
         private void stripBtnBlockElement_Click(object sender, EventArgs e)
         {
-            var time_len = 5;
+            var show_time = 5;
 
             var frame = Browser?.GetFocusedFrame();
             if (frame != null)
             {
-                frame.ExecuteJavaScriptAsync(Properties.Resources.MovingCurserJS.Replace("{len}",time_len.ToString()));
+                frame.ExecuteJavaScriptAsync(Properties.Resources.MovingCurserJS.Replace("{len}",show_time.ToString()));
 
-                Task.Delay(TimeSpan.FromSeconds(time_len)).ContinueWith(async (prev_task) =>
+                Task.Delay(TimeSpan.FromSeconds(show_time)).ContinueWith(async (prev_task) =>
                 {
                     var result = (await frame.EvaluateScriptAsync(Properties.Resources.XPathCalc_FromPoint));
                     if (result.Success && result.Result.ToString() != "")
                     {
+                        Uri url = null;
+                        try
+                        {
+                            url = new Uri(frame.Url);
+                        }
+                        catch (Exception ex)
+                        {
+                            url = new Uri("http://please.enter.domain.com/some-ep");
+                        }
                         this.Invoke(new Action(() =>
                         {
-                            var dialog = new XPathChooser(frame, result.Result.ToString());
+                            var dialog = new XPathChooser(frame, result.Result.ToString(), url);
                             dialog.Show();
                         }));
                     }

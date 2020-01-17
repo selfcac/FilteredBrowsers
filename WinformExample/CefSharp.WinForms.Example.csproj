@@ -125,6 +125,7 @@
     <Compile Include="FilteringChrome\Common.cs" />
     <Compile Include="FilteringChrome\DownloadHandler.cs" />
     <Compile Include="FilteringChrome\ExampleRequestHandler.cs" />
+    <Compile Include="FilteringChrome\XPathHelpers.cs" />
     <Compile Include="Handlers\DisplayHandler.cs" />
     <Compile Include="Handlers\KeyboardHandler.cs" />
     <Compile Include="Handlers\LifeSpanHandler.cs" />
@@ -213,6 +214,7 @@
     <Content Include="Resources\chromium-256.png" />
     <None Include="Resources\MovingCurserJS.txt" />
     <None Include="Resources\HighlightElement.txt" />
+    <None Include="Resources\HideElement.txt" />
     <Content Include="Resources\nav_left_green.png" />
     <Content Include="Resources\nav_plain_green.png" />
     <Content Include="Resources\nav_plain_red.png" />
