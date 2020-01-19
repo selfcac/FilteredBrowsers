@@ -1,0 +1,115 @@
+﻿+ referer check.
++ periodecly check content? 
+
++ Options in policy (seperate):
+	- Allowed to be referrer
+	- Program whitelist
+		- User whitelist with task in task scheduler.
+
+In mitm:
+	-Every request should have exe fullpath
+	-whitelist by full path, and make readonly folder for limited-user
+
+
+
+
+Whitelist only those with "eval\function" ? check type=function = "F() {native?}"
+	+ FrameNavigationStarting, + How to get html from all frames (recursive?)
+
+
+
+https://docs.microsoft.com/en-us/uwp/api/windows.web.ui.iwebviewcontrol.framenavigationstarting
+https://docs.microsoft.com/en-us/uwp/api/windows.web.ui.interop.webviewcontrol.framenavigationcompleted
+
+// Invoke script Exception from HRESULT: 0x80020101 ==> JS Syntax error
+//https://suggestqueries.google.com/complete/search?output=toolbar&hl=he&gl=IL&q=%D7%91%D7%99%D7%91
+//https://www.google.com/search?q=gggg
+
+
+// By category (In Future:)
+https://fortiguard.com/webfilter?q=news.ycombinator.com&version=1
+https://fortiguard.com/webfilter/categories
+https://help.fortinet.com/fos50hlp/54/Content/FortiOS/fortigate-security-profiles-54/Web_Filter/FortiGuard%20Web%20Filtering%20Service.htm
+
+
+================ Completed
+
+Suggestion Dialog
+	Addressbar is blocked, suggestion in new window (diaglof-singleton)
+	Current address to change
+	History thread (from append log)
+	Bookmark thread (form some append log)
+	HTTP \ HTTPS
+	Google suggestion
+	If not HTTP\s :
+		if domain :
+			add https
+		else
+			google it
+
+Logs (history\bookmark):
+	- search maximum 100
+	- Reverse read
+	- Save\read from %appdata%
+
+================ Chromes TODOS ---->VVVVVVV
+================ Chromes TODOS ---->VVVVVVV
+================ Chromes TODOS ---->VVVVVVV
+================ Chromes TODOS ---->VVVVVVV
+================ Chromes TODOS ---->VVVVVVV
+================ Chromes TODOS ---->VVVVVVV
+================ Chromes TODOS ---->VVVVVVV
+
+
+	 -i -d -u AdminUSB -p <pass> "C:\Users\Yoni\Desktop\2019\CefSharp.MinimalExample-master\CefSharp.MinimalExample.WinForms\bin\x64\Debug\CefSharp.MinimalExample.WinForms.exe"
+ 
+ windivert:
+    - random port....
+    - divert http\s
+    - allow whitelist - table2? user, process etc...
+    - drop proxys\qucik\rdp
+    
+  
+=========== Youtube NSFW ==============   
+  
+  if host contain: youtube.com
+  
+  <insert original (which was sent???)> --> Replace in request!
+  
+Set-Cookie: PREF=f1=10000000&f2=8000000; expires=Wed, 04-Dec-2200 22:14:49 GMT; path=/; domain=.www.youtube.com; priority=high
+Set-Cookie: PREF=f2=8000000; path=/; domain=.www.youtube.com; priority=high
+
+=========== REDDIT NSFW ============== 
+    ==> check r/<somthingunsafe> if not relocated, NSFW allowed
+    ==> block "reddit.com/over18"
+
+https://old.reddit.com/r/NSFW
+cookie: as SAME
+
+302
+location: https://old.reddit.com/over18?
+=========== Google NSFW ==============   
+
+also google search safe
+
+=========== Where to put filters? ==============   
+
+IResourceRequestHandler (AddSecretHandler):
+    Like proxy, raw request (headers etc...) - Response unchanegabel!!
+    
+RequestHandler (WinFormsRequestHandler):
+    OnBeforeBrowse : true\false - Block?
+    
+Look like not needing to change response on proxy level.
+Just make some event to change HTML using js to block ... (On navigation \ With Timer ?)
+
+=========== TODO-s ==============   
+- Above filters (Safe search etc...)
+    - reddit?
+- propitery
+- Block on adress change also
+
+- Add command "Psexec - EXE - bypass pass"
+    - choose hard password
+
+
