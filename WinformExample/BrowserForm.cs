@@ -753,7 +753,8 @@ namespace CefSharp.WinForms.Example
             }
         }
 
-        bool isDebug = true;
+        bool isDebug = false;
+
 
         private void entirePAgeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -805,6 +806,11 @@ namespace CefSharp.WinForms.Example
 
         private void BrowserForm_Load(object sender, EventArgs e)
         {
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                isDebug = true;
+            }
+
             // Init download window:
             DownloadManager.Instance.Show();
             DownloadManager.Instance.Hide();
@@ -855,8 +861,8 @@ namespace CefSharp.WinForms.Example
                     Process.GetCurrentProcess().Kill();
                 }
 
-                httpPolicy.reloadPolicy(httpPolicyPath);
-                timePolicy.reloadPolicy(timePolicyPath);
+                httpPolicy.reloadPolicy(File.ReadAllText(httpPolicyPath));
+                timePolicy.reloadPolicy(File.ReadAllText(timePolicyPath));
             }
 
 
