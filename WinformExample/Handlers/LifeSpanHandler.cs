@@ -37,6 +37,7 @@ namespace CefSharp.WinForms.Example.Handlers
             //Set newBrowser to null unless your attempting to host the popup in a new instance of ChromiumWebBrowser
             //This option is typically used in WPF. This example demos using IWindowInfo.SetAsChild
             //Older branches likely still have an example of this method if you choose to go down that path.
+            
             newBrowser = null;
 
             //If handling popups is set to false, CEF default behaviour is used instead.
@@ -57,17 +58,18 @@ namespace CefSharp.WinForms.Example.Handlers
                         };
                         control.CreateControl();
 
-                        owner.AddTab(control, targetUrl);
+                        //owner.AddTab(control, targetUrl);
+                        owner.AddTab(targetUrl);
 
-                        var rect = control.ClientRectangle;
+                        //var rect = control.ClientRectangle;
 
-                        windowInfo.SetAsChild(control.Handle, rect.Left, rect.Top, rect.Right, rect.Bottom);
+                        //windowInfo.SetAsChild(control.Handle, rect.Left, rect.Top, rect.Right, rect.Bottom);
                     }
                 }));
 
             }
 
-            return false;
+            return true; // true = stop popup
         }
 
         void ILifeSpanHandler.OnAfterCreated(IWebBrowser chromiumWebBrowser, IBrowser browser)

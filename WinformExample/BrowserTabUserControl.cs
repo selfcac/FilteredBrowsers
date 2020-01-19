@@ -30,7 +30,8 @@ namespace CefSharp.WinForms.Example
         private WinFormsRequestHandler myPageNavigationManager;
         private string initialURL = "about:blank";
 
-        public BrowserTabUserControl(Action<string, int?> openNewTab, string url, bool multiThreadedMessageLoopEnabled)
+        public BrowserTabUserControl(Action<string, int?> openNewTab, string url, bool multiThreadedMessageLoopEnabled,
+            ChromiumWebBrowser browser = null, IWindowInfo windoInfo = null )
         {
             InitializeComponent();
             initialURL = url;
@@ -54,10 +55,24 @@ namespace CefSharp.WinForms.Example
                 CefSharp.Cef.Initialize(Settings);
             }
 
-            var browser = new ChromiumWebBrowser("about:blank")
+            if (browser == null || windoInfo == null)
             {
-                Dock = DockStyle.Fill
-            };
+                browser = new ChromiumWebBrowser("about:blank")
+                {
+                    Dock = DockStyle.Fill
+                };
+
+                CefSharpSettings.LegacyJavascriptBindingEnabled = true;
+                browser.RegisterJsObject("print", new EmptyObject());
+                this.multiThreadedMessageLoopEnabled = multiThreadedMessageLoopEnabled;
+
+            }
+            else
+            {
+                var rect = browserPanel.ClientRectangle;
+                windoInfo.SetAsChild(browserPanel.Handle, rect.Left, rect.Top, rect.Right, rect.Bottom);
+
+            }
 
             browserPanel.Controls.Add(browser);
             Browser = browser;
@@ -106,9 +121,6 @@ namespace CefSharp.WinForms.Example
 
 
 
-            CefSharpSettings.LegacyJavascriptBindingEnabled = true;
-            browser.RegisterJsObject("print", new EmptyObject());
-
 
 
 
@@ -117,7 +129,6 @@ namespace CefSharp.WinForms.Example
             //browser.MouseDown += OnBrowserMouseClick;
             browser.HandleCreated += OnBrowserHandleCreated;
             //browser.ResourceHandlerFactory = new FlashResourceHandlerFactory();
-            this.multiThreadedMessageLoopEnabled = multiThreadedMessageLoopEnabled;
 
             
             //CefExample.RegisterTestResources(browser);

@@ -64,16 +64,23 @@ namespace CefSharp.WinForms.Example
         /// Used to add a Popup browser as a Tab
         /// </summary>
         /// <param name="browserHostControl"></param>
-        public void AddTab(Control browserHostControl, string url)
+        public void AddTab(ChromiumWebBrowser _browser, IWindowInfo winInfo, string url)
         {
             browserTabControl.SuspendLayout();
+
+            var browser = new BrowserTabUserControl(AddTab, url, multiThreadedMessageLoopEnabled, _browser, winInfo)
+            {
+                Dock = DockStyle.Fill,
+            };
+
 
             var tabPage = new TabPage(BrowserTabUserControl.CroppedText(url))
             {
                 Dock = DockStyle.Fill
             };
 
-            tabPage.Controls.Add(browserHostControl);
+
+            tabPage.Controls.Add(browser);
 
             browserTabControl.TabPages.Add(tabPage);
 
@@ -83,7 +90,7 @@ namespace CefSharp.WinForms.Example
             browserTabControl.ResumeLayout(true);
         }
 
-        private void AddTab(string url, int? insertIndex = null)
+        public void AddTab(string url, int? insertIndex = null)
         {
             browserTabControl.SuspendLayout();
 
