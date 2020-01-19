@@ -798,6 +798,11 @@ namespace CefSharp.WinForms.Example
             GetCurrentTabControl().myLifeSpanHandler?.setAllowPopup(false);
         }
 
+        private void gitInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(string.Join("\n", GitInfo.AllGitInfo()));
+        }
+
         private void BrowserForm_Load(object sender, EventArgs e)
         {
             // Init download window:
