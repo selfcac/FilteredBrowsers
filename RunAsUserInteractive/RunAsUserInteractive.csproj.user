@@ -3,4 +3,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <StartArguments>%25windir%25\system32\cmd.exe -- /K echo -s "Go Home" "\"ssss\"" -i {i}</StartArguments>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <StartArguments>%25windir%25\system32\cmd.exe -- /K echo -s "Go Home" "\"ssss\"" -i {i}</StartArguments>
+  </PropertyGroup>
 </Project>
