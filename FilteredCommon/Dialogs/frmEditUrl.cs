@@ -81,7 +81,9 @@ namespace FilteredEdgeBrowser.Dialogs
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ReturnURL(txtURL.Text);
+            //javascript:window.document.body.innerHTML="<embed name=yo width=100% height=100% src=http://url-without-x-frame.com></embed>"
+            if (!txtURL.Text.ToLower().Contains("javascript:"))
+                ReturnURL(txtURL.Text);
         }
 
 
