@@ -10,6 +10,7 @@ namespace CefSharp.WinForms.Example
     {
         static string[] GitDependencies =
          TimeBlockFilter.GitInfo.AllGitInfo()
+        .Concat(HTTPProtocolFilter.GitInfo.AllGitInfo())
          .Concat(Common.GitInfo.AllGitInfo())
          .Concat(CommonStandard.GitInfo.AllGitInfo())
         .ToArray();
